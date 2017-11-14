@@ -1,0 +1,141 @@
+<div  ng-controller="homeCtrl as hc" ng-init="hc.getDraftPost()">
+      <div class="col-md-12 col-sm-12 col-xs-12" style="background-color:#fff;border:1px solid #e1e8ed;border-radius:5px 5px 0px 0px">
+         <h4 class="text_com">Drafts</h4>
+      </div>
+
+    <div class="col-md-12 col-sm-12 col-xs-12 division_col"  ng-repeat="n in hc.draftData">
+          <div class="col-md-1 col-sm-1 col-xs-1" style="padding:10px 0px 0px 0px">
+             <img ng-src="{{n.profileImage}}" data-target="#myModal121" data-toggle="modal" ng-click="hc.showDraftPost(n)"/>
+          </div>
+          <div class="col-md-11 col-sm-11 col-xs-11" style="padding:10px 12px 3px 10px;overflow:hidden;word-break:break-all;white-space:normal;">
+              <p style="color:#292f33;margin: 0 0 0px;line-height:19px;cursor:pointer" data-target="#myModal121" data-toggle="modal" ng-click="hc.showDraftPost(n)"><span class="text_blue">{{n.title}}</p>
+           </div>
+      </div>
+
+
+      <div ng-controller="homeCtrl as hc" class="modal fade" id="myModal121" role="dialog" >
+
+          <div class="modal-dialog">
+            <div class="modal-content">
+               <div class="modal-header" style="border-bottom:0px">
+                   <button type="button" class="close" data-dismiss="modal" style="color:#000 !important;outline:0px">&times;</button>
+               </div>
+               <div class="modal-body" style="padding:0px 25px">
+
+                  <div class="form-group">
+                    <input type="text" id="titles" class="form-control input" ng-model="title" placeholder="Title">
+                 </div>
+                 <div class="col-md-12" style="padding:0px">
+                      <textarea id="txtModal12" rows="4" ng-model="text"  maxlength="240" style="width:100%;resize:vertical;border:1px solid #ccc"></textarea>
+                      <!-- <span id="count1234"></span> -->
+                  </div>
+                   <br>
+
+                  <div id="appearImage" class="col-md-12" style="border:1px solid #eee;padding:30px 0px;display:none">
+                     <div class="col-md-6">
+                       <!-- <img width=250 height=250 id='imgLoad' ng-repeat="imageSource in imageSources track by $index" ng-src="{{imageSource}}" class="img-responsive"/> -->
+                       <img width=250 height=250 id='imgLoad' class="img-responsive"/>
+                       <br/>
+                       <a style="cursor:pointer" ng-click="hc.deleteUploadMedia()">remove</a>
+                     </div>
+                  </div>
+
+                  <div id="appearVideo" class="col-md-12" style="border:1px solid #eee;padding:30px 0px;display:none">
+                     <div class="col-md-3">
+                       <!-- <video width="320" height="240" controls><source ng-repeat="videoSources in videoSource track by $index" ng-src="{{videoSources}}" type="video/mp4"></video> -->
+                       <video width="320" height="240" controls><source id='videoLoad' type="video/mp4"></video>
+                       <br/>
+                       <a style="cursor:pointer" ng-click="hc.deleteUploadMedia()">remove</a>
+                     </div>
+                  </div>
+
+                  <div id="appearUrlVideo" class="col-md-12" style="border:1px solid #eee;padding:30px 0px;display:none">
+                     <div class="col-md-3">
+                       <img width=250 height=250 src="images/YouTube-social-icon2.jpg" class="img-responsive"/>
+                       <br/>
+                       <a style="cursor:pointer" ng-click="hc.deleteUploadMedia()">remove</a>
+                     </div>
+                  </div>
+
+                <div id='uploadImages' class="col-md-1 col-xs-2" style="padding-left:0px">
+                  <span class="select-wrapper">
+                      <input type="file" name="image_src" style="width: 26px;height: 26px;opacity: 0;filter:alpha(opacity=0);" onchange="angular.element(this).scope().fileWhatsHappening(this)"/>
+                  </span>
+                </div>
+
+                  <div id='uploadVideos' class="col-md-2 col-xs-2" style="padding-top:11px;margin-left: -20px;margin-top: 2px;">
+                    <!-- <a data-target="#myModal12121" data-toggle="modal"><i class="fa fa-dedent" style="color:#717f88;font-size:22px;outline:none"></i></a> -->
+                    <a data-target="#myModal12121" data-toggle="modal"><img src="1/images/youtube.png"></a>
+                 </div>
+
+                  <div class="col-md-12" style="padding:20px 0px 0px 0px;margin-top:18px">
+                       <div class="col-md-7" style="padding:0px">
+                          <div class="col-md-3" style="padding:4px 0px 0px 0px">
+                              <span style="color:#8899a6;line-height:30px">Rewards :</span>
+                          </div>
+                          <div class="col-md-9" style="padding:0px 7px;margin-left:-12px">
+                                <select class="form-control" id="sel2" style="color:#8899a6" ng-model="hc.popUpListSelect" >
+                                  <option style="color:#8899a6" ng-repeat="x in hc.popUpList" value="{{x}}">{{x}}</option>
+                                </select>
+                        </div>
+                  </div>
+                  <div class="col-md-5 space " style="padding:4px 0px 0px 0px">
+                      <div class="col-xs-6" style="padding:0px">
+                         <span style="color:#8899a6;line-height:30px">Upvote post</span>&nbsp;&nbsp;&nbsp;
+                         <input  id="chkPassport" type="checkbox" ng-model="hc.hasPost" style="height: 10px;width: 10px;padding: 4px;margin-right: 10px;border: 1px solid #2ea8f3 !important;border-radius: 3px;">
+                      </div>
+                      <div class="col-xs-6 text-right" style="padding:0px">
+                         <button type="button" class="btn btn-primary hover_eff " ng-click ="hc.draftPost()">Save as draft</button>
+                      </div>
+                  </div>
+                   </div>
+                   <div class="col-md-12 text-center " style="padding:0px">
+                      <a style="cursor:pointer" ng-click="hc.routeToDraft()"><h6 class="mar_top">Show Save Drafts</h6></a>
+                   </div>
+            </div>
+            <div class="modal-footer text-center" style="border-top:0px;text-align:center !important">
+              <div class="col-md-12" style="margin-top:20px">
+                <button type="button" class="btn button_layout" data-dismiss="modal" ng-click="hc.postWhatsHappening()"><span style="color:3292f33;font-weight:600">Post</span></button>
+              </div>
+              <input type="text" id="idField" class="input" style="visibility: hidden;">
+            </div>
+            </div>
+        </div>
+      </div>
+
+      <div ng-controller="homeCtrl as hc" id="myModal12121" class="modal modal-child" data-backdrop-limit="1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-modal-parent="#myModal" style="background-color:#rgba(0,0,0,0.7)">
+          <div class="modal-dialog">
+              <!-- Modal content-->
+              <div class="modal-content">
+                  <div class="modal-header" style="border-bottom:0px">
+                   <button type="button" class="close" data-dismiss="modal" style="color:#000 !important;outline:0px">&times;</button>
+                  </div>
+                  <div class="modal-body" style="padding:0px 25px">
+                      <div class="form-group">
+                        <h3>Enter youtube URL</h3>
+                        <br/>
+                         <input id='youtubeVideo1' ng-model="ytb" type="text" class="form-control input" placeholder="Enter youtube URL">
+                      </div>
+                   </div>
+                   <div class="modal-footer text-center" style="border-top:0px;text-align:center !important">
+                   <div class="col-md-12" style="margin-top:20px">
+                     <p style="color:red">{{hc.ytbErr}}</p>
+                     <button type="button" class="btn button_layout" data-dismiss="modal" style="color:#333333;font-weight:600;" ng-disabled="!ytb.length" ng-click="hc.youTube()">Submit</button>
+                  </div>
+               </div>
+
+              </div>
+          </div>
+      </div>
+
+
+
+
+
+
+
+
+
+
+
+</div>

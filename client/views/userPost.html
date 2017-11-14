@@ -1,0 +1,115 @@
+<div id="body" class="width" ng-controller="homeCtrl as hc" ng-init="hc.getUserPostContent();hc.getCommentList()" style="margin-top: 105px;">
+<aside class="one_column" >
+
+          <div class="col-md-12 div_sec top_sec">
+            <div class="col-md-1 col-sm-1 col-xs-1" style="padding:10px 0px 0px 0px;"  ui-sref="Profile({user : hc.getPostContent.author})">
+               <img ng-src="{{hc.postImage12}}" class="img-responsive img-rounded hei_view" style="width:45px;height:45px"/>
+            </div>
+
+                 <div class="col-md-11 col-sm-11 col-xs-11" style="padding:2px 12px 14px 10px">
+                      <h4 style="text-transform:capitalize;margin-bottom:0px">{{hc.getPostContent.author}}</h4> <span style="color:#92a1ad">@{{hc.getPostContent.author}}</span>
+                 </div>  <br>
+            </div>
+           <div class="col-md-12 col-sm-12 col-xs-12 div_sec1" style="border-top:0px;padding:30px 15px 5px;border:none !important;overflow:hidden;word-break:break-all;white-space:normal;" >
+            <center>
+              <div ng-bind-html="body"></div>
+              </center>
+               <br>
+               <div style="float:left" ng-repeat="p in hc.getPostContent.allTags">
+              <a ui-sref="FeedTagInfo({tagChild : p})" ><p class="caption">#{{p}}&nbsp;&nbsp;</p></a>
+             </div>
+                 <br>
+          </div>
+
+              <div class="col-md-12 col-sm-12 col-xs-12 div_sec1 text-left" style="padding:5px 15px;border:none;border-bottom:1px solid #e1e8ed">
+                <a ng-click="hc.postVote123(hc.getPostContent.author,hc.getPostContent.permlink,hc.getPostContent.isVote)"><img ng-if="hc.getPostContent.isVote == false" style="cursor:pointer" src="images/z12.png" /><img ng-if="hc.getPostContent.isVote == true" style="cursor:pointer" src="images/z143.png" /></a><span style="color:#717f88;font-size:13px">${{hc.getPostContent.upvote}}</span> &nbsp;&nbsp;
+                <img src="images/z12.png" /> <span style="color:#717f88;font-size:13px">{{hc.getPostContent.vote}}</span>&nbsp;
+                <span style="color:#717f88">.</span>&nbsp;
+                <span style="color:#717f88;font-size:13px">Comment({{hc.getPostContent.comments}})</span>&nbsp;
+                <span style="color:#717f88">.</span>&nbsp;
+                <span style="color:#717f88;font-size:13px">{{hc.getPostContent.post_time}} ago</span>
+                <span style="color:#717f88">.</span>&nbsp;
+                <span ng-if="hc.loginToken != undefined">
+                <a ng-click="btn15 = !btn15"><img id="img_reply3" src="images/reply_icon1.png"></a>
+                <span ng-show="hc.getPostContent.vote == 0 && hc.getPostContent.author == hc.username && hc.postTime == true && hc.getPostContent.comments == 0">
+                <span style="color:#717f88">.</span>&nbsp;
+                <a style="color:#717f88;font-size:13px;cursor:pointer" ng-click="hc.postDeleteBlog(hc.getPostContent.permlink)">Delete</a>
+              </span>
+               <div ng-show="btn15" class="form-group" style="margin-top:5px">
+                 <textarea class="form-control" rows="3" id="comment" placeholder="Reply on post" ng-model="commentBody" style="resize:none;border-radius:3px 3px 0px 0px" >
+                 </textarea>
+                 <button ng-disabled="!commentBody.length" type="button" class="btn button_layout" ng-click="hc.postComment(hc.getPostContent.author,hc.getPostContent.tags,hc.getPostContent.title)"  style="color:3292f33;font-weight:600;margin-top:4px">Post</button>
+                 <a style="cursor:pointer" ng-click="btn13 = !btn13"><span class="spa_cancel">Cancel</span></a>
+               </div>
+               </span>
+            </div>
+
+
+            <div class="col-md-12 col-sm-12 col-xs-12" ng-repeat="c in hc.withComments" style="background-color:#fff;border-bottom:1px solid #e1e8ed;padding:5px 0px 10px 15px">
+            <div class="col-md-1 col-sm-1 col-xs-1" style="padding:10px 0px 0px 0px;"  ui-sref="Profile({user : c.author})">
+               <img ng-src="{{c.profileImage}}" class="img-responsive img-rounded hei_view" style="width:45px;height:45px"/>
+            </div>
+            <div class="col-md-11 col-sm-11 col-xs-10" style="padding:10px 12px 3px 10px">
+                <h4 style="display:inline;text-transform:capitalize">{{c.author}}</h4> <span style="color:#92a1ad">@{{c.author}}</span>
+                <p style="padding:10px 12px 3px 10px;overflow:hidden;word-break:break-all;white-space:normal;">{{c.postCommentBody}}</p>
+                <a ng-click="hc.postVote_withComments(c.author,c.permlink,$index)"><img ng-if="c.isVote == false" style="cursor:pointer" src="images/z12.png" /><img ng-if="c.isVote == true" style="cursor:pointer" src="images/z143.png" /></a><span style="color:#717f88;font-size:13px">${{c.upvote}}</span> &nbsp;
+                <img src="images/z12.png" /> <span style="color:#717f88;font-size:13px">{{c.net_votes}}</span>&nbsp;
+                <span style="color:#717f88">.</span>&nbsp;
+                <span style="color:#717f88;font-size:13px">Comment({{c.comments}})</span>&nbsp;
+                <span style="color:#717f88">.</span>&nbsp;
+                <span style="color:#717f88;font-size:13px">{{c.post_time}} ago</span>
+                <span style="color:#717f88">.</span>&nbsp;
+                <span ng-if="hc.loginToken != undefined">
+                 <a ng-click="btn12 = !btn12;hc.textAreaHeight()"><img id="img_reply3" src="images/reply_icon1.png"></a>
+                 <span ng-show="c.vote == 0 && c.author == hc.username && c.postTime == true && c.comments == 0">
+                 <span style="color:#717f88">.</span>&nbsp;
+                 <a style="color:#717f88;font-size:13px;cursor:pointer" ng-click="hc.postDeleteComment_withC(c.permlink)">Delete</a>
+               </span>
+                <div ng-show="btn12" class="form-group" style="margin-top:5px">
+            <textarea class="form-control" rows="3" id="{{c.permlink}}" placeholder="Reply" ng-model="commentOn" style="resize:none;border-radius:3px 3px 0px 0px" >
+            </textarea>
+            <button type="button" ng-disabled="!commentOn.length" class="btn button_layout" ng-click="hc.postCommentOnComment(c.author,c.tags,c.permlink)"   style="color:3292f33;font-weight:600;margin-top:4px">Post</button>
+            <a style="cursor:pointer" ng-click="btn12 = !btn12"><span class="spa_cancel">Cancel</span></a>
+            </div>
+            </span>
+            </div>
+            </div>
+
+            <div class="col-md-12 col-sm-12 col-xs-12" ng-repeat="c1 in hc.withoutComments" style="background-color:#fff;border-bottom:1px solid #e1e8ed;padding:5px 0px 10px 15px">
+            <!-- <div class="col-md-1 col-sm-1 col-xs-2" style="padding:10px 0px 0px 0px;width: 30px;height: 30px;">
+            <img src="{{c1.profileImage}}" />
+            </div> -->
+            <div class="col-md-1 col-sm-1 col-xs-1" style="padding:10px 0px 0px 0px;"  ui-sref="Profile({user : c1.author})">
+               <img ng-src="{{c1.profileImage}}" class="img-responsive img-rounded hei_view" style="width:45px;height:45px"/>
+            </div>
+            <div class="col-md-11 col-sm-11 col-xs-10" style="padding:10px 12px 3px 10px">
+            <h4 style="display:inline;text-transform:capitalize">{{c1.author}}</h4> <span style="color:#92a1ad">@{{c1.author}}</span>
+            <p style="color:#292f33;margin: 0 0 0px;line-height:19px;padding:10px 12px 3px 10px;overflow:hidden;word-break:break-all;white-space:normal;">{{c1.postWithoutCommentBody}}</p>
+            <!-- <a ui-sref="FeedTagInfo({tagChild : c1.tags})" ><span style="color:#0072bb;"># {{c1.tags}}</span></a>  <br /> -->
+            <a ng-click="hc.postVote_withoutComments(c1.author,c1.permlink,$index)"><img ng-if="c1.isVote == false" style="cursor:pointer" src="images/z12.png" /><img ng-if="c1.isVote == true" style="cursor:pointer" src="images/z143.png" /></a><span style="color:#717f88;font-size:13px">${{c1.upvote}}</span> &nbsp;
+            <!-- <a ng-click="hc.postVote(c1.author,c1.permlink)"><img style="cursor:pointer" src="images/z12.png" /></a><span style="color:#717f88;font-size:13px">${{c1.upvote}}</span> &nbsp;&nbsp; -->
+            <img src="images/z12.png" /> <span style="color:#717f88;font-size:13px">{{c1.net_votes}}</span>&nbsp;
+            <span style="color:#717f88">.</span>&nbsp;
+            <span style="color:#717f88;font-size:13px">Comment({{c1.comments}})</span>&nbsp;
+            <span style="color:#717f88">.</span>&nbsp;
+            <span style="color:#717f88;font-size:13px">{{c1.post_time}} ago</span>
+            <span style="color:#717f88">.</span>&nbsp;
+            <span ng-if="hc.loginToken != undefined">
+            <a ng-click="btn12 = !btn12;hc.textAreaHeight()"><img id="img_reply3" src="images/reply_icon1.png"></a>
+            <span ng-show="c1.vote == 0 && c1.author == hc.username && c1.postTime == true && c1.comments == 0">
+            <span style="color:#717f88">.</span>&nbsp;
+            <a style="color:#717f88;font-size:13px;cursor:pointer" ng-click="hc.postDeleteComment_withoutC(c1.permlink)">Delete</a>
+            </span>
+            <div ng-show="btn12" class="form-group" style="margin-top:5px">
+            <textarea class="form-control" rows="3" id="{{c1.permlink}}" placeholder="Reply" ng-model="commentOn" style="resize:none;border-radius:3px 3px 0px 0px" >
+            </textarea>
+            <button ng-disabled="!commentOn.length" type="button" class="btn button_layout" ng-click="hc.postCommentOnComment(c1.author,c1.tags,c1.permlink)"   style="color:3292f33;font-weight:600;margin-top:4px">Post</button>
+            <a style="cursor:pointer" ng-click="btn12 = !btn12"><span class="spa_cancel">Cancel</span></a>
+            </div>
+            </span>
+            </div>
+          </div>
+
+</aside>
+    <div class="clear"></div>
+    </div>

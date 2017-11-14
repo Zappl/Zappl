@@ -1,0 +1,234 @@
+<!-- <div ng-controller="messageCtrl as mc" ng-init="createRoom()" class="col-md-12 col-sm-12 col-xs-12 div_sec1" style="border-radius:5px;padding-top:47px;border-bottom:0px;position:relative" >
+     <div class="col-md-2">
+     </div>
+<div class="col-lg-8">
+				<div class="row" id="userList" style="display: block;">
+          <div ng-repeat="user in users" class="col-sm-12 ng-scope">
+						<div class="row" ng-if="user">
+							<div class="col-xs-2" ng-class="{'col-xs-push-10' : (user.username == mc.username)}">
+								<img ng-src=" {{user.image}} " class="img-thumbnail img-responsive img-circle pull-left " ng-class="pull-right" style="width:70px; ">
+							</div>
+							<div class="col-xs-10" ng-class="{'col-xs-pull-2' : (user.username == mc.username)}">
+								<div class="panel panel-default ">
+									<div class="panel-body ng-binding " style="overflow:hidden;word-break:break-all;white-space:normal;background:aliceblue"> <strong>{{user.username}}</strong> : <span ng-bind-html="user.message1"></span> <br>
+										<span class="label label-info ng-binding ">{{user.date | date: 'h:mma'}}</span>
+                  </div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="clearfix "></div>
+			</div>
+      <div class="col-md-2">
+
+      </div>
+      <div class="col-md-12 col-sm-12 col-xs-12 div_sec1" style="border-color: white;border-radius:0px 0px 5px 5px;padding-top:30px;border-bottom:0px;position:relative;padding-bottom:30px" >
+
+          <ul class="list-unstyled" id="updates"></ul>
+
+             <div class="col-md-10 col-sm-10 col-xs-12" style="padding-top:7px;padding:6px 0px 3px 7px">
+             <textarea id='emojiIcon' placeholder="Write your zap... " rows="4" cols="50"></textarea>
+
+             </div>
+            <div class="col-md-2 col-sm-2 col-xs-12" style="padding-top:7px;padding:0px 0px 3px 7px">
+              <button class="btn button_layout " style="padding:7px 30px !important" type="button" ng-click="doPost()"><span style="color:3292f33;font-weight:600">Post</span></button>
+              <span class="select-wrapper">
+                  <input type="file" name="image_src" style="width: 26px;height: 26px;opacity: 0;filter:alpha(opacity=0);" onchange="angular.element(this).scope().uploadFile(this)"/>
+              </span>
+            </div>
+
+      </div>
+    </div> -->
+
+
+
+
+
+
+<div ng-controller="messageCtrl as mc" ng-init="createRoom()" >
+       <!-- <div class="col-md-12 col-sm-12 col-xs-12 div_sec1" style="border-radius:5px;padding-top:10px;border-bottom:0px;position:relative;background-color:#b9d5e6;" >
+         <div class="col-md-1 col-sm-1 col-xs-1" style="padding:10px 0px 0px 0px;"  ui-sref="Profile({user : n.author})">
+            <img ng-src="{{mc.userImg}}" class="img-responsive img-rounded hei_view" style="width:45px;height:45px;margin-top: -15px;"/>
+         </div>
+          <div class="col-md-4 col-sm-4 col-xs-4">
+              <h5 style="color:#fff">{{mc.user2}}</h5>
+           </div>
+           <div class="col-md-4 col-sm-4 col-xs-4">
+           </div>
+           <div class="col-md-3 col-sm-3 col-xs-3 text-right">
+           </div>
+       </div> -->
+
+
+       <div class="col-md-12 col-sm-12 col-xs-12 div_sec1" style="border-radius:5px 5px 0px 0px;padding-top:6px;border-bottom:1px solid #e1e8ed;position:relative;background-color:#fff;padding-bottom:6px" >
+           <div class="col-md-1" style="padding-top:4px" ui-sref="Profile({user : n.author})">
+              <img src="{{mc.userImg}}"  class="img-responsive img-rounded hei_view" style="width:35px;height:35px" />
+           </div>
+           <div class="col-md-4">
+              <h4 style="color:#66757f;margin-bottom:0px;margin-top:3px;margin-bottom:-9px">{{mc.user2}}</h4>
+           </div>
+           <div class="col-md-4">
+
+           </div>
+       </div>
+
+
+<div ng-repeat="user in users">
+
+  <div ng-if="user.username != mc.username" class="col-md-12 col-sm-12 col-xs-12 div_sec1" style="border-radius:0px;padding-top:5px;border-bottom:0px;position:relative" >
+         <div class="col-md-7" >
+           <div class="talk-bubble tri-right round btm-left">
+              <div class="talktext">
+                <p><span style="overflow:hidden;word-break:break-all;white-space:normal;" ng-bind-html="user.message1"></span></p>
+             </div>
+          </div>
+        </div>
+        <div class="col-md-12" style="padding-bottom:15px">
+          <div class="col-md-7  text-left" style="margin-left: 35px;">
+              <span style="color:rgb(126,126,126);font-size: 10px;font-weight: 300;">{{user.date | date: 'MM/dd/yyyy @ h:mma'}}</span>
+          </div>
+        </div>
+   </div>
+
+
+  <!-- <div ng-if="user.username != mc.username" class="col-md-12 col-sm-12 col-xs-12 div_sec1" style="border-radius:0px;padding-top:17px;border-bottom:0px;position:relative" >
+      <div class="col-md-7">
+         <div class="talk-bubble tri-right round btm-left">
+            <div class="talktext">
+              <p><span style="overflow:hidden;word-break:break-all;white-space:normal;" ng-bind-html="user.message1"></span></p>
+            </div>
+        </div>
+        <span class="label label-info ng-binding" style="margin-left: 35px;">{{user.date | date: 'MM/dd/yyyy @ h:mma'}}</span>
+      </div>
+ </div> -->
+
+
+<!-- <div ng-if="user.username == mc.username" class="col-md-12 col-sm-12 col-xs-12 div_sec1" style="border-radius:0px 0px 5px 5px;padding-top:17px;border-bottom:0px;padding-bottom:30px" >
+    <div class="col-md-7 col-md-offset-4">
+      <div class="talk-bubble1 round1 tri-right btm-right">
+          <div class="talktext">
+             <p style="color:#66758f"><span style="overflow:hidden;word-break:break-all;white-space:normal;" ng-bind-html="user.message1"></span></p>
+          </div>
+      </div>
+      <a ng-click="checkIndex($index, users, user)"><img src='images/Delete_Icon.png' alt='delete' class="img-responsive" style="height: 15px;width: 30px;float: right;margin-left: 5px;"></a>
+      <a style="cursor:pointer" data-target="#myModal_edit" data-toggle="modal" ng-click="mc.editMessage($index, user, users)"><img src='images/edit.png' alt='edit' class="img-responsive" style="height: 15px;width: 30px;float: right;margin-left: 5px;"></a>
+      <span class="label label-info ng-binding " style="float:right">{{user.date | date: 'MM/dd/yyyy @ h:mma'}}</span>
+    </div>
+</div> -->
+
+
+<div ng-if="user.username == mc.username" class="col-md-12 col-sm-12 col-xs-12 div_sec1" style="border-radius:0px 0px 5px 5px;border-bottom:0px;padding-top:5px;" >
+    <div class="col-md-7 col-md-offset-4">
+      <div class="talk-bubble1 round1 tri-right btm-right">
+          <div class="talktext">
+            <p style="color:#66758f"><span style="overflow:hidden;word-break:break-all;white-space:normal;" ng-bind-html="user.message1"></span></p>
+          </div>
+      </div>
+    </div>
+     <div class="col-md-1 col-xs-6 pad_mb_zero" style="padding-top:13px">
+         <span ng-if="user.audio == 'true'"><a style="cursor:pointer" data-target="#myModal_edit" data-toggle="modal" ng-click="mc.editMessage($index, user, users)"><img src="images/edit.png" width="16" height="20"></a>&nbsp;&nbsp;&nbsp;</span>
+         <a ng-click="checkIndex($index, users, user)"><img src="images/del.png"width="16" height="20"></a>
+     </div>
+     <div class="col-md-12 col-xs-6" style="padding-bottom:15px" >
+        <div class="col-md-11  text-right">
+            <span style="color:rgb(126,126,126);font-size: 10px;font-weight: 300;">{{user.date | date: 'MM/dd/yyyy @ h:mma'}}</span>
+        </div>
+     </div>
+</div>
+
+
+
+
+       <!-- <div ng-if="user.username != mc.username" class="col-md-12 col-sm-12 col-xs-12 div_sec1" style="border-radius:5px;padding-top:17px;border-bottom:0px;position:relative;" >
+           <div class="col-md-7">
+              <div class="talk-bubble tri-right round btm-left">
+                 <div class="talktext">
+                     <p><span style="font-size: larger;font-family: initial;overflow:hidden;word-break:break-all;white-space:normal;" ng-bind-html="user.message1"></span></p>
+
+                 </div>
+             </div>
+             <span class="label label-info ng-binding" style="margin-left: 35px;">{{user.date | date: 'h:mma'}}</span>
+           </div>
+      </div>
+
+
+     <div ng-if="user.username == mc.username" class="col-md-12 col-sm-12 col-xs-12 div_sec1" style="border-radius:0px 0px 5px 5px;padding-top:17px;border-bottom:0px;padding-bottom:30px;" >
+         <div class="col-md-7 col-md-offset-4">
+           <div class="talk-bubble1 round tri-right btm-right">
+               <div class="talktext">
+                  <p style="color:#66758f"><span style="font-size: larger;font-family: initial;overflow:hidden;word-break:break-all;white-space:normal;" ng-bind-html="user.message1"></span></p>
+               </div>
+           </div>
+           <a ng-click="checkIndex($index, users, user)"><img src='images/Delete_Icon.png' alt='delete' class="img-responsive" style="height: 15px;width: 30px;float: right;margin-left: 5px;"></a>
+           <a style="cursor:pointer" data-target="#myModal_edit" data-toggle="modal" ng-click="mc.editMessage($index, user, users)"><img src='images/edit.png' alt='edit' class="img-responsive" style="height: 15px;width: 30px;float: right;margin-left: 5px;"></a>
+           <span class="label label-info ng-binding " style="float:right">{{user.date | date: 'h:mma'}}</span>
+         </div>
+     </div> -->
+</div>
+     <div class="col-md-12 col-sm-12 col-xs-12 div_sec1" style="border-color: white;border-radius:0px 0px 5px 5px;padding-top:20px;border-bottom:0px;position:relative;padding-bottom:5px" >
+         <ul class="list-unstyled" id="updates"></ul>
+            <div class="col-md-10 col-sm-10 col-xs-12" style="padding-top:7px;padding:6px 0px 3px 7px">
+            <textarea id='emojiIcon' placeholder="Write your zap... " rows="4" cols="50"></textarea>
+            </div>
+
+           <div class="col-md-2 col-sm-2 col-xs-12" style="padding-top:7px;padding:0px 0px 3px 7px;margin-top: 40px;">
+             <button class="btn button_layout " style="padding:7px 30px !important" type="button" ng-click="doPost()"><span style="color:3292f33;font-weight:600">Post</span></button>
+          </div>
+
+     </div>
+      <div class="col-md-12 col-sm-12 col-xs-12 div_sec1" style="border-radius:0px 0px 5px 5px;padding-top:10px;border-bottom:0px;position:relative;padding-bottom:30px;padding-left:20px" >
+         <span class="select-wrapper1">
+             <input type="file" name="image_src" style="width: 26px;height: 26px;opacity: 0;filter:alpha(opacity=0);" onchange="angular.element(this).scope().uploadFile1(this)"/>
+         </span>&nbsp;&nbsp;&nbsp;
+
+         <span class="select-wrapper2">
+             <input type="file" name="image_src" style="width: 26px;height: 26px;opacity: 0;filter:alpha(opacity=0);" onchange="angular.element(this).scope().uploadFile2(this)"/>
+         </span>&nbsp;&nbsp;&nbsp;
+
+         <span class="select-wrapper3">
+             <input type="file" name="image_src" style="width: 26px;height: 26px;opacity: 0;filter:alpha(opacity=0);" onchange="angular.element(this).scope().uploadFile3(this)"/>
+         </span>&nbsp;&nbsp;&nbsp;
+
+         <span class="select-wrapper4">
+             <input type="file" name="image_src" style="width: 26px;height: 26px;opacity: 0;filter:alpha(opacity=0);" onchange="angular.element(this).scope().uploadFile4(this)"/>
+         </span>&nbsp;&nbsp;&nbsp;
+
+     </div>
+
+
+
+
+     <div id="myModal_edit" class="modal modal-child" data-backdrop-limit="1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-modal-parent="#myModal" style="background-color:#rgba(0,0,0,0.7)">
+         <div class="modal-dialog">
+             <!-- Modal content-->
+             <div class="modal-content">
+                 <div class="modal-header" style="border-bottom:0px;">
+                  <button type="button" class="close" data-dismiss="modal" style="color:#000 !important;outline:0px">&times;</button>
+
+                 </div>
+                 <div class="modal-body" style="padding:0px 25px">
+                     <center><h3>Edit message</h3></center> <br>
+                     <div class="col-md-1">
+                     </div>
+                     <div class="col-md-10">
+                       <div class="form-group">
+                         <!-- <textarea class="form-control" ng-model="editText" placeholder="Edit message" style="width:100%;resize:vertical"></textarea> -->
+                         <div id="editable" class="editable" max="2500" style="border: 1px solid black;padding: 10px;border-radius: 5px;height: auto;width: 100%;"></div>
+                      </div>
+                     </div>
+                    <div class="col-md-1"></div> <br> <br> <br>
+
+                  <div class="modal-footer text-center" style="border-top:0px;text-align:center !important">
+                  <div class="col-md-12" style="margin-top:20px">
+                    <button type="button" class="btn button_layout" data-dismiss="modal" style="color:#333333;font-weight:600;" ng-click="doPost12()">Save</button> &nbsp;&nbsp;&nbsp;
+                    <a><span class="spa_cancel" data-dismiss="modal" style="cursor:pointer">Cancel</span></a>
+                 </div>
+              </div>
+
+             </div>
+         </div>
+     </div>
+</div>
+
+</div>

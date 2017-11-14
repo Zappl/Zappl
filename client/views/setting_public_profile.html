@@ -1,0 +1,276 @@
+<div id="body" class="width" ng-init="sc.getUserInfo();sc.getPublicKeys()" style="margin-top:105px">
+
+<!--------------------------------------------------------------first side section--------------------------------------------------------------->
+<aside class="sidebar small-sidebar left-sidebar" style="margin-top:0px">
+       <ul>
+        <li style="margin-bottom:0px">
+          <ul>
+            <div class="col-md-12 " style="padding:0px">
+              <li style="border-radius:5px 5px 0px 0px;width:100%;height:120px;list-style-type:none !important;background-image:url(1/images/gr_1.png);background-repeat:no-repeat;background-size:cover;margin-left:-2px">
+              </li>
+
+              <li class="text-center" style="background-color:#fff;border-bottom:1px solid #e5ebef;text-align:-webkit-center;text-align:-moz-center;list-style-type:none !important;border-left:2px solid #e1e8ed;border-right:2px solid #e1e8ed;margin-top:-10px;">
+               <img src="{{sc.userInfo.profile_image}}" height="113" width="115" class="img-responsive" style="z-index:1;margin-top:-70px;"/>
+               <h3 style="color:#292f33;margin-bottom:0px">{{sc.userInfo.name}}</h3>
+               <span style="color:#8899a6">@{{sc.userInfo.userName}}</span>
+             </li>
+            </div>
+          </ul>
+        </li>
+        <li>
+          <div class="col-md-12 col-sm-12 col-xs-12 div_setting" style="margin-top:12px;border-radius:5px 5px 0px 0px;border:1px solid #e1e8ed;padding:5px 15px">
+            <a href=""  ng-click="showme=false;showme2=false"><h5 style="color:#8899a6;font-weight:600;margin-bottom:0px;display:inline">Public Profile settings</h5></a>
+            <img src="1/images/grey arrow.png" class="pull-right" style="margin-top:4px">
+          </div>
+          <div class="col-md-12 col-sm-12 col-xs-12 div_setting " style="border:1px solid #e1e8ed;border-top:0px;padding:5px 15px" >
+            <a href="" ng-click="showme=false;showme2=true"><h5  style="color:#8899a6;font-weight:600;margin-bottom:0px;display:inline">Security</h5></a>
+            <img src="1/images/grey arrow.png" class="pull-right" style="margin-top:4px">
+          </div>
+          <div class="col-md-12 col-sm-12 col-xs-12 div_setting" style="border:1px solid #e1e8ed;border-top:0px;padding:5px 15px">
+            <a href="" ng-click="showme=true;showme2=false"><h5 style="color:#8899a6;font-weight:600;margin-bottom:0px;display:inline">Configurations</h5> </a>
+            <img src="1/images/grey arrow.png" class="pull-right" style="margin-top:4px">
+          </div>
+
+          <div class="col-md-12 col-sm-12 col-xs-12 div_setting" style="border:1px solid #e1e8ed;border-top:0px;padding:5px 15px">
+            <a href="" ng-click="showme=true;showme2=true"><h5 style="color:#8899a6;font-weight:600;margin-bottom:0px;display:inline">Permissions</h5> </a>
+            <img src="1/images/grey arrow.png" class="pull-right" style="margin-top:4px">
+          </div>
+
+        </li>
+        <li>
+          <div class="col-md-12 col-sm-12 col-xs-12 div_sec "  style="margin-top:12px;border-radius:5px;padding:10px 15px">
+             <p style="color:#ccd6dd;font-size:12px">@ 2017 zappl About Help Center Terms<br />
+               Privacy Polocy Cookies Ads Info Brand <br />
+               Blog Status AppsJobs Business Developers</p>
+          </div>
+        </li>
+     </ul>
+  </aside>
+<!--------------------------------------------------------------------------------------first side section------------------------------------------>
+
+
+<!--------------------------------------------------------------------------------------second section------------------------------------------>
+<section id="content" class="Two_column first_show" ng-controller="setting_public_profileCtrl as sc" ng-if="!showme && !showme2"  >
+  <article>
+     <div class="col-md-12 col-sm-12 col-xs-12" style="background-color:#fff;border:1px solid #e1e8ed;border-radius:5px 5px 0px 0px">
+        <h4 class="text_com">Settings</h4>
+     </div>
+
+     <!-- <div class="col-md-12 col-sm-12 col-xs-12 division_col2" style="border-radius:0px 0px 5px 5px;padding-bottom:47px">
+       <h5 style="color:#3e4549;font-weight:600">PUBLIC PROFILE SETTINGS</h5>
+          <div class="col-md-8 pad_zero " >
+             <div class="form-group">
+                <input type="text" ng-model="profile_image" class="form-control textbox_field" id="email2" placeholder="Profile Picture URL" style="padding:25px 20px">
+                <br/>
+                <input type="file" onchange="angular.element(this).scope().fileNameChanged(this)">
+             </div>
+             <div class="form-group">
+                <input type="text" ng-model="name" class="form-control textbox_field" id="email2" placeholder="Display Name" style="padding:25px 20px">
+             </div>
+             <div class="form-group">
+                <input type="text" ng-model="about" class="form-control textbox_field" id="email2" placeholder="About" style="padding:25px 20px">
+             </div>
+             <div class="form-group">
+                <input type="text" ng-model="location" class="form-control textbox_field" id="email2" placeholder="Location" style="padding:25px 20px">
+             </div>
+             <div class="form-group">
+                <input type="text" ng-model="website" class="form-control textbox_field" id="email2" placeholder="Website" style="padding:25px 20px">
+             </div>
+             <div class="form-group">
+                <input type="text" ng-model="activeWif" class="form-control textbox_field" id="email2" placeholder="Private Active Key" style="padding:25px 20px">
+             </div>
+             <div style="color:red">{{wrongWif}}</div><br>
+             <button type="button" class="btn button_layout" data-dismiss="modal" ng-click="sc.postPublicProfile(profile_image,name,about,location,website,activeWif)"><span style="color:3292f33;font-weight:600">Update</span></button>
+        </div>
+      </div> -->
+
+
+      <div class="col-md-12 col-sm-12 col-xs-12 division_col2" style="border-radius:0px 0px 5px 5px;padding-bottom:47px">
+        <h5 style="color:#3e4549;font-weight:600">PUBLIC PROFILE SETTINGS</h5>
+           <div class="col-md-8 pad_zero " >
+              <div class="form-group">
+                 <input class="input" id="test" placeholder="Profile Picture URL" type="text" ng-model="profile_image"  style="padding:16px;width:100%;border-radius:5px">
+                <br>
+                <br>
+                 <input type="file" onchange="angular.element(this).scope().fileNameChanged(this)" style="border:none !important">
+              </div>
+              <div class="form-group">
+                 <input class="input" id="test" type="text" ng-model="name"  placeholder="Display Name" style="padding:16px;width:100%;border-radius:5px">
+              </div>
+              <div class="form-group">
+                 <input class="input" id="test" type="text" ng-model="about"  placeholder="About" style="padding:16px;width:100%;border-radius:5px">
+              </div>
+              <div class="form-group">
+                 <input class="input" id="test" type="text" ng-model="location"  placeholder="Location" style="padding:16px;width:100%;border-radius:5px">
+              </div>
+              <div class="form-group">
+                 <input class="input" id="test" type="text" ng-model="website"  placeholder="Website" style="padding:16px;width:100%;border-radius:5px">
+              </div>
+              <div style="color:red">{{wrongWif}}</div><br>
+              <button type="button" class="btn button_layout" data-target="#myModal121" data-toggle="modal" ><span style="color:3292f33;font-weight:600">Update</span></button>
+
+              <br/>
+              <br/>
+
+              <h5 style="color:#3e4549;font-weight:600">PRIVATE POST DISPLAY SETTINGS</h5>
+              <p>Not safe for work (NSFW) content</p>
+                 <div class="col-md-8 pad_zero " >
+                   <select class="form-control" id="sel2" style="color:black;margin-bottom: 15px;" ng-model="sc.popUpListSelect" >
+                     <option id="nsfwList" style="color:#8899a6;" ng-repeat="x in sc.popUpList" value="{{x}}">{{x}}</option>
+                   </select>
+                   <button type="button" class="btn button_layout" ng-click="sc.setNsfwSettings()"><span style="color:3292f33;font-weight:600">Update</span></button>
+                 </div>
+         </div>
+  </div>
+       <div id="myModal121" class="modal modal-child" data-backdrop-limit="1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-modal-parent="#myModal" style="background-color:#rgba(0,0,0,0.7)">
+           <div class="modal-dialog">
+               <!-- Modal content-->
+               <div class="modal-content">
+                   <div class="modal-header" style="border-bottom:0px">
+                    <button type="button" class="close" data-dismiss="modal" style="color:#000 !important;outline:0px">&times;</button>
+                   </div>
+                   <div class="modal-body" style="padding:0px 25px">
+                       <div class="form-group">
+                          <input class="input" id="test" type="text"  ng-model="username" placeholder="Account Name" style="padding:16px;width:100%;border-radius:5px;background-color:#eee" disabled>
+                          <br/> <br>
+                          <input class="input" id="test" type="password" ng-model="activeWif" placeholder="Private Active Key" style="padding:16px;width:100%;border-radius:5px">
+                          <br/>
+                          <div style="color:red">{{wrongWif}}</div>
+                          <br/>
+                          <p style="font-size: larger;font-family: inherit;text-align: -webkit-auto;color: #5d5757;">This operation requires your Active key.</p>
+                       </div>
+                    </div>
+                    <div class="modal-footer text-center" style="border-top:0px;text-align:center !important">
+                    <div class="col-md-12" style="margin-top:20px">
+                      <button type="button" class="btn button_layout" data-dismiss="modal" style="color:#333333;font-weight:600;" ng-click="sc.postPublicProfile(profile_image,name,about,location,website,activeWif)">Submit</button>
+                   </div>
+                </div>
+
+               </div>
+           </div>
+       </div>
+
+    </article>
+</section>
+
+<section id="content" class="Two_column second_show" ng-controller="setting_public_profileCtrl" ng-if="!showme && showme2" >
+   <article>
+      <div class="col-md-12 col-sm-12 col-xs-12" style="background-color:#fff;border:1px solid #e1e8ed;border-radius:5px 5px 0px 0px">
+         <h4 class="text_com">Settings</h4>
+      </div>
+      <div class="col-md-12 col-sm-12 col-xs-12 division_col2" style="border-radius:0px 0px 5px 5px;padding-bottom:30px">
+         <h5 style="color:#3e4549;font-weight:600;margin-bottom:0px">CHANGE PASSWORD</h5>
+               <div class="col-md-8 pad_zero " >
+                    <span style="color:#66757f">The first rule of Zappl is:Do not lose your password.</span><br>
+                    <span style="color:#66757f">The second rule of Zappl is:Do not lose your password.</span><br>
+                    <span style="color:#66757f">The third rule of Zappl is:We cannot recover your password.</span><br>
+                    <span style="color:#66757f">The fourth rule of Zappl is:If you can remember the password,it's not secure.</span><br>
+                    <span style="color:#66757f">The fifth rule of Zappl is:Use only randomly generated password.</span><br>
+                    <span style="color:#66757f">The sixth rule of Zappl is:Do not tell anyone your password.</span><br>
+                    <span style="color:#66757f">The seventh rule of Zappl is:Always backup your password.</span><br>  <br>
+                    <div class="form-group">
+                       <input id="test" class="input" type="text"  ng-model="username" placeholder="Account Name" style="padding:16px;width:100%;border-radius:5px;background-color:#eee" disabled>
+                    </div>
+                    <div class="form-group">
+                       <input id="test" class="input" type="text"  ng-model="ownerKey" placeholder="Enter your Private Owner Key" style="padding:16px;width:100%;border-radius:5px;">
+                    </div>
+                    <div class="form-group" ng-show="myvalue">
+                       <input id="test" class="input" type="text" ng-model="newPassword" placeholder="New Password" style="padding:16px;width:100%;border-radius:5px;">
+                       <p style="margin-left:5px;font-family: monospace;color: gray;font-weight: 600;text-align: -webkit-center;">BACK IT UP BY STORING IN YOUR PASSWORD MANAGER OR A TEXT FILE.</p>
+                    </div>
+                    <button type="button" class="btn button_layout" style="padding:7px 25px !important" ng-hide="myvalue" ng-click="sc.getNewPassword();myvalue=true"><span style="color:3292f33;font-weight:600">Generate password</span></button> <br>
+                    <div class="form-group" style="margin-top:10px">
+                       <input id="test"  class="input" type="password"  ng-model="rePassword" placeholder="Re-Enter Generated password" style="padding:16px;width:100%;border-radius:5px;">
+                    </div>
+                     <div class="form-group">
+                        <input type="checkbox" ng-model="checked" style="height: 10px;width: 10px;padding: 4px;margin-right: 10px;border: 1px solid #2ea8f3 !important;border-radius: 3px;"><span style="color:#66757f">I understand that zappl cannot recover lost password</span> <br>
+                     </div>
+                     <div class="form-group">
+                        <input type="checkbox" ng-model="checked1" style="height: 10px;width: 10px;padding: 4px;margin-right: 10px;border: 1px solid #2ea8f3 !important;border-radius: 3px;"> <span style="color:#66757f">I have securely saved my generated password.</span> <br>
+                     </div>
+                     <button type="button" class="btn button_layout" style="padding:7px 28px !important" ng-disabled="!checked || !checked1" ng-click="sc.getUserInfo();sc.postUpdatePassword(ownerKey,rePassword);"><span style="color:3292f33;font-weight:600">Update password</span></button> <br>
+                     <div><p style="color:red">{{errorMessage}}</p></div>
+              </div>
+            </div>
+     </article>
+</section>
+
+
+<section id="content" class="Two_column third_show" ng-if="showme && !showme2" ng-init="sc.getVotingWeight()">
+   <article>
+      <div class="col-md-12 col-sm-12 col-xs-12" style="background-color:#fff;border:1px solid #e1e8ed;border-radius:5px 5px 0px 0px">
+         <h4 class="text_com">Settings</h4>
+      </div>
+      <div class="col-md-12 col-sm-12 col-xs-12 division_col2" style="border-radius:0px 0px 5px 5px;padding-bottom:238px">
+         <h5 style="color:#3e4549;font-weight:600">CONFIGURATIONS</h5>
+               <div class="col-md-8 pad_zero "  >
+                    <div style="background-color:#fff;border:1px solid #ccc;border-radius:5px;padding:12px 0px 38px 0px;margin-bottom:40px">
+                           <div class="col-md-3 col-sm-3 col-xs-4 " style="padding:0px 0px 0px 10px">
+                             <span style="color:#8899a6;font-weight:500">Voting (%)</span>
+                           </div>
+                           <div class="col-md-8 col-sm-8 col-xs-6" style="padding-top:6px">
+                              <form name="registrationForm" >
+                                  <input type="range" name="ageInputName" id="ageInputId"  min="1" max="100" value="sc.votingWeight" oninput="ageOutputId.value = ageInputId.value" style="border:none">
+                              </form>
+                           </div>
+                          <div class="col-md-1 col-sm-1 col-xs-2" style="padding-top:6px">
+                                 <output name="ageOutputName" id="ageOutputId" style="display:inline" >{{sc.votingWeight}}</output>
+                          </div>
+                    </div>
+                   <button type="button" ng-click = "sc.setVotingWeight()" class="btn button_layout" style="padding:7px 22px !important;color:3292f33;font-weight:600;margin-top:30px">Save Changes</button>
+       </div>
+        </div>
+     </article>
+</section>
+
+<section id="content" class="Two_column fourth_show" ng-if="showme && showme2">
+   <article>
+      <div class="col-md-12 col-sm-12 col-xs-12" style="background-color:#fff;border:1px solid #e1e8ed;border-radius:5px 5px 0px 0px">
+         <h4 class="text_com">Settings</h4>
+
+      </div>
+
+      <div class="col-md-12 col-sm-12 col-xs-12 division_col2" style="border-radius:0px 0px 5px 5px;padding-bottom:30px" ng-init="sc.toggleButton();sc.toggleButton2()">
+
+        <div class="col-md-9 col-xs-12 pad_zero">
+          <h5 style="color:#3e4549;font-weight:600;margin-bottom:0px">POSTING</h5>
+          <div style="color:#2a2b2b;overflow-wrap:break-word;" class="box on" ng-show="toggle" ng-animate="'box'">{{sc.publicPostingKey}}</div>
+          <div style="color:#2a2b2b;overflow-wrap:break-word;"  class="box on" ng-hide="toggle" ng-animate="'box'">{{sc.privatePosting}}</div><br>
+           <span style="color:#66757f">The Posting key is used for posting & voting.It should be different from the active and owner keys. </span>
+        </div>
+        <div class="col-md-3 col-xs-12 pad_top25 pad_zero text-right" >
+           <button type="button" class="btn button_layout" style="padding:7px 22px !important;color:3292f33;font-weight:600;margin-top:30px" ng-click="toggle = !toggle;sc.toggleButton()">{{toggleText}}</button>
+        </div>
+        <div class="col-md-9 pad_zero " >
+          <h5 style="color:#3e4549;font-weight:600;margin-bottom:0px">ACTIVE</h5>
+          <div style="color:#2a2b2b;overflow-wrap:break-word;" class="box on" ng-show="toggle2" ng-animate="'box'">{{sc.publicActiveKey}}</div><br>
+          <!-- <div style="color:#2a2b2b;overflow-wrap:break-word;"  class="box on" ng-hide="toggle2" ng-animate="'box'">{{sc.publicPostingKey}}</div><br> -->
+           <span style="color:#66757f">The Active key is used to make transfers and place orders in the internal market.</span>
+        </div>
+         <!-- <div class="col-md-3 col-xs-12 pad_top25">
+           <button type="button" class="btn button_layout" style="padding:7px 22px !important;color:3292f33;font-weight:600;margin-top:30px" ng-click="toggle2 = !toggle2;sc.toggleButton2()">{{toggleText2}}</button>
+        </div> -->
+        <div class="col-md-9 pad_zero " >
+          <h5 style="color:#3e4549;font-weight:600;margin-bottom:0px">OWNER</h5>
+           <span style="color:#2a2b2b;overflow-wrap:break-word;">{{sc.publicOwnerKey}}</span>  <br><br>
+           <span style="color:#66757f">The Owner key is the master key for the account and is required to change the other keys.</span><br>
+           <span style="color:#66757f">Private key or password for the owner key should be kept offline as such as possible.</span>
+
+        </div>
+         <div class="col-md-3 pad_zero">
+        </div>
+        <div class="col-md-9 pad_zero " >
+          <h5 style="color:#3e4549;font-weight:600;margin-bottom:0px">MEMO</h5>
+           <span style="color:#2a2b2b;overflow-wrap:break-word;">{{sc.publicMemoKey}}</span> <br><br>
+           <span style="color:#66757f">The Memo key is used to create and read memos.</span>
+       </div>
+       </div>
+     </article>
+</section>
+
+
+<!--------------------------------------------------------------------------------------first side section------------------------------------------>
+<div class="clear"></div>
+
+
+</div>

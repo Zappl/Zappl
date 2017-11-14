@@ -1,0 +1,789 @@
+
+<div id="body" class="width" ng-init='wc.getWalletDetails()' style="margin-top:110px">
+
+<!------------------------------------------------------------one column------------------------------------------------------------------------------>
+<aside class="one_column" >
+            <div class="col-md-12 div_sec">
+                <h4 class="text_com">Wallet</h4>
+            </div>
+            <div class="col-md-12 div_sec1" style="padding:10px">
+                <div class="text-center">
+                           <span style="color:#696c6e;font-weight:600;font-size:15px;color:#66757f;">Unclaimed rewards : - {{wc.userWalletInfo.currentReward_firstValue}} SBD and {{wc.userWalletInfo.currentReward_secondValue}} STEEM</span>                           &nbsp;&nbsp;&nbsp;&nbsp;
+                </div>
+            </div>
+
+             <!--- Balance----->
+             <div class="col-md-12 col-sm-12 col-xs-12 div_sec1">
+                <h4 style="color:#66757f;margin-bottom:-2px">BALANCES</h4>
+             </div>
+             <div class="col-md-12 col-sm-12 col-sm-12 div_sec1" style="border-top:0px;border-bottom:0px;padding-top:30px" >
+                <div class="col-md-10 col-sm-10 col-xs-6 pad_zero">
+                    <h5 style="color:#696c6e;display:inline;font-weight:600">STEEM</h5>
+                </div>
+                <div class="col-md-2 col-sm-2 col-xs-6 pad_zero wallet_pad_right text-right" style="padding-top:4px !important">
+        <div class="btn-group" dropdown>
+          <h5 class="dropdown-toggle" style="color:#696c6e;font-weight:600;text-align:right;margin-bottom:0px;margin-top:0px" dropdown-toggle>{{wc.userWalletInfo.steem}} STEEM
+                <span class="caret"></span></h5>
+            <ul class="dropdown-menu" role="menu">
+               <li><a style="cursor:pointer" data-target="#myModal51" data-toggle="modal" ng-click="wc.transferOption()">Transfer</a></li>
+               <li><a style="cursor:pointer" data-target="#myModal61" data-toggle="modal" ng-click="wc.transferOption()">Transfer to savings</a></li>
+               <li><a style="cursor:pointer" data-target="#myModal71" data-toggle="modal" ng-click="wc.transferOption()">Power up</a></li>
+           </ul>
+        </div>
+
+                </div>
+                <div class="col-md-7  pad_zero">
+                  <p style="color:#66757f;margin: 0 0 0px;line-height:19px;text-align:justify">Tradeable tokens that may be transferred anywhere at anytime.
+                    Steem can be converted to STEEM POWER in a process called powering up.</p><br>
+                </div>
+            </div>
+
+            <div class="col-md-12 col-sm-12 col-sm-12 div_sec1" style="border-top:0px;border-bottom:0px">
+                <div class="col-md-10 col-sm-10 col-xs-6 pad_zero">
+                    <h5 class="dropdown-toggle" data-toggle="dropdown"  style="color:#696c6e;display:inline;font-weight:600">STEEM POWER</h5>
+                </div>
+                <div class="col-md-2 col-sm-2 col-xs-6 pad_zero wallet_pad_right text-right" style="padding-top:3px !important">
+                  <div class="btn-group" dropdown>
+                    <h5 class="dropdown-toggle" style="color:#696c6e;font-weight:600;text-align:right;margin-bottom:0px;margin-top:0px" dropdown-toggle>{{wc.userWalletInfo.steemPower}} STEEM
+                          <span class="caret"></span></h5>
+                          <ul class="dropdown-menu">
+                             <li><a style="cursor:pointer" data-target="#myModal81" data-toggle="modal">Power Down</a></li>
+
+                         </ul>
+                  </div>
+                </div>
+                 <div class="col-md-7 pad_zero">
+                  <p style="color:#66757f;margin: 0 0 0px;line-height:19px;text-align:justify">Influence tokens which give you more control over post payouts and allow you to earn on curation rewards.</p>   <br>
+                 </div>
+            </div>
+
+
+            <div class="col-md-12 col-sm-12 col-sm-12 div_sec1" style="border-top:0px;border-bottom:0px ">
+                <div class="col-md-10 col-sm-10 col-xs-6 pad_zero">
+                    <h5 style="color:#696c6e;display:inline;font-weight:600;">STEEM DOLLAR</h5>
+                </div>
+                <div class="col-md-2 col-sm-2 col-xs-6 pad_zero wallet_pad_right text-right" style="padding-top:3px !important">
+                   <h5 style="color:#696c6e;font-weight:600;text-align:right;margin-bottom:0px;margin-top:0px">$ {{wc.userWalletInfo.steemDollars}}</h5>
+                </div>
+                <div class="col-md-7 pad_zero">
+                  <p style="color:#66757f;margin: 0 0 0px;line-height:19px;text-align:justify">Tokens worth about $1.00 of STEEM, currently collecting 0% APR.</p>  <br>
+                </div>
+            </div>
+
+             <div class="col-md-12 col-sm-12 col-sm-12 div_sec1" style="border-top:0px;border-bottom:0px  ">
+                <div class="col-md-10 col-sm-10 col-xs-6 pad_zero">
+                    <h5 style="color:#696c6e;display:inline;font-weight:600">SAVINGS</h5>
+                </div>
+                <div class="col-md-2 col-sm-2 col-xs-6 pad_zero wallet_pad_right text-right" style="padding-top:3px !important">
+
+                  <div class="btn-group" dropdown>
+                    <h5 class="dropdown-toggle" style="color:#696c6e;font-weight:600;text-align:right;margin-bottom:0px;margin-top:0px" dropdown-toggle>{{wc.userWalletInfo.savings}} STEEM
+                          <span class="caret"></span></h5>
+                          <ul class="dropdown-menu">
+                             <li><a style="cursor:pointer" data-target="#myModal91" data-toggle="modal" ng-click="wc.transferOption()">Withdraw Steem</a></li>
+                             <li><a style="cursor:pointer" data-target="#myModal101" data-toggle="modal">Cancel Transfer</a></li>
+                         </ul>
+                         </div>
+                      <h5 style="color:#696c6e;font-weight:600;margin-left: 35px;margin-bottom:0px;margin-top:0px">$ {{wc.userWalletInfo.savingsSbd}}</h5>
+                </div>
+                 <div class="col-md-7 pad_zero" style="margin-top:-21px;">
+                  <p style="color:#66757f;margin: 0 0 0px;line-height:19px;text-align:justify">Balance subject to 3 day withdraw waiting period, STEEM DOLLARS currently collecting 0% APR.</p>   <br>
+                 </div>
+            </div>
+
+
+            <div class="col-md-12 col-sm-12 col-sm-12 div_sec1" style="border-top:0px;">
+                <div class="col-md-10 col-sm-10 col-xs-6 pad_zero">
+                    <h5 style="color:#696c6e;display:inline;font-weight:600">ESTIMATE VALUE</h5>
+                </div>
+                <div class="col-md-2 col-sm-2 col-xs-6 pad_zero wallet_pad_right text-right" style="padding-top:4px !important" >
+                   <h5 style="color:#696c6e;font-weight:600;text-align:right;margin-bottom:0px;margin-top:0px">$ {{wc.userWalletInfo.estimateAccValue}}</h5>
+                </div>
+                <div class="col-md-7 pad_zero">
+                  <p style="color:#66757f;margin: 0 0 0px;line-height:19px;text-align:justify">The estimated value is based on an average value of Steem in US dollars.</p>  <br>
+                </div>
+            </div>
+           <!--- Balance----->
+
+           <!--- Transaction History----->
+           <div class="col-md-12 col-sm-12 col-xs-12 div_sec1">
+              <h4 style="color:#66757f;margin-bottom:-2px">TRANSACTION HISTORY</h4>
+           </div>
+           <div class="col-md-12 col-sm-12 col-xs-12 div_sec1" style="padding:20px 15px;overflow:hidden;word-break:break-all;white-space:normal;" ng-repeat="n in wc.userWalletHistory | orderBy:'-'">
+              <div class="col-md-10 col-sm-10 col-xs-12 pad_zero">
+                 <h4 style="display:inline;text-transform:capitalize">{{wc.userWalletInfo.userName}}</h4> <span style="color:#92a1ad">@{{wc.userWalletInfo.userName}}</span>
+                 <p style="color:#66757f;margin: 0 0 0px;line-height:19px;margin-top:6px;text-align:justify">Action : {{n.action}}</p>
+                 <p style="color:#66757f;margin: 0 0 0px;line-height:19px;margin-top:6px;text-align:justify">Time : {{n.time}}</p>
+                 <p style="color:#66757f;margin: 0 0 0px;line-height:19px;margin-top:6px;text-align:justify">Information:{{n.data}}</p>
+              </div>
+           </div>
+            <!--- Transaction History----->
+
+
+
+</aside>
+<!-------------------------------------------------------- one column---------------------------------------------------------------------->
+
+    <div class="clear"></div>
+
+
+<!-- </div> -->
+
+
+
+<!---Modal for create zap------->
+<div id="myModal51" class="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="background-color:#rgba(0,0,0,0.5)">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header" style="border-bottom:0px;padding:0px 25px">
+             <button type="button" class="close" data-dismiss="modal" style="color:#000 !important;outline:0px;    padding: 10px;">&times;</button>
+             <h3>Transfer to Account</h3>
+             <p>Move funds to another Zappl account.</p>
+
+         </div>
+         <div class="modal-body" style="padding:0px 25px">
+          <div class="col-md-12 pad_zero">
+            <div class="col-md-2">
+              <label style="margin-top:5px">From</label>
+            </div>
+            <div class="col-md-10">
+              <div class="input-group">
+                 <span class="input-group-addon">@</span>
+                 <input id="msg" type="text" ng-model="username" class="form-control" name="msg" disabled>
+              </div>
+           </div>
+          </div> <br> <br> <br>
+         <div class="col-md-12 pad_zero">
+           <div class="col-md-2">
+              <label style="margin-top:5px">To</label>
+            </div>
+            <div class="col-md-10">
+              <div class="input-group">
+                 <span class="input-group-addon">@</span>
+                 <input type="text" ng-model="transferTo" class="form-control" name="msg" placeholder="Send to account" required/>
+              </div>
+           </div>
+         </div> <br> <br> <br>
+
+         <div class="col-md-12 pad_zero">
+            <div class="col-md-2">
+              <label style="margin-top:5px">Amount</label>
+            </div>
+            <div class="col-md-8" style="padding-right:0px">
+               <div class="form-group">
+                 <input type="text" class="form-control wlt_txtbox" ng-model="transferAmount" placeholder="Amount" style="border-radius: 4px 0px 0px 4px;width: 350px;height: 32px;" required/>
+                 <br/>
+                 <p style="color:rgb(51,153,204)">Balance : {{wc.bal}}</p>
+
+               </div>
+
+            </div>
+            <div class="col-md-2" style="padding:0px">
+               <div class="dropdown" dropdown>
+                 <button class="btn btn-default dropdown-toggle wlt_drpdown" type="button" data-toggle="dropdown" style="width: 76px;padding: 5px;height: 32px;border-radius: 0px 4px 4px 0px;" dropdown-toggle>{{wc.transferOption1}}
+                 <span class="caret"></span></button>
+
+                    <ul class="dropdown-menu wlt_sub">
+                        <li><a ng-click="wc.transferOption()">{{wc.transferOption2}}</a></li>
+                    </ul>
+
+                </div>
+
+            </div>
+          </div>
+
+          <!-- <div class="col-md-12 pad_zero">
+            <div class="col-md-2">
+              <label style="margin-top:25px">Memo</label>
+            </div>
+            <div class="col-md-10" >
+               <div class="form-group">
+                 <span style="font-size:12px;font-weight:500;color:rgb(102,102,102)">This memo is public</span> <br>
+                 <input type="text" class="form-control" ng-model="transferMemo" placeholder="Memo" >
+
+               </div>
+            </div>
+
+          </div> -->
+        </div>
+
+          <div class="modal-footer text-center" style="border-top:0px;text-align:center !important">
+             <div class="col-md-12" style="margin-top:20px">
+               <p style="color:red">{{transferError}}</p>
+               <a id="transferLink"><button type="button" class="btn button_layout" style="color:#333333;font-weight:600;outline:0px !important" ng-disabled="!transferTo.length || !transferAmount.length" ng-click="wc.transferClick()">Submit</button></a>
+            </div>
+         </div>
+       </div>
+   </div>
+</div>
+
+
+<div id="myModal2" class="modal modal-child" data-backdrop-limit="1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-modal-parent="#myModal" style="background-color:#rgba(0,0,0,0.7)">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header" style="border-bottom:0px;">
+             <button type="button" class="close" data-dismiss="modal" style="color:#000 !important;outline:0px">&times;</button>
+
+            </div>
+            <div class="modal-body" style="padding:0px 25px">
+                <center><h3>Returning Users: Login to Comment</h3></center> <br>
+                <div class="col-md-1">
+                </div>
+                <div class="col-md-10">
+                  <div class="input-group">
+                     <span class="input-group-addon">@</span>
+                     <input id="msg" type="text" ng-model="username" class="form-control" name="msg" disabled>
+                 </div>
+               </div>
+               <div class="col-md-1"></div> <br> <br> <br>
+               <div class="col-md-1">
+               </div>
+               <div class="col-md-10">
+                 <div class="form-group">
+                   <input type="password" class="form-control" ng-model="transferActiveWif" placeholder="Private Active Key">
+                </div>
+               </div>
+               <div class="col-md-1"></div>
+               <div class="col-md-offset-1 col-md-11">
+                 <p>This Operation requires your Active key.</p>
+              </div>
+              </div>
+             <div class="modal-footer text-center" style="border-top:0px;text-align:center !important">
+             <div class="col-md-12" style="margin-top:20px">
+               <button type="button" class="btn button_layout" data-dismiss="modal" style="color:#333333;font-weight:600;" ng-disabled="!transferActiveWif.length" ng-click="wc.postTransfer()">Sign In</button> &nbsp;&nbsp;&nbsp;
+               <a><span class="spa_cancel" data-dismiss="modal" style="cursor:pointer">Cancel</span></a>
+            </div>
+         </div>
+
+        </div>
+    </div>
+</div>
+
+<!---Modal for create zap------->
+
+<!------------------------------------------------------------------------------------------------------------------------------------------------------>
+<div id="myModal61" class="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="background-color:#rgba(0,0,0,0.5)">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header" style="border-bottom:0px;padding:0px 25px">
+             <button type="button" class="close" data-dismiss="modal" style="color:#000 !important;outline:0px ;padding: 10px;">&times;</button>
+             <h3>Transfer to Savings</h3>
+             <p>Protect funds by requiring a 3 day withdraw waiting period.</p>
+           </div>
+         <div class="modal-body" style="padding:0px 25px">
+          <div class="col-md-12 pad_zero">
+            <div class="col-md-2">
+              <label style="margin-top:5px">From</label>
+            </div>
+            <div class="col-md-10">
+              <div class="input-group">
+                 <span class="input-group-addon">@</span>
+                 <input id="msg" type="text" ng-model="username" class="form-control" name="msg" disabled>
+              </div>
+           </div>
+          </div> <br>
+
+          <div class="col-md-12 pad_zero" style="margin-top:10px">
+           <div class="col-md-2">
+              <label style="margin-top:5px">To</label>
+            </div>
+            <div class="col-md-10">
+              <div class="input-group">
+                 <span class="input-group-addon">@</span>
+                 <input id="msg" type="text" ng-model="transferTo" class="form-control" name="msg" placeholder="Send to account">
+              </div>
+           </div>
+         </div>   <br>
+
+         <div class="col-md-12 pad_zero" style="margin-top:10px">
+            <div class="col-md-2">
+              <label style="margin-top:5px">Amount</label>
+            </div>
+            <div class="col-md-8" style="padding-right:0px">
+               <div class="form-group">
+                 <input type="text" class="form-control wlt_txtbox" id="pwd" ng-model="transferAmount" placeholder="Amount" style="border-radius: 4px 0px 0px 4px;width: 350px;height: 32px;">
+               </div>
+               <span style="color:rgb(51,153,204)">Balance : {{wc.bal}}</span>
+            </div>
+            <div class="col-md-2" style="padding:0px">
+               <div class="dropdown" dropdown>
+                 <button class="btn btn-default dropdown-toggle wlt_drpdown2" type="button" data-toggle="dropdown" style="width: 76px;padding: 5px;height: 32px;border-radius: 0px 4px 4px 0px;" dropdown-toggle>{{wc.transferOption1}}
+                 <span class="caret"></span></button>
+
+                    <ul class="dropdown-menu wlt_sub">
+                        <li><a ng-click="wc.transferOption()">{{wc.transferOption2}}</a></li>
+                    </ul>
+                </div>
+            </div>
+          </div>
+        </div>
+
+       <div class="modal-footer text-center" style="border-top:0px;text-align:center !important">
+             <div class="col-md-12" style="margin-top:20px">
+                <p style="color:red">{{transferError}}</p>
+               <a id="transferToSavingLink"><button type="button" class="btn button_layout" style="color:#333333;font-weight:600;outline:0px !important" ng-disabled="!transferTo.length || !transferAmount.length" ng-click="wc.transferToSavingClick()">Submit</button></a>
+            </div>
+         </div>
+       </div>
+   </div>
+</div>
+
+
+
+<!---Modal for create zap------->
+
+<div id="myModal321" class="modal modal-child" data-backdrop-limit="1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-modal-parent="#myModal" style="background-color:#rgba(0,0,0,0.7)">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header" style="border-bottom:0px;">
+             <button type="button" class="close" data-dismiss="modal" style="color:#000 !important;outline:0px">&times;</button>
+
+            </div>
+            <div class="modal-body" style="padding:0px 25px">
+                <center><h3>Returning Users: Login to Comment</h3></center> <br>
+                <div class="col-md-1">
+                </div>
+                <div class="col-md-10">
+                  <div class="input-group">
+                     <span class="input-group-addon">@</span>
+                     <input id="msg" type="text" ng-model="username" class="form-control" name="msg" disabled>
+                 </div>
+               </div>
+               <div class="col-md-1"></div> <br> <br> <br>
+               <div class="col-md-1">
+               </div>
+               <div class="col-md-10">
+                 <div class="form-group">
+                   <input type="password" class="form-control" ng-model="transferActiveWif" placeholder="Private Active Key">
+                </div>
+               </div>
+               <div class="col-md-1"></div>
+               <div class="col-md-offset-1 col-md-11">
+                 <p>This Operation requires your Active key.</p>
+              </div>
+              </div>
+             <div class="modal-footer text-center" style="border-top:0px;text-align:center !important">
+             <div class="col-md-12" style="margin-top:20px">
+               <button type="button" class="btn button_layout" data-dismiss="modal" style="color:#333333;font-weight:600;" ng-disabled="!transferActiveWif.length" ng-click="wc.postTransferToSaving()">Sign In</button> &nbsp;&nbsp;&nbsp;
+               <a><span class="spa_cancel" data-dismiss="modal" style="cursor:pointer">Cancel</span></a>
+            </div>
+         </div>
+
+        </div>
+    </div>
+</div>
+
+<!---Modal for create zap------->
+<!-------------------------------------------------------------------------------------------------------------------------------------------------->
+
+
+
+
+<!------------------------------------------------------------------------------------------------------------------------------------------------------>
+<div id="myModal71" class="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="background-color:#rgba(0,0,0,0.5)">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header" style="border-bottom:0px;padding:0px 25px">
+             <button type="button" class="close" data-dismiss="modal" style="color:#000 !important;outline:0px;padding: 10px;">&times;</button>
+             <h3>Convert to STEEM POWER</h3>
+             <p>Influence tokens which give you more control over post payouts and allow you to earn on curation rewards.</p>
+             <p>STEEM POWER is non-transferable and requires 3 months (13 payments) to convert back to Steem.</p>
+           </div>
+         <div class="modal-body" style="padding:0px 25px">
+          <div class="col-md-12 pad_zero">
+            <div class="col-md-2">
+              <label style="margin-top:5px">From</label>
+            </div>
+            <div class="col-md-10">
+              <div class="input-group">
+                 <span class="input-group-addon">@</span>
+                 <input id="msg" type="text" ng-model="username" class="form-control" name="msg" placeholder="username" disabled>
+              </div>
+           </div>
+          </div> <br>
+         <div class="col-md-12 pad_zero" style="margin-top:10px">
+           <div class="col-md-2">
+              <label style="margin-top:5px">To</label>
+            </div>
+            <div class="col-md-10">
+              <div class="input-group">
+                 <span class="input-group-addon">@</span>
+                 <input type="text" ng-model="transferTo" class="form-control" name="msg" placeholder="Send to account" required/>
+              </div>
+              <p>Converted STEEM POWER can be sent to yourself or someone else but can not transfer again without converting back to Steem.</p>
+           </div>
+         </div> <br> <br> <br>
+
+         <div class="col-md-12 pad_zero" style="margin-top:10px">
+            <div class="col-md-2">
+              <label style="margin-top:5px">Amount</label>
+            </div>
+            <div class="col-md-10" style="padding-right:0px">
+               <div class="form-group">
+                 <input type="text" class="form-control wlt_txtbox2" ng-model="transferAmount" placeholder="Amount" style="border-radius: 4px;height: 35px;width: 425px;" required/>
+                 <p style="color:rgb(51,153,204)">Balance : {{wc.bal}}</p>
+               </div>
+            </div>
+          </div>
+
+
+       </div>
+
+       <div class="modal-footer text-center" style="border-top:0px;text-align:center !important">
+             <div class="col-md-12" style="margin-top:20px">
+               <p style="color:red">{{transferError}}</p>
+              <a id="transferPowerUpLink"><button type="button" class="btn button_layout" style="color:#333333;font-weight:600;outline:0px !important" ng-disabled="!transferTo.length || !transferAmount.length" ng-click="wc.transferPowerUp()">Power Up</button></a>
+            </div>
+         </div>
+       </div>
+   </div>
+</div>
+
+
+
+<!---Modal for create zap------->
+
+<div id="myModal4321" class="modal modal-child" data-backdrop-limit="1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-modal-parent="#myModal" style="background-color:#rgba(0,0,0,0.7)">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header" style="border-bottom:0px;">
+             <button type="button" class="close" data-dismiss="modal" style="color:#000 !important;outline:0px">&times;</button>
+
+            </div>
+            <div class="modal-body" style="padding:0px 25px">
+                <center><h3>Returning Users: Login to Comment</h3></center> <br>
+                <div class="col-md-1">
+                </div>
+                <div class="col-md-10">
+                  <div class="input-group">
+                     <span class="input-group-addon">@</span>
+                     <input id="msg" type="text" ng-model="username" class="form-control" name="msg" disabled>
+                 </div>
+               </div>
+               <div class="col-md-1"></div> <br> <br> <br>
+               <div class="col-md-1">
+               </div>
+               <div class="col-md-10">
+                 <div class="form-group">
+                   <input type="password" class="form-control" ng-model="transferActiveWif" placeholder="Private Active Key">
+                </div>
+               </div>
+               <div class="col-md-1"></div>
+               <div class="col-md-offset-1 col-md-11">
+                 <p>This Operation requires your Active key.</p>
+              </div>
+              </div>
+             <div class="modal-footer text-center" style="border-top:0px;text-align:center !important">
+             <div class="col-md-12" style="margin-top:20px">
+               <button type="button" class="btn button_layout" data-dismiss="modal" style="color:#333333;font-weight:600;" ng-disabled="!transferActiveWif.length" ng-click="wc.postPowerUp()">Sign In</button> &nbsp;&nbsp;&nbsp;
+               <a><span class="spa_cancel" data-dismiss="modal" style="cursor:pointer">Cancel</span></a>
+            </div>
+         </div>
+
+        </div>
+    </div>
+</div>
+
+<!---Modal for create zap------->
+<!-------------------------------------------------------------------------------------------------------------------------------------------------->
+
+
+
+
+<div id="myModal81" class="modal modal-child" data-backdrop-limit="1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-modal-parent="#myModal" style="background-color:#rgba(0,0,0,0.7)">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header" style="border-bottom:0px;">
+             <button type="button" class="close" data-dismiss="modal" style="color:#000 !important;outline:0px;padding: 10px;">&times;</button>
+
+            </div>
+            <div class="modal-body" style="padding:0px 25px">
+                <center><h3>Returning Users: Login to Comment</h3></center> <br>
+                <div class="col-md-1">
+                </div>
+                <div class="col-md-10">
+                  <div class="input-group">
+                     <span class="input-group-addon">@</span>
+                     <input id="msg" type="text" ng-model="username" class="form-control" name="msg" disabled>
+                 </div>
+               </div>
+               <div class="col-md-1"></div> <br> <br> <br>
+               <div class="col-md-1">
+               </div>
+               <div class="col-md-10">
+                 <div class="form-group">
+                   <input type="password" ng-model="transferActiveWif" class="form-control" placeholder="Private Active Key">
+                </div>
+               </div>
+               <div class="col-md-1"></div>
+               <div class="col-md-offset-1 col-md-11">
+                 <p>This Operation requires your Active key.</p>
+
+              </div>
+              </div>
+             <div class="modal-footer text-center" style="border-top:0px;text-align:center !important">
+             <div class="col-md-12" style="margin-top:20px">
+               <p style="color:red">{{transferError}}</p>
+               <button type="button" class="btn button_layout" data-dismiss="modal" style="color:#333333;font-weight:600;" ng-disabled="!transferActiveWif.length" ng-click="wc.postPowerDown()">Power Down</button> &nbsp;&nbsp;&nbsp;
+               <a><span class="spa_cancel" data-dismiss="modal" style="cursor:pointer">Cancel</span></a>
+            </div>
+         </div>
+
+        </div>
+    </div>
+</div>
+
+<!-------------------------------------------------------------------------------------------------------------------------------------------------->
+
+
+<div id="myModal91" class="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="background-color:#rgba(0,0,0,0.5)">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header" style="border-bottom:0px;padding:0px 25px">
+             <button type="button" class="close" data-dismiss="modal" style="color:#000 !important;outline:0px;padding: 10px;">&times;</button>
+             <h3>Savings Withdraw</h3>
+             <p>Withdraw funds after the required 3 day waiting period.</p>
+           </div>
+         <div class="modal-body" style="padding:0px 25px">
+          <div class="col-md-12 pad_zero">
+            <div class="col-md-2">
+              <label style="margin-top:5px">From</label>
+            </div>
+            <div class="col-md-10">
+              <div class="input-group">
+                 <span class="input-group-addon">@</span>
+                 <input id="msg" type="text" ng-model="username" class="form-control" name="msg" disabled>
+              </div>
+           </div>
+          </div> <br>
+          <div class="col-md-12 pad_zero" style="margin-top:10px">
+           <div class="col-md-2">
+              <label style="margin-top:5px">To</label>
+            </div>
+            <div class="col-md-10">
+              <div class="input-group">
+                 <span class="input-group-addon">@</span>
+                 <input id="msg" type="text" ng-model="transferTo" class="form-control" name="msg" placeholder="Send to account">
+              </div>
+           </div>
+         </div>   <br>
+
+         <div class="col-md-12 pad_zero" style="margin-top:10px">
+            <div class="col-md-2">
+              <label style="margin-top:5px">Amount</label>
+            </div>
+            <div class="col-md-8" style="padding-right:0px">
+               <div class="form-group">
+                 <input type="text" class="form-control wlt_txtbox" id="pwd" ng-model="transferAmount" placeholder="Amount" style="border-radius: 4px 0px 0px 4px;width: 350px;height: 32px;">
+               </div>
+               <span style="color:rgb(51,153,204)">Balance : {{wc.savBal}}</span>
+            </div>
+            <div class="col-md-2" style="padding:0px">
+               <div class="dropdown" dropdown>
+                 <button class="btn btn-default dropdown-toggle wlt_drpdown2"  type="button" data-toggle="dropdown" style="width: 76px;padding: 5px;height: 32px;border-radius: 0px 4px 4px 0px;" dropdown-toggle>{{wc.transferOption1}}
+                 <span class="caret"></span></button>
+
+                    <ul class="dropdown-menu wlt_sub">
+                        <li><a ng-click="wc.transferOption()" style="cursor:pointer">{{wc.transferOption2}}</a></li>
+                    </ul>
+                </div>
+            </div>
+          </div>
+
+        </div>
+
+       <div class="modal-footer text-center" style="border-top:0px;text-align:center !important">
+             <div class="col-md-12" style="margin-top:20px">
+               <p style="color:red">{{transferError}}</p>
+              <a id="saveLink"><button type="button" class="btn button_layout" style="color:#333333;font-weight:600;outline:0px !important" ng-disabled="!transferTo.length || !transferAmount.length" ng-click="wc.saveClick()">Submit</button></a>
+            </div>
+            </div>
+         </div>
+       </div>
+   </div>
+
+
+
+<!---Modal for create zap------->
+
+<div id="myModal54321" class="modal modal-child" data-backdrop-limit="1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-modal-parent="#myModal" style="background-color:#rgba(0,0,0,0.7)">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header" style="border-bottom:0px;">
+             <button type="button" class="close" data-dismiss="modal" style="color:#000 !important;outline:0px">&times;</button>
+
+            </div>
+            <div class="modal-body" style="padding:0px 25px">
+                <center><h3>Returning Users: Login to Comment</h3></center> <br>
+                <div class="col-md-1">
+                </div>
+                <div class="col-md-10">
+                  <div class="input-group">
+                     <span class="input-group-addon">@</span>
+                     <input id="msg" type="text" ng-model="username" class="form-control" name="msg" disabled>
+                 </div>
+               </div>
+               <div class="col-md-1"></div> <br> <br> <br>
+               <div class="col-md-1">
+               </div>
+               <div class="col-md-10">
+                 <div class="form-group">
+                   <input type="password" class="form-control" ng-model="transferActiveWif" placeholder="Private Active Key">
+                </div>
+               </div>
+               <div class="col-md-1"></div>
+               <div class="col-md-offset-1 col-md-11">
+                 <p>This Operation requires your Active key.</p>
+              </div>
+              </div>
+             <div class="modal-footer text-center" style="border-top:0px;text-align:center !important">
+             <div class="col-md-12" style="margin-top:20px">
+               <button type="button" class="btn button_layout" data-dismiss="modal" style="color:#333333;font-weight:600;" ng-disabled="!transferActiveWif.length" ng-click="wc.postWithdrawSteem()">Sign In</button> &nbsp;&nbsp;&nbsp;
+               <a><span class="spa_cancel" data-dismiss="modal" style="cursor:pointer">Cancel</span></a>
+            </div>
+         </div>
+
+        </div>
+    </div>
+</div>
+
+<!---Modal for create zap------->
+
+<!------------------------------------------------------------------------------------------------------------------------------------------------------>
+<div id="myModal101" class="modal modal-child" data-backdrop-limit="1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-modal-parent="#myModal" style="background-color:#rgba(0,0,0,0.7)">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header" style="border-bottom:0px;">
+             <button type="button" class="close" data-dismiss="modal" style="color:#000 !important;outline:0px; padding:10px; ">&times;</button>
+
+            </div>
+            <div class="modal-body" style="padding:0px 25px">
+                <center><h3>Returning Users: Login to Comment</h3></center> <br>
+                <div class="col-md-1">
+                </div>
+                <div class="col-md-10">
+                  <div class="input-group">
+                     <span class="input-group-addon">@</span>
+                     <input id="msg" type="text" ng-model="username" class="form-control" name="msg" disabled>
+                 </div>
+               </div>
+               <div class="col-md-1"></div> <br> <br> <br>
+               <div class="col-md-1">
+               </div>
+               <div class="col-md-10">
+                 <div class="form-group">
+                   <input type="test" ng-model="requestId" class="form-control" placeholder="Request Id">
+                </div>
+                 <div class="form-group">
+                   <input type="password" ng-model="transferActiveWif" class="form-control" placeholder="Private Active Key">
+                </div>
+               </div>
+               <div class="col-md-1"></div>
+               <div class="col-md-offset-1 col-md-11">
+                 <p>This Operation requires your Active key.</p>
+
+              </div>
+              </div>
+             <div class="modal-footer text-center" style="border-top:0px;text-align:center !important">
+             <div class="col-md-12" style="margin-top:20px">
+               <p style="color:red">{{transferError}}</p>
+               <button type="button" class="btn button_layout" data-dismiss="modal" style="color:#333333;font-weight:600;" ng-disabled="!transferActiveWif.length|| !requestId.length" ng-click="wc.postCancelTransferFromSavings()">Cancel Transfer</button> &nbsp;&nbsp;&nbsp;
+               <a><span class="spa_cancel" data-dismiss="modal" style="cursor:pointer">Cancel</span></a>
+            </div>
+         </div>
+
+        </div>
+    </div>
+</div>
+  </div>
+
+<!--
+
+<script>
+$(document).ready(function(){
+    $("#ad").click(function(){
+        $("#TO").show();
+		$("#ad").hide();
+		$("#ad1").show();
+
+    });
+
+	 $("#ad1").click(function(){
+        $("#TO").hide();
+	    $("#ad1").hide();
+		$("#ad").show();
+	});
+
+
+	 $("#ad2").click(function(){
+        $("#TO1").show();
+		$("#ad2").hide();
+		$("#ad3").show();
+
+    });
+
+	 $("#ad3").click(function(){
+        $("#TO1").hide();
+	    $("#ad3").hide();
+		$("#ad2").show();
+	});
+
+
+	$("#ad4").click(function(){
+        $("#TO4").show();
+		$("#ad4").hide();
+		$("#ad5").show();
+
+    });
+
+	 $("#ad5").click(function(){
+        $("#TO4").hide();
+	    $("#ad5").hide();
+		$("#ad4").show();
+	});
+
+
+
+
+
+
+});
+</script>
+
+
+
+
+
+
+
+<script>
+$('.modal-child').on('show.bs.modal', function () {
+    var modalParent = $(this).attr('data-modal-parent');
+    $(modalParent).css('opacity', 0);
+	$(modalParent).css('background-color', '#000');
+});
+
+$('.modal-child').on('hidden.bs.modal', function () {
+    var modalParent = $(this).attr('data-modal-parent');
+    $(modalParent).css('opacity', 1);
+});
+</script>
+
+<script>
+$(document.body).on('hide.bs.modal', function () {
+    $('body').css('padding-right','0');
+});
+$(document.body).on('hidden.bs.modal', function () {
+    $('body').css('padding-right','0');
+});
+</script> -->

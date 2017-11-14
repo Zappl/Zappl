@@ -1,0 +1,28 @@
+
+
+
+#content1
+{
+	clear: both;
+
+	background-color: #FFFFFF;
+}
+
+
+
+
+/* CLASSES */
+
+.clearer
+{
+	clear: both;
+	height: 1px;
+	font-size: 1px;
+	line-height: 1px;
+}
+
+.hidden
+{
+	position: absolute;
+	left: -10000px;
+}

@@ -1,0 +1,226 @@
+    <div id="body" class="width" ng-controller="messageCtrl as mc">
+    <!------------------------------------------------------------------first side section---------------------------------------------------------------->
+    <aside ng-init="mc.getChatList()" ng-if="$root.url != '/{user2}' && $root.url != '/creategroup' && $root.url != '/group/{groupname}'" class="sidebar small-sidebar left-sidebar" style="margin-top:100px">
+       <ul>
+         <li>
+
+          <div class="col-md-12 col-sm-12 col-xs-12 div_sec" style="height: 40px;padding:5px;">
+             <h4 style="color:#66757f;text-transform:capitalize;display:inline">Recent Chats</h4>
+             <div class="dropdown" style="margin-top:4px;float: right;">
+               <img src="images/z9.png" style="margin-top:-12px;vertical-align:-webkit-baseline-middle;vertical-align:-moz-baseline-middle;" />
+                  <div class="dropdown-content" style="z-index:99999;margin-left: -130px;">
+                      <div class="desc" style="cursor:pointer" ui-sref="CreateGroup">Create Group</div>
+                  </div>
+            </div>
+          </div>
+          <div class="col-md-12 col-sm-12 col-xs-12 div_sec" style="height: 40px;padding:2px;">
+            <div class="input-group" data-ng-controller="homeCtrl as hc">
+                   <input type="text" class="form-control" ng-model="findFollower1" placeholder="Search User" style="-webkit-box-shadow:none !important">
+                      <div class="input-group-btn">
+                         <button class="btn btn-default" type="submit" style="height:34px;border-left:0px" ng-disabled="!findFollower1.length" ng-click="hc.checkFollower1()">
+                          <i class="fa fa-search" style="color:#717f88"></i>
+                         </button>
+                     </div>
+              </div>
+          </div>
+            <div class="col-md-12 col-sm-12 col-xs-12 div_sec1" ng-repeat="n in mc.list" style="padding: 0px 0px 0px 10px;">
+                   <div class="col-md-2 col-sm-2 col-xs-2" style="padding:10px 0px 0px 0px">
+                     <img ng-src="{{n.profile_image}}" class="img-responsive img-rounded hei_view" style="width:30px;height:30px"/>
+                  </div>
+                  <a  ng-click="refresh();chatRedirect(n)"> <div class="col-md-10 col-sm-10 col-xs-10" style="padding:12px 3px 5px 10px;outline:0; cursor:pointer;" >
+                           <h5 class="headfive">{{n.username}}</h5>
+                    </div></a>
+            </div>
+
+
+            <!-- <div class="col-md-12 col-sm-12 col-xs-12 div_sec1" style="padding:7px 15px">
+                  <span style="color:#66757f">Show more...</span>
+            </div> -->
+        </li>
+        <li>
+            <div class="col-md-12 col-sm-12 col-xs-12 div_sec ninth_sec"  style="margin-top:20px;border-radius:5px;padding:10px 15px">
+               <p style="color:#ccd6dd;font-size:12px">@ 2017 zappl About Help Center Terms<br />
+               Privacy Polocy Cookies Ads Info Brand <br />
+               Blog Status AppsJobs Business Developers</p>
+            </div>
+        </li>
+    </ul>
+
+    </aside>
+
+
+
+    <aside ng-init="mc.getChatList()"  ng-if="$root.url == '/{user2}' || $root.url == '/group/{groupname}' && $root.url != '/creategroup'" class="sidebar small-sidebar left-sidebar ninth_sec" style="margin-top:100px">
+       <ul>
+         <li>
+            <div class="col-md-12 col-sm-12 col-xs-12 div_sec" >
+             <h4 style="color:#66757f;text-transform:capitalize">Recent Chats</h4>
+             </div>
+             <div class="col-md-12 col-sm-12 col-xs-12 div_sec1" ng-repeat="n in mc.list" ng-if="mc.user2 !== n.username" style="padding: 0px 0px 0px 10px;">
+                   <div class="col-md-2 col-sm-2 col-xs-2" style="padding:10px 0px 0px 0px">
+                     <img ng-src="{{n.profile_image}}" class="img-responsive img-rounded hei_view" style="width:30px;height:30px"/>
+                  </div>
+                  <a  ng-click="refresh();chatRedirect(n)"> <div class="col-md-10 col-sm-10 col-xs-10" style="padding:12px 3px 5px 10px;outline:0; cursor:pointer;" >
+                           <h5 class="headfive">{{n.username}}</h5>
+                    </div></a>
+            </div>
+        </li>
+        <li>
+            <div class="col-md-12 col-sm-12 col-xs-12 div_sec ninth_sec"  style="margin-top:20px;border-radius:5px;padding:10px 15px">
+               <p style="color:#ccd6dd;font-size:12px">@ 2017 zappl About Help Center Terms<br />
+               Privacy Polocy Cookies Ads Info Brand <br />
+               Blog Status AppsJobs Business Developers</p>
+            </div>
+        </li>
+    </ul>
+
+    </aside>
+
+
+
+    <aside ng-init="mc.getChatList()" ng-if="$root.url != '/{user2}' && $root.url == '/creategroup' && $root.url != '/group/{groupname}'" class="sidebar small-sidebar left-sidebar ninth_sec" style="margin-top:100px">
+      <ul>
+        <li>
+           <div class="col-md-12 col-sm-12 col-xs-12 div_sec" >
+            <h4 style="color:#66757f;text-transform:capitalize">Recent Chats</h4>
+            </div>
+           <div class="col-md-12 col-sm-12 col-xs-12 div_sec1" ng-repeat="n in mc.list" style="padding: 0px 0px 0px 10px;">
+                  <div class="col-md-2 col-sm-2 col-xs-2" style="padding:10px 0px 0px 0px">
+                    <img ng-src="{{n.profile_image}}" class="img-responsive img-rounded hei_view" style="width:30px;height:30px"/>
+                 </div>
+                 <a  ng-click="refresh();chatRedirect(n)"> <div class="col-md-10 col-sm-10 col-xs-10" style="padding:12px 3px 5px 10px;outline:0; cursor:pointer;" >
+                          <h5 class="headfive">{{n.username}}</h5>
+                   </div></a>
+           </div>
+       </li>
+       <li>
+           <div class="col-md-12 col-sm-12 col-xs-12 div_sec ninth_sec"  style="margin-top:20px;border-radius:5px;padding:10px 15px">
+              <p style="color:#ccd6dd;font-size:12px">@ 2017 zappl About Help Center Terms<br />
+              Privacy Polocy Cookies Ads Info Brand <br />
+              Blog Status AppsJobs Business Developers</p>
+           </div>
+       </li>
+   </ul>
+
+    </aside>
+
+
+    <!-------------------------------------------------------------------first side section----------------------------------------------------------------->
+
+    <!------------------------------------------------------------------second section---------------------------------------------------------------------->
+    <section id="content" class="Two_column" style="margin-top:100px" ng-if="$root.url == '/{user2}' || $root.url == '/group/{groupname}'">
+       <article >
+         <div class="loading-dialog" id="loader" data-loading = " " ></div>
+            <div ui-view></div>
+       </article>
+    </section>
+
+
+    <section id="content" class="Two_column eight_sec" style="margin-top:100px" ng-if="$root.url != '/{user2}' && $root.url != '/creategroup' && $root.url != '/group/{groupname}'">
+       <article>
+            <div class="col-md-12" style="background-image:url(images/im.png);background-repeat:no-repeat;background-position:center center;background-size:cover;width:100%;height:600px">
+              <div class="col-md-12" style="padding-top:230px">
+               <center><h1 style="color:#fff">Welcome to zappl chat section</h1></center>
+
+              </div>
+            </div>
+       </article>
+    </section>
+
+
+<!-- (CREATE GROUP SECTION) -->
+    <section id="content" data-ng-controller="homeCtrl as hc" ng-init = "hc.FollowerList_Chat(0,15)"  class="Two_column" style="margin-top:100px" ng-if="$root.url == '/creategroup' && $root.url != '/{user2}' && $root.url != '/group/{groupname}'">
+       <article>
+         <ul class="list-group">
+          <li class="list-group-item li_height" style="height:59px;background: #b9d5e6;">
+             <div class="col-md-4 col-xs-4" style="padding-top:2px;">
+               <h5 style="font-size: 12px">Add Participants</h5>
+             </div>
+             <div class="col-md-4 col-xs-8" style="padding-top:3px">
+               <div class="input-group">
+                      <input type="text" class="form-control" ng-model="findFollower" placeholder="Find User" style="-webkit-box-shadow:none !important">
+                         <div class="input-group-btn">
+     												<button class="btn btn-default" type="submit" style="height:34px;border-left:0px" ng-disabled="!findFollower.length" ng-click="hc.checkFollower()">
+     												 <i class="fa fa-search" style="color:#717f88"></i>
+     												</button>
+                        </div>
+                 </div>
+             </div>
+             <div class="col-md-4 col-xs-12 text-right btn_ht">
+               <button type="button" class="btn button_search" ng-click="check()" data-toggle="modal" data-target="#myModalmessage" >Create Group</button>
+             </div>
+          </li>
+
+
+          <li class="list-group-item" style="height: 75px;padding: 12px;" ng-if="view == true">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+              <div class="col-md-1 col-xs-1" style="padding-top:2px" >
+                    <input type="checkbox"  class="check" id="{{hc.findFollower}}" ng-model="selectedList[hc.findFollower]">
+              </div>
+                 <div class="col-md-1 col-sm-1 col-xs-1" style="padding:10px 0px 0px 0px;cursor: pointer;"  ui-sref="Profile({user : hc.findFollower})">
+                    <img ng-src="{{img123}}" class="img-responsive img-rounded hei_view" style="width:45px;height:45px"/>
+                 </div>
+                 <div class="col-md-8 col-xs-8">
+                   <h6 style="font-size: initial;font-weight: 500;font-family: inherit;cursor: pointer;" ui-sref="Profile({user : hc.findFollower})">@{{hc.findFollower}}</h6>
+                 </div>
+             </div>
+          </li>
+
+
+          <li class="list-group-item" style="height: 75px;padding: 12px;" ng-repeat="n in followerlist_chat" ng-if="view == false">
+            <div class="col-md-12 col-sm-12 col-xs-12"  >
+              <div class="col-md-1 col-xs-1" style="padding-top:2px" >
+                    <input type="checkbox" style="margin-top:23px;" class="check" id="{{n.author}}" ng-model="selectedList[n.author]">
+              </div>
+                 <div class="col-md-1 col-sm-1 col-xs-1" style="padding:10px 0px 0px 0px;cursor: pointer;"  ui-sref="Profile({user : n.author})">
+                    <img ng-src="{{n.imgUrl}}" class="img-responsive img-rounded hei_view" style="width:45px;height:45px;margin-top: 6px;margin-left: 6px;"/>
+                 </div>
+                 <div class="col-md-5 col-xs-4">
+                   <h6 style="font-size: initial;font-weight: 500;font-family: inherit;cursor: pointer;margin-top: 23px;" ui-sref="Profile({user : n.author})">@{{n.author}}</h6>
+                 </div>
+                 <div class="col-md-5 col-xs-6" >
+                  <a style="float: right;padding-top: 20px;cursor:pointer;" class="pad_mb_zero" ng-click="chatredirect(n.author)">Chat</a>
+                </div>
+             </div>
+          </li>
+</ul>
+
+
+
+<div ng-controller="messageCtrl as mc" id="myModalmessage" class="modal modal-child" data-backdrop-limit="1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-modal-parent="#myModal" style="background-color:#rgba(0,0,0,0.7)">
+      <div class="modal-dialog">
+
+        <div class="modal-content" style="background-image:url(images/gp.icon.png);background-size:cover;background-repeat:no-repeat;margin-top: 125px;">
+          <div class="modal-header" style="border-bottom:0px">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          <div class="modal-body" style="padding:15px 25px" data-ng-controller="homeCtrl as hc">
+            <center><h4 style="color:#fff;margin-bottom:10px">Create Group</h4>
+            <img id="imggrp" src="images/img-default.png" class="img-responsive img-rounded" style="height: 100px;width: 150px;">
+            <span class="select-wrapper">
+               <input type="file" name="image_src" data-toggle="tooltip" title="Select Group Image" style="width: 26px;height: 26px;opacity: 0;filter:alpha(opacity=0);" onchange="angular.element(this).scope().uploadgrpimage(this)">
+           </span> <br>
+             <!-- <input type="text" id='emojiIcon' class="gp_text" placeholder="Group Name... "> <br> <br> -->
+             <input type="text" ng-model="mc.grpname" class="gp_text" placeholder="Group Name... "> <br> <br>
+             <button type="button" class="btn button_layout" style="color:#21a3f2;font-weight:600" ng-click="createGroupz()">Create Group</button>  &nbsp; &nbsp; &nbsp;
+              </center>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+
+
+</div>
+
+
+
+       </article>
+    </section>
+
+<!-- (CREATE GROUP SECTION) -->
+
+    <!------------------------------------------------------------------second section---------------------------------------------------------------------->
+     <div class="clear"></div>
+        </div>

@@ -1,0 +1,33 @@
+<div >
+  <div data-ng-controller="replyCtrl as rc" ng-init = "rc.getUserReply(0,10)" >
+  <div class="col-md-12 col-sm-12 col-xs-12"  ng-repeat="n in userPostInfoReply" style="background-color:#fff;border:2px solid #e1e8ed;border-top:0px">
+    <div class="col-md-1 col-sm-1 col-xs-1" style="padding:10px 0px 0px 0px;"  ui-sref="Profile({user : n.author})">
+       <img ng-src="{{n.profileImage}}" class="img-responsive img-rounded hei_view" style="width:45px;height:45px"/>
+    </div>
+      <div class="col-md-11 col-sm-11 col-xs-11" style="padding:10px 12px 3px 10px;overflow:hidden;word-break:break-all;white-space:normal;" >
+          <h4 style="display:inline;text-transform:capitalize;cursor:pointer" ui-sref="Profile({user : n.author})">{{n.author}}</h4> <span style="color:#92a1ad">@{{n.author}}</span>
+           <br />
+          <img src="images/circle.png" width="5" height="5"/>
+          <!-- <span style="color:#92a1ad">{{n.post_time}} ago</span> -->
+          <span style="color:#92a1ad" ng-if="n.post_time != '1 minutes'">{{n.post_time}} ago</span>
+          <span style="color:#92a1ad" ng-if="n.post_time == '1 minutes'">Just now</span>
+          <br/>
+          <br/>
+          <!-- <p style="font-size:160%;color:#292f33;margin: 0 0 0px;line-height:19px"><b>{{n.title}}</b></p>
+          <br/> -->
+          <div><p style="color:#292f33;margin: 0 0 0px;line-height:19px">{{n.body}}</p></div>
+          <br/>
+          <span style="color:#0072bb;"># {{n.tags}}</span>  <br /> <br />
+          <img ng-src={{n.image}} class="img-responsive" /> <br />
+          <!-- <a ng-click="hc.postVote(n.author,n.permlink,$index)"><img style="cursor:pointer" src="images/z12.png" /></a> <span style="color:#717f88;font-size:13px">${{n.upvote}}</span> &nbsp;&nbsp; -->
+          <a ng-click="rc.postVote(n.author,n.permlink,$index)"><img ng-if="n.isVote == false" style="cursor:pointer" src="images/z12.png" /><img ng-if="n.isVote == true" style="cursor:pointer" src="images/z143.png" /></a><span style="color:#717f88;font-size:13px">${{n.upvote}}</span> &nbsp;&nbsp;
+          <span style="color:#717f88">.</span>&nbsp;&nbsp;
+          <img src="images/z12.png" /> <span style="color:#717f88;font-size:13px">{{n.net_votes}}</span>&nbsp;&nbsp;
+          <span style="color:#717f88">.</span>&nbsp;&nbsp;
+          <span style="color:#717f88;font-size:13px">Comment({{n.comments}})</span>&nbsp;&nbsp;
+          <!-- <span style="color:#717f88">.</span>&nbsp;&nbsp;
+          <span style="color:#717f88;font-size:13px">{{n.post_time}} ago</span> -->
+      </div>
+  </div>
+  </div>
+</div>

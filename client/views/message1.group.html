@@ -1,0 +1,212 @@
+<div ng-controller="messageCtrl as mc" ng-init="createGroup1()" >
+
+       <div class="col-md-12 col-sm-12 col-xs-12 div_sec1" style="border-radius:5px 5px 0px 0px;padding-top:6px;border-bottom:1px solid #e1e8ed;position:relative;background-color:#fff;padding-bottom:6px" >
+           <div class="col-md-1" style="padding-top:4px">
+              <img src="{{grpimg}}"  class="img-responsive img-rounded hei_view" style="width:35px;height:35px"/>
+           </div>
+           <div class="col-md-4">
+              <h4 style="color:#66757f;margin-bottom:0px;margin-top:3px;margin-bottom:-9px">{{grpname}}</h4>
+              <a data-target="#myModalgp1" data-toggle="modal" style="outline:none;font-size:14px;font-weight:bold;color:#000;cursor:pointer;" ng-click="viewimgname()"><span> > </span> </a>
+              <span style="font-size:14px;color:#000"> {{grplength}} Participants</span> <br>
+           </div>
+           <div class="col-md-4">
+
+           </div>
+       </div>
+
+
+<div ng-repeat="user in users">
+
+ <div ng-if="user.username != mc.username" class="col-md-12 col-sm-12 col-xs-12 div_sec1" style="border-radius:0px;padding-top:3px;border-bottom:0px;position:relative" >
+        <div class="col-md-7" >
+          <div class="talk-bubble tri-right round btm-left">
+             <div class="talktext">
+               <span style="font-size:12px">{{user.username}} : </span>
+               <p><span style="overflow:hidden;word-break:break-all;white-space:normal;" ng-bind-html="user.message1"></span></p>
+            </div>
+         </div>
+       </div>
+       <div class="col-md-12" style="padding-bottom:15px">
+         <div class="col-md-7  text-left" style="margin-left: 35px;">
+             <span style="color:rgb(126,126,126);font-size: 10px;font-weight: 300;">{{user.date | date: 'MM/dd/yyyy @ h:mma'}}</span>
+         </div>
+       </div>
+  </div>
+
+<div ng-if="user.username == mc.username" class="col-md-12 col-sm-12 col-xs-12 div_sec1" style="border-radius:0px 0px 5px 5px;border-bottom:0px;padding-top:3px;" >
+    <div class="col-md-7 col-md-offset-4">
+      <div class="talk-bubble1 round1 tri-right btm-right">
+          <div class="talktext">
+             <p style="color:#66758f"><span style="overflow:hidden;word-break:break-all;white-space:normal;" ng-bind-html="user.message1"></span></p>
+          </div>
+      </div>
+    </div>
+     <div class="col-md-1 col-xs-6 pad_mb_zero" style="padding-top:13px">
+         <span ng-if="user.audio == 'true'"><a style="cursor:pointer" data-target="#myModal_edit" data-toggle="modal" ng-click="mc.editMessage($index, user, users)"><img src="images/edit.png" width="16" height="20"></a>&nbsp;&nbsp;&nbsp;</span>
+         <a ng-click="deletemsg_grp($index, users, user)"><img src="images/del.png"width="16" height="20"></a>
+     </div>
+     <div class="col-md-12 col-xs-6" style="padding-bottom:15px" >
+        <div class="col-md-11  text-right">
+            <span style="color:rgb(126,126,126);font-size: 10px;font-weight: 300;">{{user.date | date: 'MM/dd/yyyy @ h:mma'}}</span>
+        </div>
+     </div>
+</div>
+
+
+
+</div>
+     <div class="col-md-12 col-sm-12 col-xs-12 div_sec1" style="border-color: white;border-radius:0px 0px 5px 5px;padding-top:20px;border-bottom:0px;position:relative;padding-bottom:5px" >
+         <ul class="list-unstyled" id="updates"></ul>
+            <div class="col-md-10 col-sm-10 col-xs-12" style="padding-top:7px;padding:6px 0px 3px 7px">
+            <textarea id='emojiIcon' placeholder="Write your zap... " rows="4" cols="50"></textarea>
+            </div>
+
+           <div class="col-md-2 col-sm-2 col-xs-12" style="padding-top:7px;padding:0px 0px 3px 7px;margin-top: 40px;">
+             <button class="btn button_layout " style="padding:7px 30px !important" type="button" ng-click="doPostGroup()"><span style="color:3292f33;font-weight:600">Post</span></button>
+          </div>
+
+     </div>
+      <div class="col-md-12 col-sm-12 col-xs-12 div_sec1" style="border-radius:0px 0px 5px 5px;padding-top:10px;border-bottom:0px;position:relative;padding-bottom:30px;padding-left:20px" >
+         <span class="select-wrapper1">
+             <input type="file" name="image_src" style="width: 26px;height: 26px;opacity: 0;filter:alpha(opacity=0);" onchange="angular.element(this).scope().uploadFile11(this)"/>
+         </span>&nbsp;&nbsp;&nbsp;
+
+         <span class="select-wrapper2">
+             <input type="file" name="image_src" style="width: 26px;height: 26px;opacity: 0;filter:alpha(opacity=0);" onchange="angular.element(this).scope().uploadFile12(this)"/>
+         </span>&nbsp;&nbsp;&nbsp;
+
+         <span class="select-wrapper3">
+             <input type="file" name="image_src" style="width: 26px;height: 26px;opacity: 0;filter:alpha(opacity=0);" onchange="angular.element(this).scope().uploadFile13(this)"/>
+         </span>&nbsp;&nbsp;&nbsp;
+
+         <span class="select-wrapper4">
+             <input type="file" name="image_src" style="width: 26px;height: 26px;opacity: 0;filter:alpha(opacity=0);" onchange="angular.element(this).scope().uploadFile14(this)"/>
+         </span>&nbsp;&nbsp;&nbsp;
+         <span class="select-wrapper5">
+          <a data-target="#myModalgp3" data-toggle="modal"><img src="images/add-conversation.png" width="30" height="30" /></a>
+        </span>
+     </div>
+
+
+
+
+     <div id="myModal_edit" class="modal modal-child" data-backdrop-limit="1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-modal-parent="#myModal" style="background-color:#rgba(0,0,0,0.7)">
+         <div class="modal-dialog">
+             <div class="modal-content">
+                 <div class="modal-header" style="border-bottom:0px;">
+                  <button type="button" class="close" data-dismiss="modal" style="color:#000 !important;outline:0px">&times;</button>
+                 </div>
+                 <div class="modal-body" style="padding:0px 25px">
+                     <center><h3>Edit message</h3></center> <br>
+                     <div class="col-md-1">
+                     </div>
+                     <div class="col-md-10">
+                       <div class="form-group">
+                           <div id="editable" class="editable" max="2500" style="border: 1px solid black;padding: 10px;border-radius: 5px;height: auto;width: 100%;"></div>
+                      </div>
+                     </div>
+                    <div class="col-md-1"></div> <br> <br> <br>
+                  <div class="modal-footer text-center" style="border-top:0px;text-align:center !important">
+                  <div class="col-md-12" style="margin-top:20px">
+                    <button type="button" class="btn button_layout" data-dismiss="modal" style="color:#333333;font-weight:600;" ng-click="editPost()">Save</button> &nbsp;&nbsp;&nbsp;
+                    <a><span class="spa_cancel" data-dismiss="modal" style="cursor:pointer">Cancel</span></a>
+                 </div>
+              </div>
+             </div>
+         </div>
+     </div>
+</div>
+
+
+<div class="modal fade" id="myModalgp1" role="dialog" style="background-color:rgba(0,0,0,0.7)">
+  <div class="modal-dialog">
+    <div class="modal-content" style="background-color:#21a3f2;border-radius:0px">
+      <div class="modal-header" style="border-bottom:0px">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+         <center>
+           <h4 style="color:#fff">{{grpname}}</h4>
+           <h5 style="color:#fff">{{grplength}} Participants</h5>
+      </div>
+      <div class="modal-body" style="padding:15px 25px;height:500px;overflow-y: auto;">
+       </center>
+       <div class="list-group" >
+       <span ng-repeat= "p in imgnamelist">
+         <span class="list-group-item">
+           <img src="{{p.Image}}" style="width:30px;height:30px;margin-right: 10px;" />
+           <span style="font-size: medium;font-family: inherit;">@{{p.name}}</span>
+           <span ng-if="p.name == mc.username" style="float: right;color: transparent;margin-left: 10px;"> Chat</span>
+           <span ng-if="p.name !== mc.username" style="float: right;cursor:pointer;"> <a ng-click="chatredirect(p.name)"> Chat</a></span>
+           <span style="float: right;cursor:pointer;"><a ng-click="profileredirect(p.name)">View Profile <span ng-if="p.name !== mc.username" style="margin-right: 5px;">|</span> </a></span></span>
+     </span>
+
+
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="myModalgp3" role="dialog" style="background-color:rgba(0,0,0,0.7)">
+  <div class="modal-dialog">
+    <div class="modal-content" style="background-color:white;border-radius:0px">
+      <div class="modal-header" style="border-bottom:0px">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <center>
+          <p style="color: black;font-size: large;font-weight: 400;font-family: sans-serif;border-bottom: 1px solid;">{{grpname}}</p>
+          <p style="color: black;font-family: inherit;font-weight: 400;">Add New Participant</p>
+     </div>
+
+      <div class="modal-body" style="padding:15px 25px">
+
+      <ul class="list-group">
+       <li class="list-group-item li_height" style="height:59px;background: #b9d5e6;">
+            <div class="col-md-7 col-xs-9" style="padding-top:3px">
+            <div class="input-group">
+                   <input type="text" class="form-control" ng-model="finduser" placeholder="Find User" style="-webkit-box-shadow:none !important">
+                      <div class="input-group-btn">
+                         <button class="btn btn-default" type="submit" style="height:34px;border-left:0px" ng-disabled="!finduser.length" ng-click="checkName()">
+                          <i class="fa fa-search" style="color:#717f88"></i>
+                         </button>
+                     </div>
+              </div>
+          </div>
+          <div class="col-md-5 col-xs-12 text-right btn_ht" ng-if="view == true">
+            <button type="button" class="btn button_search" ng-click="check();addToGroup();" data-toggle="modal" data-target="#myModalmessage" >Add to Group</button>
+          </div>
+       </li>
+
+
+       <li class="list-group-item" style="height: 75px;padding: 12px;" ng-if="view == true">
+         <div class="col-md-12 col-sm-12 col-xs-12">
+           <div class="col-md-1 col-xs-1" style="padding-top:2px" >
+                 <input type="checkbox"  class="check" id="{{mc.finduser}}" ng-model="selectedList[mc.finduser]">
+           </div>
+              <div class="col-md-1 col-sm-1 col-xs-1" style="padding:10px 0px 0px 0px;cursor: pointer;"  ui-sref="Profile({user : mc.finduser})">
+                 <img ng-src="{{img123}}" class="img-responsive img-rounded hei_view" style="width:45px;height:45px"/>
+              </div>
+              <div class="col-md-8 col-xs-8">
+                <h6 style="font-size: initial;font-weight: 500;font-family: inherit;cursor: pointer;" ui-sref="Profile({user : mc.finduser})">@{{mc.finduser}}</h6>
+              </div>
+          </div>
+       </li>
+
+
+
+</ul>
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+</div>

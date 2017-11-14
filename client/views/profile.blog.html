@@ -1,0 +1,145 @@
+<!-- <div>
+  <div class="col-md-12 col-sm-12 col-xs-12" ng-repeat="n in userPostInfo"  style="background-color:#fff;border:2px solid #e1e8ed;border-top:0px">
+        <div class="col-md-1 col-sm-1 col-xs-1" style="padding:10px 0px 0px 0px">
+           <img style="border-radius: 25px;" ng-src="{{n.profileImage}}" />
+        </div>
+        <div data-ng-controller="feedInfoCtrl as fi" class="col-md-11 col-sm-11 col-xs-11" style="padding:10px 12px 3px 10px;overflow:hidden;word-break:break-all;white-space:normal;" >
+            <h4 style="display:inline;text-transform:capitalize;cursor:pointer"  ui-sref="Profile({user : n.author})">{{n.author}}</h4> <span style="color:#92a1ad">@{{n.author}}</span>
+             <br />
+            <img src="images/circle.png" width="5" height="5"/>
+            <span style="color:#92a1ad">{{n.post_time}} ago</span>
+            <a ui-sref="UserPost({tag : n.tags,username: n.author, permlink: n.permlink})"><p style="font-size:100%;color:#292f33;margin: 0 0 0px;line-height:19px"><b>{{n.bodyTitle}}</b></p></a>
+             <br />
+            <a ui-sref="UserPost({tag : n.tags,username: n.author, permlink: n.permlink})">
+              <span ng-show="n.y === true && n.i === false && n.v === false">
+                <iframe  width="420" height="345" src="{{n.image1}}" frameborder="0" allowfullscreen></iframe>
+              </span>
+            <span ng-show="n.i === true && n.y === false && n.v === false"><img src={{n.image1}} class="img-responsive"/></span>
+            <span ng-show="n.v === true && n.i === false && n.y === false"><video width="420" height="345" controls><source src="{{n.image1}}" type="video/mp4"></video> </span>
+          </a> <br />
+
+            <a ng-click="hc.postVote(n.author,n.permlink,$index)"><img style="cursor:pointer" src="images/z12.png" /></a><span style="color:#717f88;font-size:13px">${{n.upvote}}</span> &nbsp;&nbsp;
+            <img src="images/z12.png" /> <span style="color:#717f88;font-size:13px">{{n.net_votes}}</span>&nbsp;
+            <span style="color:#717f88">.</span>&nbsp;
+            <a ui-sref="UserPost({tag : n.tags,username: n.author, permlink: n.permlink})"><span style="color:#717f88;font-size:13px">Comment({{n.comments}})</span></a>&nbsp;
+            <span ng-if="hc.userInfo.userInfo.name != hc.username"><span style="color:#717f88">.</span>&nbsp;
+            <a ng-click="fi.getRezapList(n.author,n.permlink)"><span style="color:#717f88;font-size:13px">Rezap</span></a>&nbsp;</span>
+            <span style="color:#717f88">.</span>&nbsp;
+            <span style="color:#717f88;font-size:13px">{{n.post_time}} ago</span>
+          </div>
+        <hr>
+    </div>
+       </div> -->
+
+
+       <span data-ng-controller="homeCtrl as hc" ng-if="hc.nsfw === 'Always show'">
+            <div class="col-md-12 col-sm-12 col-xs-12" ng-repeat="n in userPostInfo"  style="background-color:#fff;border:2px solid #e1e8ed;border-top:0px">
+              <div class="col-md-1 col-sm-1 col-xs-1" style="padding:10px 0px 0px 0px;"  ui-sref="Profile({user : n.author})">
+                 <img ng-src="{{n.profileImage}}" class="img-responsive img-rounded hei_view" style="width:45px;height:45px"/>
+              </div>
+                  <div data-ng-controller="feedInfoCtrl as fi" class="col-md-11 col-sm-11 col-xs-11" style="padding:10px 12px 3px 10px;overflow:hidden;word-break:break-all;white-space:normal;">
+                      <h4 style="display:inline;text-transform:capitalize;cursor:pointer"  ui-sref="Profile({user : n.author})">{{n.author}}</h4> <span style="color:#92a1ad">@{{n.author}}</span>
+                       <br />
+                      <img src="images/circle.png" width="5" height="5"/>
+                      <!-- <span style="color:#92a1ad">{{n.post_time}} ago</span> -->
+                      <span style="color:#92a1ad" ng-if="n.post_time != '1 minutes'">{{n.post_time}} ago</span>
+                      <span style="color:#92a1ad" ng-if="n.post_time == '1 minutes'">Just now</span>
+                      <a ui-sref="UserPost({tag : n.tags,username: n.author, permlink: n.permlink})"><p style="font-size:100%;color:#292f33;margin: 0 0 0px;line-height:19px"><b>{{n.bodyTitle}}</b></p></a>
+                      <a ui-sref="UserPost({tag : n.tags,username: n.author, permlink: n.permlink})">
+                        <span ng-show="n.y === true && n.i === false && n.v === false">
+                          <iframe  width="420" height="345" src="{{n.image1}}" frameborder="0" allowfullscreen></iframe>
+                        </span>
+                      <span ng-show="n.i === true && n.y === false && n.v === false"><img src={{n.image1}} class="img-responsive"/></span>
+                      <span ng-show="n.v === true && n.i === false && n.y === false"><video width="420" height="345" controls><source src="{{n.image1}}" type="video/mp4"></video> </span>
+                    </a> <br />
+                      <!-- <a id='img' ng-click="hc.postVote(n.author,n.permlink,$index)"><img  style="cursor:pointer" src="images/z12.png" /></a><span style="color:#717f88;font-size:13px">${{n.upvote}}</span> &nbsp;&nbsp; -->
+                      <a ng-click="hc.postVote_Profile(n.author,n.permlink,$index)"><img ng-if="n.isVote == false" style="cursor:pointer" src="images/z12.png" /><img ng-if="n.isVote == true" style="cursor:pointer" src="images/z143.png" /></a><span style="color:#717f88;font-size:13px">${{n.upvote}}</span> &nbsp;
+                      <span style="color:#717f88">.</span>&nbsp;
+                      <img src="images/z12.png" /> <span style="color:#717f88;font-size:13px">{{n.net_votes}}</span>&nbsp;
+                      <span style="color:#717f88">.</span>&nbsp;
+                      <a ui-sref="UserPost({tag : n.tags,username: n.author, permlink: n.permlink})"><span style="color:#717f88;font-size:13px">Comment({{n.comments}})</span></a>&nbsp;
+                      <span ng-if="n.author != hc.username"><span style="color:#717f88">.</span>&nbsp;
+                      <a ng-click="fi.getRezapList(n.author,n.permlink)"><span style="color:#717f88;font-size:13px;cursor:pointer">Rezap</span></a>&nbsp;</span>
+                      <!-- <span style="color:#717f88">.</span>&nbsp;
+                      <span style="color:#717f88;font-size:13px">{{n.post_time}} ago</span> -->
+                    </div>
+                  <hr>
+              </div>
+       </span>
+
+
+       <span data-ng-controller="homeCtrl as hc" ng-if="hc.nsfw === 'Always hide'">
+            <div class="col-md-12 col-sm-12 col-xs-12" ng-repeat="n in userPostInfo" ng-if="n.nsfw === false"  style="background-color:#fff;border:2px solid #e1e8ed;border-top:0px">
+              <div class="col-md-1 col-sm-1 col-xs-1" style="padding:10px 0px 0px 0px;"  ui-sref="Profile({user : n.author})">
+                 <img ng-src="{{n.profileImage}}" class="img-responsive img-rounded hei_view" style="width:45px;height:45px"/>
+              </div>
+                  <div data-ng-controller="feedInfoCtrl as fi" class="col-md-11 col-sm-11 col-xs-11" style="padding:10px 12px 3px 10px;overflow:hidden;word-break:break-all;white-space:normal;">
+                      <h4 style="display:inline;text-transform:capitalize;cursor:pointer"  ui-sref="Profile({user : n.author})">{{n.author}}</h4> <span style="color:#92a1ad">@{{n.author}}</span>
+                       <br />
+                      <img src="images/circle.png" width="5" height="5"/>
+                      <!-- <span style="color:#92a1ad">{{n.post_time}} ago</span> -->
+                      <span style="color:#92a1ad" ng-if="n.post_time != '1 minutes'">{{n.post_time}} ago</span>
+                      <span style="color:#92a1ad" ng-if="n.post_time == '1 minutes'">Just now</span>
+                      <a ui-sref="UserPost({tag : n.tags,username: n.author, permlink: n.permlink})"><p style="font-size:100%;color:#292f33;margin: 0 0 0px;line-height:19px"><b>{{n.bodyTitle}}</b></p></a>
+                      <a ui-sref="UserPost({tag : n.tags,username: n.author, permlink: n.permlink})">
+                        <span ng-show="n.y === true && n.i === false && n.v === false">
+                          <iframe  width="420" height="345" src="{{n.image1}}" frameborder="0" allowfullscreen></iframe>
+                        </span>
+                      <span ng-show="n.i === true && n.y === false && n.v === false"><img src={{n.image1}} class="img-responsive"/></span>
+                      <span ng-show="n.v === true && n.i === false && n.y === false"><video width="420" height="345" controls><source src="{{n.image1}}" type="video/mp4"></video> </span>
+                    </a> <br />
+                      <!-- <a id='img' ng-click="hc.postVote(n.author,n.permlink,$index)"><img  style="cursor:pointer" src="images/z12.png" /></a><span style="color:#717f88;font-size:13px">${{n.upvote}}</span> &nbsp;&nbsp; -->
+                      <a ng-click="hc.postVote_Profile(n.author,n.permlink,$index)"><img ng-if="n.isVote == false" style="cursor:pointer" src="images/z12.png" /><img ng-if="n.isVote == true" style="cursor:pointer" src="images/z143.png" /></a><span style="color:#717f88;font-size:13px">${{n.upvote}}</span> &nbsp;
+                      <span style="color:#717f88">.</span>&nbsp;
+                      <img src="images/z12.png" /> <span style="color:#717f88;font-size:13px">{{n.net_votes}}</span>&nbsp;
+                      <span style="color:#717f88">.</span>&nbsp;
+                      <a ui-sref="UserPost({tag : n.tags,username: n.author, permlink: n.permlink})"><span style="color:#717f88;font-size:13px">Comment({{n.comments}})</span></a>&nbsp;
+                      <span ng-if="n.author != hc.username"><span style="color:#717f88">.</span>&nbsp;
+                      <a ng-click="fi.getRezapList(n.author,n.permlink)"><span style="color:#717f88;font-size:13px;cursor:pointer">Rezap</span></a>&nbsp;</span>
+                      <!-- <span style="color:#717f88">.</span>&nbsp;
+                      <span style="color:#717f88;font-size:13px">{{n.post_time}} ago</span> -->
+                    </div>
+                  <hr>
+              </div>
+       </span>
+
+
+       <span data-ng-controller="homeCtrl as hc" ng-if="hc.nsfw === 'Always warn'">
+            <div class="col-md-12 col-sm-12 col-xs-12" ng-repeat="n in userPostInfo" style="background-color:#fff;border:2px solid #e1e8ed;border-top:0px">
+              <div class="col-md-1 col-sm-1 col-xs-1" style="padding:10px 0px 0px 0px;"  ui-sref="Profile({user : n.author})">
+                 <img ng-src="{{n.profileImage}}" class="img-responsive img-rounded hei_view" style="width:45px;height:45px"/>
+              </div>
+                  <div data-ng-controller="feedInfoCtrl as fi" class="col-md-11 col-sm-11 col-xs-11" style="padding:10px 12px 3px 10px;overflow:hidden;word-break:break-all;white-space:normal;">
+                   <span ng-if="n.nsfw === false">
+                      <h4 style="display:inline;text-transform:capitalize;cursor:pointer"  ui-sref="Profile({user : n.author})">{{n.author}}</h4> <span style="color:#92a1ad">@{{n.author}}</span>
+                       <br />
+                      <img src="images/circle.png" width="5" height="5"/>
+                      <!-- <span style="color:#92a1ad">{{n.post_time}} ago</span> -->
+                      <span style="color:#92a1ad" ng-if="n.post_time != '1 minutes'">{{n.post_time}} ago</span>
+                      <span style="color:#92a1ad" ng-if="n.post_time == '1 minutes'">Just now</span>
+                      <a ui-sref="UserPost({tag : n.tags,username: n.author, permlink: n.permlink})"><p style="font-size:100%;color:#292f33;margin: 0 0 0px;line-height:19px"><b>{{n.bodyTitle}}</b></p></a>
+                      <a ui-sref="UserPost({tag : n.tags,username: n.author, permlink: n.permlink})">
+                        <span ng-show="n.y === true && n.i === false && n.v === false">
+                          <iframe  width="420" height="345" src="{{n.image1}}" frameborder="0" allowfullscreen></iframe>
+                        </span>
+                      <span ng-show="n.i === true && n.y === false && n.v === false"><img ng-src={{n.image1}} class="img-responsive"/></span>
+                      <span ng-show="n.v === true && n.i === false && n.y === false"><video width="420" height="345" controls><source src="{{n.image1}}" type="video/mp4"></video> </span>
+                    </a> <br />
+                    </span>
+                    <span ng-if="n.nsfw === true">
+                            <p style="font-size: smaller;">This post is <span style="color: red;border: 1px solid red;border-radius: 3px;padding: 1px;">nsfw</span>.You can <a ui-sref="UserPost({tag : n.tags,username: n.author, permlink: n.permlink})">reveal it</a> or adjust your <a href="/#!/Settings">display preferences</a>.</p>
+                    </span>
+                      <!-- <a id='img' ng-click="hc.postVote(n.author,n.permlink,$index)"><img  style="cursor:pointer" src="images/z12.png" /></a><span style="color:#717f88;font-size:13px">${{n.upvote}}</span> &nbsp;&nbsp; -->
+                      <a ng-click="hc.postVote_Profile(n.author,n.permlink,$index)"><img ng-if="n.isVote == false" style="cursor:pointer" src="images/z12.png" /><img ng-if="n.isVote == true" style="cursor:pointer" src="images/z143.png" /></a><span style="color:#717f88;font-size:13px">${{n.upvote}}</span> &nbsp;
+                      <span style="color:#717f88">.</span>&nbsp;
+                      <img src="images/z12.png" /> <span style="color:#717f88;font-size:13px">{{n.net_votes}}</span>&nbsp;
+                      <span style="color:#717f88">.</span>&nbsp;
+                      <a ui-sref="UserPost({tag : n.tags,username: n.author, permlink: n.permlink})"><span style="color:#717f88;font-size:13px">Comment({{n.comments}})</span></a>&nbsp;
+                      <span ng-if="n.author != hc.username"><span style="color:#717f88">.</span>&nbsp;
+                      <a ng-click="fi.getRezapList(n.author,n.permlink)"><span style="color:#717f88;font-size:13px;cursor:pointer">Rezap</span></a>&nbsp;</span>
+                      <!-- <span style="color:#717f88">.</span>&nbsp;
+                      <span style="color:#717f88;font-size:13px">{{n.post_time}} ago</span> -->
+                    </div>
+                  <hr>
+              </div>
+       </span>

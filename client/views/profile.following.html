@@ -1,0 +1,22 @@
+<div class="col-md-12 col-sm-12 col-xs-12" style="background-color:#fff;border:1px solid #e1e8ed;border-radius:5px 5px 0px 0px;padding:7px 15px">
+
+   <div class="col-md-4 col-sm-4 col-xs-4 text-center" style="padding-top:10px">
+       <h4 class="text_com" style="display:inline;color:#313131 !important">Following</h4>
+   </div>
+
+</div>
+
+<div ng-init = "hc.getUserFollowingListByUserName(0,20)"  >
+<div class="col-md-12 col-sm-12 col-xs-12" ng-repeat="n in hc.following" style="background-color:#fff;border:1px solid #e1e8ed;border-top:0px;padding-bottom: 8px;">
+     <div class="col-md-11 col-sm-11 col-xs-11" style="padding:19px 12px 3px 10px">
+       <div class="col-md-12 col-sm-12 col-xs-12">
+             <h4 style="display:inline;text-transform:capitalize;cursor:pointer" ui-sref="Profile({user : n.user})">{{n.user}}</h4> <span style="color:#92a1ad">@{{n.user}}</span>
+             <span class="col-md-12 col-sm-12 col-xs-12" style="cursor:pointer" >
+                   <span ng-if="n.status == true" style="cursor:pointer"><a ng-click="hc.postFollow(n.user)"> <img src="1/images/followus.png" style="margin-top:10px"></a></span>
+                   <span ng-if="n.status == false" style="cursor:pointer"><a ng-click="hc.postUnfollow(n.user)"><img src="1/images/unfollow.png" style="margin-top:7px;"></a></span>
+             </span>
+       </div>
+
+     </div>
+</div>
+  </div>
