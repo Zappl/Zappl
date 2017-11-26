@@ -1,5 +1,5 @@
 {
-  "websocket": "wss://steemd.privex.io ",
+  "websocket": "wss://steemd.steemitstage.com",
   "address_prefix": "STM",
   "chain_id": "0000000000000000000000000000000000000000000000000000000000000000"
 }
