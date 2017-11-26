@@ -1,43 +1,12 @@
-@charset "utf-8";
-/* CSS Document */
-
-body{
-    background-color: #eef1f3;
-	overflow-x:hidden;}
-
-
-.li{
-	list-style-type:none !important;
-}
-
-
-.navBot li  {
-    display:inline-block;
-}
-
-.navigation {
-	background-color:#21a3f2;
-	border:#21a3f2;
-}
-
-.nav>li>a {
-    position: relative;
-    display: block;
-    padding: 5px 15px;
-}
-.nav>li>a:hover {
-   background-color:inherit;
-}
-.nav>li>a:focus {
-   background-color:inherit;
-   border-bottom:5px solid #fff;
-}
-
-.nav>li>a:active {
-    border-bottom:5px solid #fff;
-}
-
-#email::-webkit-input-placeholder {color:#0072bb;}
-#email::-moz-placeholder          {color:#0072bb;}
-#email:-moz-placeholder           {color:#0072bb;}
-#email:-ms-input-placeholder      {color:#0072bb;}
+@charset "utf-8";body{background-color:#eef1f3;overflow-x:hidden;}
+.li{list-style-type:none !important;}
+.navBot li{display:inline-block;}
+.navigation{background-color:#21a3f2;border:#21a3f2;}
+.nav>li>a{position:relative;display:block;padding:5px 15px;}
+.nav>li>a:hover{background-color:inherit;}
+.nav>li>a:focus{background-color:inherit;border-bottom:5px solid #fff;}
+.nav>li>a:active{border-bottom:5px solid #fff;}
+#email::-webkit-input-placeholder{color:#0072bb;}
+#email::-moz-placeholder{color:#0072bb;}
+#email:-moz-placeholder{color:#0072bb;}
+#email:-ms-input-placeholder{color:#0072bb;}
