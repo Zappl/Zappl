@@ -1,7 +1,7 @@
 var http = require('https');
 var steem = require('steem');
 var jwt = require('jsonwebtoken');
-var secretKey = 'key';
+var secretKey = '1qazZAQ!2wsxXSW@';
 var moment = require('moment');
 var key_utils = require('../updatePsw/key_utils');
 var db = require('../db/connect');
@@ -33,6 +33,24 @@ var md = new Remarkable('full', {
     return ''; // use external default escaping
   }
 });
+
+
+// exports.postSQLite = function(data,callback){
+//   db.collection("SqliteTbl").find({}).toArray(function(err, result){
+//     if(result != []){
+//       db.SqliteTbl.drop({});
+//     }
+//     db.SqliteTbl.save({
+//             list : data.list
+//             }, function(err) {
+//                 if (err) {
+//                 console.log(err);
+//                 callback(err,null);
+//               }
+//               callback(null);
+//         });
+//   })
+// }
 
 exports.getSQInfo = function(callback){
   db.collection("SqliteTbl").find({}).toArray(function(err, result){
@@ -156,6 +174,27 @@ exports.setRoomHistory = function(data,callback){
       });
     }
 
+// exports.getRoomHistory = function(username,callback){
+//   db.chatRoomHistory.findOne({
+//           room : room
+//         }, function(err, valueInfo) {
+//           if (err) {
+//             console.log(err);
+//           }
+//           if(valueInfo !== undefined && valueInfo !== null && valueInfo !=='')
+//           {
+//             var data = {
+//               room : valueInfo.room,
+//               chat : valueInfo.chat
+//             }
+//             callback(null,data);
+//           }
+//           else {
+//             callback(null);
+//           }
+//         });
+//   };
+
 
 exports.setRoomList = function(data,callback){
   db.roomList.findOne({
@@ -201,6 +240,95 @@ exports.setRoomList = function(data,callback){
 
 
 
+// exports.setChat = function(data,callback){
+//   db.chatData.findOne({
+//         room : data.room
+//         }, function(err, valueInfo) {
+//         if (err) {
+//           console.log(err);
+//         }
+//         else{
+//           // console.log("valueInfo",valueInfo);
+//           if(valueInfo !== undefined && valueInfo !== null && valueInfo !=='')
+//           {
+//             db.chatData.update({
+//               room : data.room
+//             }, {
+//               '$set': {
+//                 chat : data.chat
+//                 }
+//             }, function(err) {
+//               if (err) {
+//                 console.log(err);
+//                 callback(err,null);
+//               }
+//               callback(null);
+//             });
+//           }
+//           else {
+//             db.chatData.save({
+//               room : data.room,
+//               chat : data.chat
+//                 }, function(err) {
+//                   if (err) {
+//                   console.log(err);
+//                   callback(err,null);
+//                 }
+//                 callback(null);
+//               });
+//           }
+//         }
+//       });
+//     }
+
+
+// exports.setChat = function(data,callback){
+//   db.chatData.findOne({
+//         room : data.room
+//         }, function(err, valueInfo) {
+//         if (err) {
+//           console.log(err);
+//         }
+//         else{
+//             if(valueInfo !== undefined && valueInfo !== null && valueInfo !=='')
+//           {
+//             db.chatData.update({
+//               room : data.room
+//             }, {
+//               '$set': {
+//                 chat : data.chat,
+//                 displayName : data.displayName,
+//                 type : data.type,
+//                 members : data.members,
+//                 img : data.img
+//                 }
+//             }, function(err) {
+//               if (err) {
+//                 console.log(err);
+//                 callback(err,null);
+//               }
+//               callback(null);
+//             });
+//           }
+//           else {
+//             db.chatData.save({
+//               room : data.room,
+//               chat : data.chat,
+//               displayName : data.displayName,
+//               type : data.type,
+//               members : data.members,
+//               img : data.img
+//                 }, function(err) {
+//                   if (err) {
+//                   console.log(err);
+//                   callback(err,null);
+//                 }
+//                 callback(null);
+//               });
+//           }
+//         }
+//       });
+//     }
 
 
 exports.setChat = function(data,callback){
@@ -250,6 +378,28 @@ exports.setChat = function(data,callback){
         }
       });
     }
+
+
+    // exports.getChat = function(room,callback){
+    //   db.chatData.findOne({
+    //           room : room
+    //         }, function(err, valueInfo) {
+    //           if (err) {
+    //             console.log(err);
+    //           }
+    //           if(valueInfo !== undefined && valueInfo !== null && valueInfo !=='')
+    //           {
+    //             var data = {
+    //               room : valueInfo.room,
+    //               chat : valueInfo.chat
+    //             }
+    //             callback(null,data);
+    //           }
+    //           else {
+    //             callback(null);
+    //           }
+    //         });
+    //   };
 
     exports.getChat = function(room,callback){
       db.chatData.findOne({
@@ -1878,6 +2028,57 @@ exports.getTestUserCommentsOnPost = function(parent, parentPermlink,callback){
           })
           }
 
+          // exports.getTestUserCommentsOnPost = function(parent, parentPermlink,callback){
+          //     var comments_on_post={};
+          //     var comments = [];
+          //     steem.api.getContentReplies(parent, parentPermlink, function(err, res){
+          //       var length = Object.keys(res).length;
+          //                 for (i=0;i<length;i++){
+          //                   var content = res[Object.keys(res)[i]];
+          //                   var result;
+          //                   if(content.json_metadata !== ''){
+          //                       result = JSON.parse(content.json_metadata);
+          //                       }
+          //                   else{
+          //                       result = {tag:content.catagory};
+          //                       }
+          //                   var image =[];
+          //                   var postImage='';
+          //                   image = result.image;
+          //                   if(image !== undefined  && image.length > 0)
+          //                       {
+          //                         postImage = image[0];
+          //                       }
+          //                   else {
+          //                         postImage = '';
+          //                       }
+          //                   commentPost = {
+          //                     profile_image : "https://worldarts2015.s3-us-west-2.amazonaws.com/images/default-profile-picture.jpg?cache=1473463677",
+          //                     author : content.author,
+          //                     permlink : content.permlink,
+          //                     parent_author : content.parent_author,
+          //                     parent_permlink : content.parent_permlink,
+          //                     created : content.created,
+          //                     body   : content.body,
+          //                     upvote :  content.pending_payout_value,
+          //                     vote : content.net_votes,
+          //                     comments : content.children,
+          //                     tags : content.category,
+          //                     url : content.url,
+          //                     id : content.id,
+          //                     image : postImage,
+          //                     active_votes: content.active_votes,
+          //                     replies : content.replies
+          //                     }
+          //                     comments.push(commentPost);
+          //                   }
+          //             comments_on_post.comments = comments;
+          //             callback(null,comments_on_post);
+          //           })
+          //           }
+
+
+
 exports.getUserPostContent = function(tag,username,permlink,callback){
     var comments_on_post={};
     var comments = [];
@@ -3131,6 +3332,7 @@ exports.checkVoteTest = function(author,permlink,username,value,callback){
 
 
 exports.postVote = function(data,callback){
+  // console.log("In main : ",data);
   var token = data.token;
   var decode = jwt.verify(token, secretKey);
       steem.broadcast.vote(decode.password, decode.userName, data.author, data.permlink, data.weight,function(err, result){
@@ -3164,7 +3366,7 @@ if(err){
   }
 }
 else{
-  //console.log("result",result);
+  // console.log("result",result);
   callback(null,result);
 }
 });
@@ -3271,6 +3473,7 @@ if(draftData.draftId !=='' && draftData.draftId !==undefined && draftData.draftI
     });
   }
 
+
 //working method 31 Oct 17
 
 exports.postCommentBlog = function(data,callback){
@@ -3344,6 +3547,7 @@ exports.postCommentBlog = function(data,callback){
       }
     })
   };
+
 
 exports.postDeleteCommentBlog = function(data,callback){
   var token = data.token;
@@ -3466,6 +3670,9 @@ apnProvider.send(note, deviceToken).then( (result) => {
   console.log("result",result, Object.keys(result)[1], result[Object.keys(result)[1]]);
 });
 }
+
+
+
 
 
 
