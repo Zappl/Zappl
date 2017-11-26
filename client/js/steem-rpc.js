@@ -9,7 +9,7 @@ var WsRpc = require("./WebSocketRpc");
 var SteemApi = require("./SteemApi");
 
 var defaultOptions = {
-    url: "https://api.steemit.com,
+    url: "wss://steemd.privex.io",
     user: "",
     pass: "",
     debug: false,
