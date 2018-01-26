@@ -969,6 +969,34 @@ router.get('/api/getUserInfo/:userName',function(req,res){
      });
   });
 
+  router.get('/api/getTagTopicLists',function(req,res){
+      var apiReponse={};
+      var errorText='';
+      var finalRes = {};
+      // var userName = req.params.userName;
+
+      apiController.getTagTopicLists(function(err,responce){
+          if(err){
+            errorText = err;
+            console.log(err);
+          }
+          finalRes.tagTopicsList = responce;
+          if(errorText ==='')
+              {
+                apiReponse.error = 0;
+                apiReponse.success = 1;
+                apiReponse.Message = 'Successful';
+              }
+          else {
+                apiReponse.error = 1;
+                apiReponse.success = 0;
+                apiReponse.Message = errorText;
+              }
+          apiReponse.data = finalRes;
+          res.status(200).json(apiReponse);
+     });
+  });
+
 
 router.get('/api/getUserProfileImage/:userName',function(req,res){
     var apiReponse={};
@@ -1438,37 +1466,6 @@ router.get('/api/getFeedTagInfo/:type/:tag/:startLimit/:endLimit',function(req,r
         });
     });
 
-
-    // router.get('/api/newCreate/:type',function(req,res){
-    //     var apiReponse = {};
-    //     var errorText = '';
-    //     var query = {
-    //       tag: 'zappl',
-    //       limit: 5
-    //     };
-    //     var finalRes = {};
-    //     apiController.newCreate(query,function(err,responce){
-    //         if(err){
-    //             errorText = err;
-    //             console.log(err);
-    //         }
-    //         finalRes.following_list = responce;
-    //         if(errorText ==='')
-    //             {
-    //               apiReponse.error = 0;
-    //               apiReponse.success = 1;
-    //               apiReponse.Message = 'Successful';
-    //             }
-    //         else {
-    //               apiReponse.error=1;
-    //               apiReponse.success=0;
-    //               apiReponse.Message=errorText;
-    //             }
-    //         apiReponse.data = finalRes;
-    //         res.status(200).json(apiReponse);
-    //         });
-    //     });
-
 router.get('/api/getFeedInfo/:type/:startLimit/:endLimit',function(req,res){
     var apiReponse = {};
     var errorText = '';
@@ -1920,9 +1917,48 @@ router.post('/api/postVote',function(req,res){
                   });
               });
 
+
+// router.post('/api/postComment',function(req,res){
+//               var jsonMetadata = {
+//                 tags    : [req.body.tags],
+//                 app     : "secretdev/0.1",
+//                 format  : "html"
+//               }
+//             var errorText='';
+//             var apiReponse={};
+//             var data = {
+//               token : req.body.token,
+//               parentAuthor : req.body.parentAuthor,
+//               parentPermlink : req.body.parentPermlink,
+//               permlink : req.body.permlink,
+//               title : '',
+//               body : req.body.body,
+//               jsonMetadata : jsonMetadata
+//             }
+//             apiController.postCommentBlog(data,function(err,responce){
+//               if(err){
+//                   errorText = err;
+//               }
+//               if(errorText ==='')
+//                   {
+//                     apiReponse.error=0;
+//                     apiReponse.success=1;
+//                     apiReponse.Message='Successful';
+//                   }
+//               else {
+//                     apiReponse.error=1;
+//                     apiReponse.success=0;
+//                     apiReponse.Message=errorText;
+//                   }
+//                 res.status(200).json(apiReponse);
+//             });
+//         });
+
+
 router.post('/api/postComment',function(req,res){
             var jsonMetadata = {
                 tags    : [req.body.tags],
+                //app     : "secretdev/0.1",
                 app     : "zappl/0.1",
                 format  : "html"
               }
@@ -2027,6 +2063,44 @@ router.post('/api/postDeleteComment',function(req,res){
 
         });
 
+// router.post('/api/postBlog',function(req,res){
+//     var errorText='';
+//     var apiReponse={};
+//             var jsonMetadata = {
+//               tags    : req.body.tags,
+//               image   : req.body.image,
+//               //app     : "secretdev/0.1",
+//               app     : "zappl/0.1",
+//               format  : "html"
+//             }
+//             var data = {
+//               token :  req.body.token,
+//               parentAuthor : '',
+//               parentPermlink : req.body.parentPermlink,
+//               permlink : req.body.permlink || req.body.title.toLowerCase().replace(/ |[-!$%^&*()_+|~=`{}\[\]:";'<>?,.\/]/g, "-").replace(/[\s-]+/g,"-"),
+//               title : req.body.title,
+//               body : req.body.htmlBody,
+//               jsonMetadata : jsonMetadata
+//             }
+//             // console.log("Blog data", data);
+//             apiController.postCommentBlog(data,function(err,responce){
+//               if(err){
+//                 apiReponse.error=1;
+//                 apiReponse.success=0;
+//                 apiReponse.Message=err;
+//                 console.log("outer error",err);
+//               }
+//               else
+//                   {
+//                     apiReponse.error=0;
+//                     apiReponse.success=1;
+//                     apiReponse.Message='Successful';
+//
+//                   }
+//                   res.status(200).json(apiReponse);
+//               });
+//         });
+
 
 router.post('/api/postBlog',function(req,res){
     var errorText='';
@@ -2040,7 +2114,7 @@ router.post('/api/postBlog',function(req,res){
     var pp = req.body.parentPermlink;
     if(pp !== '')
     {
-      pp = pp.substring(0,24).replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, '');
+      pp = pp.substring(0,24).replace(/[`~!@#$€£¥₹÷×¢%•√π¶∆°’“=©®™✓^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, '');
       if(pp == ''){
         pp = 'zappl';
       }
@@ -2050,20 +2124,42 @@ router.post('/api/postBlog',function(req,res){
     }
     if(req.body.permlink !== undefined){
       var permlink = req.body.permlink;
+      permlink = permlink.replace(/\\/g, "");
+      permlink = permlink.replace(/ |[-!•√π¶∆°=©®™✓@#$€£¥₹%^¢÷×&*()_+|~=’“`{}\[\]:";'<>?,.\/]/g, "-").replace(/[\s-]+/g,"-");
       if (permlink.substring(permlink.length-1) == "-")
       {
           permlink = permlink.substring(0, permlink.length-1);
+          permlink = permlink.replace(/\\/g, "");
+          if(permlink == ''){
+            var char = 'a';
+            var mask = '';
+            if (char.indexOf('a') > -1) mask += 'abcdefghijklmnopqrstuvwxyz';
+            var result1234 = '';
+            for (var i = 25; i > 0; --i) result1234 += mask[Math.round(Math.random() * (mask.length - 1))];
+            permlink = result1234;
+          }
       }
     }
-
-    var title = req.body.title.toLowerCase().replace(/ |[-!$%^&*()_+|~=`{}\[\]:";'<>?,.\/]/g, "-").replace(/[\s-]+/g,"-");
+    var title =req.body.title.toLowerCase().replace(/ |[-!•√π¶∆°=©®™✓@#$€£¥₹%^¢÷×&*()_+|~=`{}\[\]:";'<>?,.\/]/g, "-").replace(/[\s-]+/g,"-");
+    title = title.replace(/\\/g, "");
+    title = title.replace(/ |[-!•√π¶∆°=©®™✓@#$€£¥₹%^¢÷×&*()_+|~=’“`{}\[\]:";'<>?,.\/]/g, "-").replace(/[\s-]+/g,"-");
     if (title.substring(title.length-1) == "-")
     {
         title = title.substring(0, title.length-1);
+        if(title == ''){
+          var char = 'a';
+          var mask = '';
+          if (char.indexOf('a') > -1) mask += 'abcdefghijklmnopqrstuvwxyz';
+          var result123 = '';
+          for (var i = 25; i > 0; --i) result123 += mask[Math.round(Math.random() * (mask.length - 1))];
+          title = result123;
+        }
     }
+    pp = pp.toLowerCase();
             var jsonMetadata = {
               tags    : tags,
               image   : req.body.image,
+              //app     : "secretdev/0.1",
               app     : "zappl/0.1",
               format  : "html"
             }
@@ -3108,66 +3204,141 @@ router.get('/api/getImage_following/:userName/:startLimit/:endLimit',function(re
 //         });
 //       });
 
-router.get('/api/getImage_follower/:userName/:startLimit/:endLimit',function(req,res){
-    var apiReponse={};
-    var finalRes = {};
-    var userName = req.params.userName;
-    var errorText='';
-    var startLimit=req.params.startLimit;
-    var endLimit=req.params.endLimit;
-    var list = {};
-    var userPostInfo123 = [];
-    var final_userPostInfo123 = [];
-    apiController.getUserFollowerList(userName,startLimit,endLimit,function(err,responce){
-        if(err){
-          errorText = err;
-          console.log(err);
-        }
-      for (var i = 0; i < responce.userFollowers.length; i++){
-        list = {
-            author : responce.userFollowers[i].follower,
-            value : i
-          }
-          userPostInfo123.push(list);
-        }
-        for (var j = 0; j < userPostInfo123.length; j++){
 
-          var p = 0;
-          var finalList = {};
-          var img;
-          var vote;
-          apiController.getUserProfileImage_ForApp(userPostInfo123[j].author,'',userPostInfo123[j].value,function(err,responce){
-            if(err){
-              apiReponse.error=1;
-              apiReponse.success=0;
-              apiReponse.Message=errorText;
-              res.status(500).json(apiReponse);
+    router.get('/api/getImage_follower/:userName/:startLimit/:endLimit',function(req,res){
+        var apiReponse={};
+        var finalRes = {};
+        var userName = req.params.userName;
+        var errorText='';
+        var startLimit=req.params.startLimit;
+        var endLimit=req.params.endLimit;
+        var list = {};
+        var userPostInfo123 = [];
+        var final_userPostInfo123 = [];
+        apiController.getUserFollowingFollowersNo(userName,function(err5,responce5){
+            if(err5){
+              errorText = err5;
+              console.log(err5);
             }
             else{
-              finalList = {};
-              finalList.imgUrl = responce.profile_image;
-              finalList.author = responce.author;
-              finalList.value = responce.value;
-              p = p+1;
+              if(responce5.follower_count > 1000){
+                endLimit = 1000;
+              }
+              else{
+                endLimit = responce5.follower_count;
+              }
+              apiController.getUserFollowerList(userName,startLimit,endLimit,function(err,responce){
+                if(err){
+                  errorText = err;
+                  console.log(err);
+                }
+              for (var i = 0; i < responce.userFollowers.length; i++){
+                list = {
+                    author : responce.userFollowers[i].follower,
+                    value : i
+                  }
+                  userPostInfo123.push(list);
+                }
+                for (var j = 0; j < userPostInfo123.length; j++){
+                  var p = 0;
+                  var finalList = {};
+                  var img;
+                  var vote;
+                  apiController.getUserProfileImage_ForApp(userPostInfo123[j].author,'',userPostInfo123[j].value,function(err,responce){
+                    if(err){
+                      apiReponse.error=1;
+                      apiReponse.success=0;
+                      apiReponse.Message=errorText;
+                      res.status(500).json(apiReponse);
+                    }
+                    else{
+                      finalList = {};
+                      finalList.imgUrl = responce.profile_image;
+                      finalList.author = responce.author;
+                      finalList.value = responce.value;
+                      p = p+1;
+                    }
+                    final_userPostInfo123.push(finalList);
+                    // console.log(final_userPostInfo123);
+                    if(p == userPostInfo123.length){
+                      apiReponse.error=0;
+                      apiReponse.success=1;
+                      apiReponse.Message="Successful";
+                      //apiReponse.data = final_userPostInfo123;
+                      apiReponse.data = final_userPostInfo123.sort(function(a,b){
+                        var c = a.value;
+                        var d = b.value;
+                        return c-d;
+                      });
+                      res.status(200).json(apiReponse);
+                    }
+                  })
+                  }
+              })
             }
-            final_userPostInfo123.push(finalList);
-            // console.log(final_userPostInfo123);
-            if(p == userPostInfo123.length){
-              apiReponse.error=0;
-              apiReponse.success=1;
-              apiReponse.Message="Successful";
-              //apiReponse.data = final_userPostInfo123;
-              apiReponse.data = final_userPostInfo123.sort(function(a,b){
-                var c = a.value;
-                var d = b.value;
-                return c-d;
-              });
-              res.status(200).json(apiReponse);
-            }
-          })
-          }
-        });
-      });
+          });
+          });
+
+// router.get('/api/getImage_follower/:userName/:startLimit/:endLimit',function(req,res){
+//     var apiReponse={};
+//     var finalRes = {};
+//     var userName = req.params.userName;
+//     var errorText='';
+//     var startLimit=req.params.startLimit;
+//     var endLimit=req.params.endLimit;
+//     var list = {};
+//     var userPostInfo123 = [];
+//     var final_userPostInfo123 = [];
+//     apiController.getUserFollowerList(userName,startLimit,endLimit,function(err,responce){
+//         if(err){
+//           errorText = err;
+//           console.log(err);
+//         }
+//       for (var i = 0; i < responce.userFollowers.length; i++){
+//         list = {
+//             author : responce.userFollowers[i].follower,
+//             value : i
+//           }
+//           userPostInfo123.push(list);
+//         }
+//         for (var j = 0; j < userPostInfo123.length; j++){
+//
+//           var p = 0;
+//           var finalList = {};
+//           var img;
+//           var vote;
+//           apiController.getUserProfileImage_ForApp(userPostInfo123[j].author,'',userPostInfo123[j].value,function(err,responce){
+//             if(err){
+//               apiReponse.error=1;
+//               apiReponse.success=0;
+//               apiReponse.Message=errorText;
+//               res.status(500).json(apiReponse);
+//             }
+//             else{
+//               finalList = {};
+//               finalList.imgUrl = responce.profile_image;
+//               finalList.author = responce.author;
+//               finalList.value = responce.value;
+//               p = p+1;
+//             }
+//             final_userPostInfo123.push(finalList);
+//             // console.log(final_userPostInfo123);
+//             if(p == userPostInfo123.length){
+//               apiReponse.error=0;
+//               apiReponse.success=1;
+//               apiReponse.Message="Successful";
+//               //apiReponse.data = final_userPostInfo123;
+//               apiReponse.data = final_userPostInfo123.sort(function(a,b){
+//                 var c = a.value;
+//                 var d = b.value;
+//                 return c-d;
+//               });
+//               res.status(200).json(apiReponse);
+//             }
+//           })
+//           }
+//         });
+//       });
 
 router.get('/api/getImage_comments/:userName/:startLimit/:endLimit',function(req,res){
     var apiReponse={};
@@ -3244,7 +3415,6 @@ router.get('/api/getVoteInfo/:userName/:startLimit/:endLimit',function(req,res){
     var userPostInfo123 = [];
     var final_userPostInfo123 = [];
     apiController.getUserPostData(userName,startLimit,endLimit,function(err,responce){
-      // console.log("responce",responce);
         if(err){
           errorText = err;
           console.log(err);
@@ -3255,7 +3425,6 @@ router.get('/api/getVoteInfo/:userName/:startLimit/:endLimit',function(req,res){
             permlink : responce.userPostInfo[i].permlink,
             value : i
           }
-      // console.log("LIST : ", list);
           userPostInfo123.push(list);
         }
         for (var j = 0; j < userPostInfo123.length; j++){
@@ -3854,7 +4023,7 @@ router.post('/api/getPostDataVoteImg',function(req,res){
   });
 
 router.get('/Home',function(req,res){
-  res.render('home.html');
+  res.render('layout.html');
 });
 
 module.exports = router;

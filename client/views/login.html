@@ -1,77 +1,163 @@
-<script language="javascript" type="text/javascript">
-    window.history.forward();
-</script>
+<script language=javascript type="text/javascript">window.history.forward();</script>
+<div id=container>
+<nav class="navbar " style="border-radius:0px;overflow-y:hidden;box-shadow:none;">
+<div class=container>
+<div class="navbar-header pad_left">
+<a class="navbar-brand " href="#"><img src="./1/images/8.png" class="pull-left img_mar10" style="margin-top: -8px;"/></a>
+<form class="navbar-form navbar-left login_pad_right">
+<div class=input-group ng-controller="homeCtrl as hc">
+<input class="form-control input" placeholder=Search... ng-model=search style="-webkit-box-shadow:none !important;padding-left: 7px;">
+<div class=input-group-btn>
+<button ng-disabled="!search.length" class="btn btn-default" type=submit style="height:34px;border-left:0px" ng-click="hc.getName(search)" ui-sref="FeedTagInfo({tagChild : search})">
+<i class="fa fa-search" style="color:#717f88"></i>
+</button>
+</div>
+</div>
+</form>
+</div>
+</div>
+</nav>
+<div id=body style="background-image:url(./1/images/login_background.png);margin-top:-29px;background-size:cover;height:840px">
+<div class=container>
+<div class=col-md-3></div>
+<form class=form ng-controller=loginCtrl>
+<div class="col-md-6 col-xs-12 text-center login_section" style="padding:50px 50px;">
+<img src="./1/images/blue_logo.png">
+<h2 style=font-weight:bold>Welcome to zappl</h2>
+<p style="color:#66757f">Login with Steem post key.</p>
+<div class=form-group>
+<input id=test class=input placeholder="User name" ng-model=name style="padding:20px;width:100%" required />
+</div>
+<div class=form-group>
+<input type=password ng-model=password class=input placeholder=Password style="padding:20px;width:100%" required />
+<div style=color:red>{{errorMessage}}</div>
+</div>
+<div class=form-group>
+<a style="color:#292f33">
+<input type=submit id=btnSubmit class="btn button_layout" ng-click="verifyUser()" value=login>
+</a>
+</div>
+<hr>
+<p>Not a member? <a href="https://www.youtube.com/watch?v=6A8fbQyBT0k">Sign Up</a></p>
+</div>
+</form>
+<div class=col-md-3></div>
+</div>
+<div class=clear></div>
+</div>
+    <section style="background-color:#fff;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div style="padding:100px 0;">
 
-<div id="container">
-<!------navbar------------->
-  <nav class="navbar " style="border-radius:0px;overflow-y:hidden;box-shadow:none;">
-    <div class="container">
-      <div class="navbar-header pad_left" >
-        <a class="navbar-brand " href="#"><img src="./1/images/8.png"  class="pull-left img_mar10" style="margin-top: -8px;" /></a>
-        <form class="navbar-form navbar-left login_pad_right">
-          <div class="input-group" ng-controller ="homeCtrl as hc">
-              <input type="text" class="form-control input" placeholder="Search..." ng-model="search" style="-webkit-box-shadow:none !important;padding-left: 7px;">
-                 <div class="input-group-btn">
-                     <button ng-disabled="!search.length" class="btn btn-default" type="submit" style="height:34px;border-left:0px"  ng-click="hc.getName(search)" ui-sref="FeedTagInfo({tagChild : search})">
-                      <i class="fa fa-search" style="color:#717f88"></i>
-                     </button>
+                        <div>
+                            <h2 style="color: #1c1b1b;margin-bottom: 15px;padding: 0;z-index: 10;text-transform: capitalize; text-align:center">ZAPPL APP FEATURES</h2>
+                            <span></span>
+                            <p style="text-align:center">Zappl is a micro-blogging site that run off decentralized technology.</p>
+                        </div>
+
+                        <!-- Start Feature Content -->
+                        <div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div>
+                                        <img alt="zappl app image" src="./1/images/zappl-app.png">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div>
+
+                                        <div class="media">
+                                            <div class="media-left">
+                                                <button type="button" class="btn btn-info">
+                                                    <i class="far fa-user fa-1x"></i>
+                                                </button>
+                                            </div>
+                                            <div class="media-body">
+                                                <h3 class="media-heading">Video / Photo</h3>
+                                                <p class="p-section">Zappl allow users to upload photos, record video, upload past videos and more.</p>
+                                            </div>
+                                        </div>
+                                        <div class="media">
+                                            <div class="media-left">
+                                                <button type="button" class="btn btn-info">
+                                                    <i class="fas fa-tachometer-alt fa-1x"></i>
+                                                </button>
+                                            </div>
+                                            <div class="media-body">
+                                                <h3 class="media-heading">Updated feeds</h3>
+                                                <p>Keep up with all the latest post with the home feed and post feeds.</p>
+                                            </div>
+                                        </div>
+                                        <div class="media">
+                                            <div class="media-left">
+                                                <button type="button" class="btn btn-info">
+
+                                                    <i class="fas fa-tablet-alt fa-1x"></i>
+                                                </button>
+                                            </div>
+                                            <div class="media-body">
+                                                <h3 class="media-heading">Wallet Supported</h3>
+                                                <p class="p_section">Zappl allows users to have access to your steem and sbd wallet at all times.Move funds and pay people on the go.</p>
+                                            </div>
+                                        </div><div class="media">
+                                        <div class="media-left">
+                                            <button type="button" class="btn btn-info">
+                                                <i class="fas fa-lock fa-1x"></i>
+                                            </button>
+                                        </div>
+                                        <div class="media-body">
+                                            <h3 class="media-heading">Encrypted Chat - Coming Soon!</h3>
+                                            <p>Zappl will be adding, text chat, audio chat, video chat which will allow group chats and will be encrypted. </p>
+                                        </div>
+                                    </div>
+                                        <div class="media">
+                                            <div class="media-left">
+                                                <button type="button" class="btn btn-info">
+                                                    <i class="fas fa-cog fa-1x"></i>
+                                                </button>
+                                            </div>
+                                            <div class="media-body">
+                                                <h3 class="media-heading">Personalized settings</h3>
+                                                <p>Change nswf, voting weight, change password and more.</p>
+                                            </div>
+                                        </div>
+                                        <div class="media">
+                                            <div class="media-left">
+                                                <button type="button" class="btn btn-info">
+                                                    <i class="fas fa-users fa-1x"></i>
+                                                </button>
+                                            </div>
+                                            <div class="media-body">
+                                                <h3 class="media-heading">Follower Search</h3>
+                                                <p>You can now search through all your steem followers with ease.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
-         </div>
-       </form>
-      </div>
-    </div>
-  </nav>
-<!------navbar------------->
+            </div>
+        </div>
+    </section>
 
-
-
-
-
-
-  <div id="body" style="background-image:url(./1/images/login_background.png);margin-top:-29px;background-size:cover;height:840px" >
-     <div class="container" >
-        <div class="col-md-3"></div>
-          <form class="form" ng-controller="loginCtrl">
-            <div class="col-md-6 col-xs-12 text-center login_section"  style="padding:50px 50px;">
-                <img src="./1/images/blue_logo.png" >
-                <h2 style="font-weight:bold">Welcome to zappl</h2>
-                <p style="color:#66757f">Login with Steem post key.</p>
-                <div class="form-group">
-                   <input id="test" class="input" placeholder="User name" type="text" ng-model="name"   style="padding:20px;width:100%" required=" "/>
+    <section id="app-video" style="background-image:url(./1/images/login_background.png);">
+        <div class="app-video-overlay">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="app-video-area">
+                            <h2>Watch Promo Video</h2>
+                            <a class="app-video-play-btn" href="https://www.youtube.com/watch?v=ULKV_c76nHI" target="_blank"><i class="fa fa-play" aria-hidden="true"></i></a>
+                        </div>
+                    </div>
                 </div>
-                <div class="form-group">
-                   <input type="password" ng-model="password" class="input"  placeholder="Password" style="padding:20px;width:100%" required=" "/>
-                   <div style="color:red">{{errorMessage}}</div>
-                </div>
-                <div class="form-group" >
-                  <a style="color:#292f33">
-                  <input type="submit" id="btnSubmit" class="btn button_layout" ng-click="verifyUser()" value="login">
-                  </a>
-                </div>
+            </div>
+        </div>
+    </section>
 
-
-
-                <!-- <div>Hello SteemRPC</div>
-
-    <div style="padding-top: 20px" id="success"></div>
-
-    <div style="padding-top: 20px">
-        <table>
-            <tbody id="dynamic_global"></tbody>
-        </table>
-    </div> -->
-
-
-
-
-
-		<hr>
-		 <p>Not a member? <a href="https://www.youtube.com/watch?v=65E1obzcGtg">Sign Up</a></p>
-          </div>
-        </form>
-        <div class="col-md-3"></div>
-    </div>
-    <div class="clear"></div>
-
-  </div>
 </div>

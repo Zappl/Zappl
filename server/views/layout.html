@@ -1,24 +1,37 @@
 <!doctype html>
-<html ng-app="ZapplApp" style="margin-top: -5px">
+<html ng-app=ZapplApp style="margin-top: -5px">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="description" content="Zappl.com is Decentralized censorship resistamt micro blogging SociaL Media site that pays. ">
+<base href="/">
+<meta http-equiv=Content-Type content="text/html; charset=utf-8"/>
+<meta name=description content="Zappl.com is a Decentralized censorship resistant micro blogging Social Media site that pays.">
 <title>Zappl - Beta</title>
-<link rel="icon" href="1/images/favicon.png" type="image/x-icon">
-<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
-<link rel="stylesheet" href="css/styles.css" type="text/css" />
-<link rel="stylesheet" href="css/style.css" type="text/css" />
-<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css"/>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link href="https://cdn.rawgit.com/atatanasov/gijgo/master/dist/combined/css/gijgo.min.css" rel="stylesheet" type="text/css" />
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-<!-- mozilla format -->
-<link rel="stylesheet" href="css/emojionearea.min.css" type="text/css"/>
+<link rel=icon href="1/images/favicon.png" type="image/x-icon">
+<meta name=viewport content="width=device-width, minimum-scale=1.0, maximum-scale=1.0"/>
+<meta property="og:url" content="{{ngMeta['og:url']}}">
+<meta property="og:title" content="{{ngMeta['og:title']}}">
+<meta property="og:description" content="{{ngMeta['og:description']}}">
+<meta property="og:type" content="{{ngMeta['og:type']}}">
+<meta property="og:website" content="{{ngMeta['og:website']}}">
+<meta property="og:image" content="{{ngMeta['og:image']}}">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@zappl_io">
+<meta name="twitter:description" content="{{ngMeta['og:description']}}">
+<meta name="twitter:title" content="{{ngMeta['og:title']}}">
+<meta name="twitter:image" content="{{ngMeta['og:image']}}">
+<link rel=stylesheet href="css/styles.css" type="text/css"/>
+<link rel=stylesheet href="css/style.css" type="text/css"/>
+<link rel=stylesheet href="css/bootstrap.min.css" type="text/css"/>
+<link rel=stylesheet href="https://use.fontawesome.com/releases/v5.0.2/css/all.css">
+<link href="https://cdn.rawgit.com/atatanasov/gijgo/master/dist/combined/css/gijgo.min.css" rel=stylesheet type="text/css"/>
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel=stylesheet type="text/css"/>
+<link rel=stylesheet href="css/emojionearea.min.css" type="text/css"/>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
 <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.12.0.js"></script>
 <script src="https://cdn.steemjs.com/lib/latest/steem.min.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <script src="angular-ui-router/release/angular-ui-router.js"></script>
+<script src="angular-socialshare/dist/angular-socialshare.js"></script>
+<script src="ng-meta/dist/ngMeta.js"></script>
 <script src="angular/app/app.js"></script>
 <script src="angular/route/route.js"></script>
 <script src="angular/service/services.js"></script>
@@ -29,901 +42,536 @@
 <script src="angular/controller/commentCtrl.js"></script>
 <script src="angular/controller/scrollCtrl.js"></script>
 <script src="angular/controller/walletCtrl.js"></script>
-<script src="angular/controller/messageCtrl.js"></script>
 <script src="angular/controller/setting_public_profileCtrl.js"></script>
 <script src="angular/controller/replyCtrl.js"></script>
-<script src="js/aws-sdk-2.55.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aws-sdk/2.55.0/aws-sdk.min.js"></script>
 <script src="js/emojionearea.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script src="https://cdn.rawgit.com/atatanasov/gijgo/master/dist/combined/js/gijgo.min.js" type="text/javascript"></script>
-
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.5/require.js" type="text/javascript"></script> -->
-<script src="js/steem-rpc.js"></script>
-<script src="js/steemjs-lib.js"></script>
-
-
-
-
-<!-- SOCKETIO COMMENT FOR CHAT -->
-
-<!-- <script src="/socket.io/socket.io.js"></script>
-<script src="./steem.js"></script>
-<script src="js/highlight.min.js"></script> -->
-
-
-<!-- chat Encryption Decription js -->
-<script type='text/javascript' src="js/aes.js"></script>
+<script src="https://cdn.rawgit.com/atatanasov/gijgo/master/dist/combined/js/gijgo.min.js"></script>
+<script src="js/aes.js"></script>
 <script src="js/angularjs-crypto.js"></script>
 <script src="js/CryptoJSCipher.js"></script>
-<!-- chat Encryption Decription js -->
-
-<style type="text/css">
-
-input::-moz-placeholder {
-  color: #333333;
-}
-input:-moz-placeholder {
-      color: #333333;
-
-    }
-
-.input{
-		    -webkit-appearance: none !important;
-		    background-color: white;
-		    -webkit-rtl-ordering: logical;
-		    user-select: text;
-		    cursor: auto;
-		    padding: 1px;
-		    border-width:1px;
-		    border-style:solid;
-		    border:1px solid #e1e8ed;
-}
-
-
-ul#menu li {
-    display:inline;
-		padding: 10px;
-}
-
-
-			.loading-dialog {
-          display: none;
-					margin: 20% auto;
-			    position: fixed;
-			    z-index: 1000;
-			    left: 0;
-					right : 0;
-			    height: 12%;
-			    width: 20%;
-			    background: rgba( 255, 255, 255, 0 ) url('images/spin.gif') 50% 50% no-repeat;
-			}
-
-#style-5::-webkit-scrollbar-track
-{
-	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-	background-color: #F5F5F5;
-}
-
-#style-5::-webkit-scrollbar
-{
-	width: 10px;
-	background-color: #F5F5F5;
-}
-
-#style-5::-webkit-scrollbar-thumb
-{
-	background-color: #0ae;
-
-	background-image: -webkit-gradient(linear, 0 0, 0 100%,
-	                   color-stop(.5, rgba(255, 255, 255, .2)),
-					   color-stop(.5, transparent), to(transparent));
-}
-.scrollbar
-{
-	margin-left: 0px;
-	float: left;
-	height: 300px;
-	width: 250px;
-	background: #F5F5F5;
-	overflow-y: scroll;
-	margin-bottom: 25px;
-}
-
-.force-overflow
-{
-	min-height: 450px;
-}
-
-body.article-editor {
-    font-size:1em;
-    font-family:'Roboto', serif;
-    font-weight:300;
-}
-
-body.article-editor .illustration {
-    margin-right: 50px;
-    margin-left: 50px;
-    margin-bottom: 50px;
-}
-
-body.article-editor ul {
-    overflow: hidden;
-}
-
-body.article-editor h1, h2 {
-    color: black;
-    padding-top: 10px;
-}
-
-.image-illustration {
-    background-color: white;
-}
-
-.embed-240p {
-    max-width: 426px;
-    max-height: 240px;
-    margin:0 auto;
-}
-
-.embed-360p {
-    max-width: 640px;
-    max-height: 360px;
-    margin:0 auto;
-}
-
-.embed-480p {
-    max-width: 854px;
-    max-height: 480px;
-    margin:0 auto;
-}
-
-.embed-720p {
-    max-width: 1280px;
-    max-height: 720px;
-    margin:0 auto;
-}
-.embed-1080p {
-    max-width: 1920px;
-    max-height: 1080px;
-    margin:0 auto;
-}
-.ex {
-	padding:10px 2px;
-	height:35px;
-    transition: all 0.5s ease;
-}
-
-.hover_eff {
-   background-color:#fff;
-   color:#333;
-}
-
-.select-wrapper {
-  background: url(images/image_icon.png) no-repeat;
-  margin-top:13px;
-  background-size: cover;
-  display:inline-block;
-  position: relative;
-  width:33px;
-  height:26px;
-}
-
-/*#image_src {
-  width: 26px;
-  height: 26px;
-  opacity: 0;
-  filter:alpha(opacity=0);
-}*/
-
-
-.select-wrapper1 {
-  background: url('images/image.png') no-repeat;
-  margin-top:13px;
-  background-size: cover;
-  display:inline-block;
-  position: relative;
-  width:33px;
-  height:26px;
-}
-
-.select-wrapper2 {
-  background: url('images/video.png') no-repeat;
-  margin-top:13px;
-  background-size: cover;
-  display:inline-block;
-  position: relative;
-  width:30px;
-  height:30px;
-}
-
-.select-wrapper3 {
-  background: url('images/audio.png') no-repeat;
-  margin-top:13px;
-  background-size: cover;
-  display:inline-block;
-  position: relative;
-  width:30px;
-  height:30px;
-}
-
-.select-wrapper4 {
-  background: url('images/files.png') no-repeat;
-  margin-top:13px;
-  background-size: cover;
-  display:inline-block;
-  position: relative;
-  width:30px;
-  height:30px;
-}
-
-.select-wrapper5 {
-  margin-top:13px;
-  background-size: cover;
-  display:inline-block;
-  position: relative;
-  width:30px;
-  height:30px;
-}
-
-
-</style>
-
-<script type="text/javascript" src="js/widgEditor.js"></script>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-110957889-1"></script>
 <script>
-$(document).ready(function () {
-  $("#editor").editor({
-    uiLibrary: 'bootstrap'
-  });
-});
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-110957889-1');
 </script>
 
-<script>
-		$(document).ready(function(){
-		    $("#sub_edit").click(function(){
-		        $("#sub_hide").hide(10);
-				$("#content1").show(10);
-
-			});
-		});
-</script>
+<style>input::-moz-placeholder{color:#333333;}
+input:-moz-placeholder{color:#333333;}
+.input{-webkit-appearance:none !important;background-color:white;-webkit-rtl-ordering:logical;user-select:text;cursor:auto;padding:1px;border-width:1px;border-style:solid;border:1px solid #e1e8ed;}
+ul#menu li{display:inline;padding:10px;}
+.loading-dialog{display:none;margin:20% auto;position:fixed;z-index:1000;left:0;right:0;height:12%;width:20%;background:rgba(255, 255, 255, 0) url('images/spin.gif') 50% 50% no-repeat;}
+#style-5::-webkit-scrollbar-track{-webkit-box-shadow:inset 0 0 6px rgba(0,0,0,0.3);background-color:#F5F5F5;}
+#style-5::-webkit-scrollbar{width:10px;background-color:#F5F5F5;}
+#style-5::-webkit-scrollbar-thumb{background-color:#0ae;background-image:-webkit-gradient(linear, 0 0, 0 100%,
+color-stop(.5, rgba(255, 255, 255, .2)),
+color-stop(.5, transparent), to(transparent));}
+.scrollbar{margin-left:0px;float:left;height:300px;width:250px;background:#F5F5F5;overflow-y:scroll;margin-bottom:25px;}
+.force-overflow{min-height:450px;}
+body.article-editor{font-size:1em;font-family:'Roboto', serif;font-weight:300;}
+body.article-editor .illustration{margin-right:50px;margin-left:50px;margin-bottom:50px;}
+body.article-editor ul{overflow:hidden;}
+body.article-editor h1, h2{color:black;padding-top:10px;}
+.image-illustration{background-color:white;}
+.embed-240p{max-width:426px;max-height:240px;margin:0 auto;}
+.embed-360p{max-width:640px;max-height:360px;margin:0 auto;}
+.embed-480p{max-width:854px;max-height:480px;margin:0 auto;}
+.embed-720p{max-width:1280px;max-height:720px;margin:0 auto;}
+.embed-1080p{max-width:1920px;max-height:1080px;margin:0 auto;}
+.ex{padding:10px 2px;height:35px;transition:all 0.5s ease;}
+.hover_eff{background-color:#fff;color:#333;}
+.select-wrapper{background:url(images/image_icon.png) no-repeat;margin-top:13px;background-size:cover;display:inline-block;position:relative;width:33px;height:26px;}
+.select-wrapper1{background:url('images/image.png') no-repeat;margin-top:13px;background-size:cover;display:inline-block;position:relative;width:33px;height:26px;}
+.select-wrapper2{background:url('images/video.png') no-repeat;margin-top:13px;background-size:cover;display:inline-block;position:relative;width:30px;height:30px;}
+.select-wrapper3{background:url('images/audio.png') no-repeat;margin-top:13px;background-size:cover;display:inline-block;position:relative;width:30px;height:30px;}
+.select-wrapper4{background:url('images/files.png') no-repeat;margin-top:13px;background-size:cover;display:inline-block;position:relative;width:30px;height:30px;}
+.select-wrapper5{margin-top:13px;background-size:cover;display:inline-block;position:relative;width:30px;height:30px;}</style>
+<script>$(document).ready(function(){$("#editor").editor({uiLibrary:'bootstrap'});});</script>
+<script>$(document).ready(function(){$("#sub_edit").click(function(){$("#sub_hide").hide(10);$("#content1").show(10);});});</script>
 </head>
-
-<body id="body" style="display:none">
-  <!-- <span ng-if="$root.url != '/{user2}'">
-	<div class="loading-dialog" id="loader" data-loading = " " ></div>
-</span> -->
-	<div ng-controller ="layoutCtrl as layout" ng-init ="layout.getToken()" >
-	<div  ng-if="$root.url == '/Home' || $root.url == '/Wallet' || $root.url == '/Drafts'  || $root.url == '/:tag/:username/:permlink' || $root.url == '/Settings' || $root.url == '/@{user}' || $root.url == '/Blog' || $root.url == '/Reply' || $root.url == '/Message/{user}' || $root.url == '/{user2}' || $root.url == '/group/{groupname}' || $root.url == '/creategroup' || $root.url == '/Follower' || $root.url == '/Followers' || $root.url == '/Feed' || $root.url == '/Following' || $root.url == '/Followings'|| $root.url == '/:child/:tagChild?' || $root.url == '/Comments'" >
-  <div id="container">
-  <div ng-controller="homeCtrl as hc">
-
+<body id=body style=display:none>
+<div ng-controller="layoutCtrl as layout" ng-init="layout.getToken()">
+<div ng-if="$root.url == '/Home' || $root.url == '/Wallet' || $root.url == '/Drafts'  || $root.url == '/:tag/:username/:permlink' || $root.url == '/Settings' || $root.url == '/@{user}' || $root.url == '/Blog' || $root.url == '/Reply' || $root.url == '/Message/{user}' || $root.url == '/{user2}' || $root.url == '/group/{groupname}' || $root.url == '/creategroup' || $root.url == '/Follower' || $root.url == '/Followers' || $root.url == '/Feed' || $root.url == '/Following' || $root.url == '/Followings'|| $root.url == '/:child/:tagChild?' || $root.url == '/Comments' || $root.url == '/tos'">
+<div id=container>
+<div ng-controller="homeCtrl as hc">
 <span ng-if="hc.loginToken != undefined">
-  <nav class="navbar navheight navbar-fixed-top" style="border-radius:0px"  >
-    <div class="container">
-      <div class="navbar-header pad_left" >
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar" style="margin-top:15px">
-          <span class="icon-bar" style="background-color:#fff"></span>
-          <span class="icon-bar" style="background-color:#fff"></span>
-          <span class="icon-bar" style="background-color:#fff"></span>
-        </button>
-        <a class="navbar-brand " ui-sref="Home"><img src="images/8.png"  class="pull-left img_mar" /></a>
-        <form class="navbar-form navbar-left navbrand" style="margin-top:10px">
-              <div class="input-group" >
-                  <input type="text" id="txtSearch" class="form-control input" placeholder="Search..." ng-model="search" style="-webkit-box-shadow:none !important; padding-left: 6px;">
-                     <div class="input-group-btn">
- 												<button ng-disabled="!search.length" class="btn btn-default" type="submit" style="height:34px;border-left:0px" ng-click="hc.getName(search)" ui-sref="FeedTagInfo({tagChild : search})" >
- 												 <i class="fa fa-search" style="color:#717f88"></i>
- 												</button>
-                    </div>
-             </div>
-          </form>
-      </div>
-			<div class="collapse navbar-collapse" id="myNavbar" ng-init="hc.getImageForNavBar()" style="margin-top: 4px;">
-				<ul class="nav navbar-nav navbar-right col-md-7 col-sm-7 col-xs-6 text-center pad_right set_nav" >
-					<li class="set_nav1 set_nav2"><img src="images/1.png" /><a ui-sref="Home" style="color:#fff;">Home</a></li>
-					<li class="set_nav1 set_nav3"><img src="images/2.png" /><a ui-sref="Comments" style="color:#fff;">Comments</a></li>
-					<li class="set_nav1"><img src="images/3.png" /><a ui-sref="Wallet" style="color:#fff;">Wallet</a></li>
-					<li class="set_nav1"><img src="images/4.png" /><a ui-sref="Message({user : hc.username})" style="color:#fff;">Messages</a></li>
-					<li class="set_nav1 fifth_li"><img src="1/images/line1.png" style="margin-top:10px"></li>
-					<a ui-sref="Profile({user : hc.username})"><li class="set_nav1"><img class="img-rounded" ng-src={{hc.currentImage}} style="margin-top:6px;width:40px;height:40px" /></li></a>
-					<a ui-sref="Settings" title="Settings"><li class="set_nav1"><img src="images/6.png" style="margin-top:9px" /></li></a>
-					<a  title="Log Out" ng-click = "layout.logout()"><li class="set_nav1"><img src="images/logout.png"  style="margin-top:10px;cursor:pointer"></li></a>
-				 </ul>
-			</div>
-    </div>
-  </nav>
-  <span ng-if="$root.url == '/:child/:tagChild?'" >
-	<div class="container-fluid text-center home_search" style="margin-top:58px">
-	     <h4 style="color:#292f33;margin-top: 20px;">{{nameTag}}</h4>
-  </div>
-	<div class="container-fluid text-center home_search1" >
-	     <ul class="mar_zero_home_search" style="display:-webkit-inline-box;">
-	       <li style="list-style-type:none;padding-right:20px;border-right:1px solid #e1e8ed "> <a class="nav-link" ui-sref="FeedTagInfo({child:'New'})" ng-click="fi.getselectFeed('New')">New</a> </li>
-	       <li style="list-style-type:none;padding-right:20px;padding-left:20px;border-right:1px solid #e1e8ed">  <a class="nav-link" ui-sref="FeedTagInfo({child:'Hot'})" ng-click="fi.getselectFeed('Hot')">Hot</a></li>
-	       <li style="list-style-type:none;padding-right:20px;padding-left:20px;border-right:1px solid #e1e8ed"><a class="nav-link" ui-sref="FeedTagInfo({child:'Trending'})" ng-click="fi.getselectFeed('Trending')">Trending</a></li>
-	       <li style="list-style-type:none;padding-right:20px;padding-left:20px"><a class="nav-link" ui-sref="FeedTagInfo({child:'Promoted'})" ng-click="fi.getselectFeed('Promoted')">Promoted</a></li>
-	     </ul>
-	</div>
+<nav class="navbar navheight navbar-fixed-top" style=border-radius:0px>
+<div class=container>
+<div class="navbar-header pad_left">
+<button type=button class=navbar-toggle data-toggle=collapse data-target="#myNavbar" style=margin-top:15px>
+<span class=icon-bar style="background-color:#fff"></span>
+<span class=icon-bar style="background-color:#fff"></span>
+<span class=icon-bar style="background-color:#fff"></span>
+</button>
+<a class="navbar-brand " ui-sref=Home><img src="images/8.png" class="pull-left img_mar"/></a>
+<form class="navbar-form navbar-left navbrand" style=margin-top:10px>
+<div class=input-group>
+<input id=txtSearch class="form-control input" placeholder=Search... ng-model=search style="-webkit-box-shadow:none !important; padding-left: 6px;">
+<div class=input-group-btn>
+<button ng-disabled="!search.length" class="btn btn-default" type=submit style="height:34px;border-left:0px" ng-click="hc.getName(search)" ui-sref="FeedTagInfo({tagChild : search})">
+<i class="fa fa-search" style="color:#717f88"></i>
+</button>
+</div>
+</div>
+</form>
+</div>
+<div class="collapse navbar-collapse" id=myNavbar ng-init="hc.getImageForNavBar()" style="margin-top: 4px;">
+<ul class="nav navbar-nav navbar-right col-md-7 col-sm-7 col-xs-6 text-center pad_right set_nav">
+<li class="set_nav1 set_nav2"><img src="images/1.png"/><a ui-sref=Home style="color:#fff;">Home</a></li>
+<li class="set_nav1 set_nav3"><img src="images/2.png"/><a ui-sref=Comments style="color:#fff;">Comments</a></li>
+<li class=set_nav1><img src="images/3.png"/><a ui-sref=Wallet style="color:#fff;">Wallet</a></li>
+<li class=set_nav1><img src="images/4.png"/><a ui-sref="Message({user : hc.username})" style="color:#fff;">Messages</a></li>
+<li class="set_nav1 fifth_li"><img src="1/images/line1.png" style=margin-top:10px></li>
+<a ui-sref="Profile({user : hc.username})"><li class=set_nav1><img class=img-rounded ng-src={{hc.currentImage}} style="margin-top:6px;width:40px;height:40px"/></li></a>
+<a ui-sref=Settings title=Settings><li class=set_nav1><img src="images/6.png" style=margin-top:9px /></li></a>
+<a title="Log Out" ng-click="layout.logout()"><li class=set_nav1><img src="images/logout.png" style="margin-top:10px;cursor:pointer"></li></a>
+</ul>
+</div>
+</div>
+</nav>
+<span ng-if="$root.url == '/:child/:tagChild?'">
+<div class="container-fluid text-center home_search" style=margin-top:58px>
+<h4 style="color:#292f33;margin-top: 20px;">{{nameTag}}</h4>
+</div>
+<div class="container-fluid text-center home_search1">
+<ul class=mar_zero_home_search style="display:-webkit-inline-box;">
+<li style="list-style-type:none;padding-right:20px;border-right:1px solid #e1e8ed "> <a class=nav-link ui-sref="FeedTagInfo({child:'New'})" ng-click="fi.getselectFeed('New')">New</a> </li>
+<li style="list-style-type:none;padding-right:20px;padding-left:20px;border-right:1px solid #e1e8ed"> <a class=nav-link ui-sref="FeedTagInfo({child:'Hot'})" ng-click="fi.getselectFeed('Hot')">Hot</a></li>
+<li style="list-style-type:none;padding-right:20px;padding-left:20px;border-right:1px solid #e1e8ed"><a class=nav-link ui-sref="FeedTagInfo({child:'Trending'})" ng-click="fi.getselectFeed('Trending')">Trending</a></li>
+<li style="list-style-type:none;padding-right:20px;padding-left:20px"><a class=nav-link ui-sref="FeedTagInfo({child:'Promoted'})" ng-click="fi.getselectFeed('Promoted')">Promoted</a></li>
+</ul>
+</div>
 </span>
 </span>
-
 <span ng-if="hc.loginToken == undefined">
-	<nav class="navbar navbar-fixed-top" style="border-radius:0px;overflow-y:hidden;box-shadow:none;height:auto !important;    margin-bottom: 0px;">
-	  <div class="container">
-	    <div class="navbar-header pad_left" >
-	      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar" style="margin-top:15px">
-	        <span class="icon-bar" style="background-color:#fff"></span>
-	        <span class="icon-bar" style="background-color:#fff"></span>
-	        <span class="icon-bar" style="background-color:#fff"></span>
-	      </button>
-	      <a class="navbar-brand " href="#"><img src="images/8.png"  class="pull-left img_mar" /></a>
-				<form class="navbar-form navbar-left navbrand" style="margin-top:10px">
-             <div class="input-group" >
-                 <input type="text" id="txtSearch" class="form-control input" placeholder="Search..." ng-model="search" style="-webkit-box-shadow:none !important; padding-left: 6px;">
-                    <div class="input-group-btn">
-												<button ng-disabled="!search.length" class="btn btn-default" type="submit" style="height:34px;border-left:0px" ng-click="hc.getName(search)" ui-sref="FeedTagInfo({tagChild : search})" >
-												 <i class="fa fa-search" style="color:#717f88"></i>
-												</button>
-                   </div>
-            </div>
-         </form>
-	    </div>
-	    <div class="collapse navbar-collapse" id="myNavbar">
-	      <ul class="nav navbar-nav navbar-right col-md-2 col-sm-2 col-xs-2 text-center pad_right set_nav"  style="padding-top:10px">
-	           <button type="button" class="btn btn-primary" style="background-color:inherit !important;border:1px solid #fff" data-toggle="modal" data-target="#myModal31"> login </button>
-	      </ul>
-
-	    </div>
-	  </div>
-	</nav>
-	<span ng-if="$root.url == '/:child/:tagChild?'" >
-	<div class="container-fluid text-center home_search" style="margin-top:58px">
-	         <h4 style="color:#292f33;margin-top: 20px;">{{nameTag}}</h4>
-  	</div>
-	<div class="container-fluid text-center home_search1" >
-	     <ul class="mar_zero_home_search" style="display:-webkit-inline-box;">
-	       <li style="list-style-type:none;padding-right:20px;border-right:1px solid #e1e8ed "> <a class="nav-link" ui-sref="FeedTagInfo({child:'New'})" ng-click="fi.getselectFeed('New')">New</a> </li>
-	       <li style="list-style-type:none;padding-right:20px;padding-left:20px;border-right:1px solid #e1e8ed">  <a class="nav-link" ui-sref="FeedTagInfo({child:'Hot'})" ng-click="fi.getselectFeed('Hot')">Hot</a></li>
-	       <li style="list-style-type:none;padding-right:20px;padding-left:20px;border-right:1px solid #e1e8ed"><a class="nav-link" ui-sref="FeedTagInfo({child:'Trending'})" ng-click="fi.getselectFeed('Trending')">Trending</a></li>
-	       <li style="list-style-type:none;padding-right:20px;padding-left:20px"><a class="nav-link" ui-sref="FeedTagInfo({child:'Promoted'})" ng-click="fi.getselectFeed('Promoted')">Promoted</a></li>
-	     </ul>
-	</div>
+<nav class="navbar navbar-fixed-top" style="border-radius:0px;overflow-y:hidden;box-shadow:none;height:auto !important;    margin-bottom: 0px;">
+<div class=container>
+<div class="navbar-header pad_left">
+<button type=button class=navbar-toggle data-toggle=collapse data-target="#myNavbar" style=margin-top:15px>
+<span class=icon-bar style="background-color:#fff"></span>
+<span class=icon-bar style="background-color:#fff"></span>
+<span class=icon-bar style="background-color:#fff"></span>
+</button>
+<a class="navbar-brand " href="#"><img src="images/8.png" class="pull-left img_mar"/></a>
+<form class="navbar-form navbar-left navbrand" style=margin-top:10px>
+<div class=input-group>
+<input id=txtSearch class="form-control input" placeholder=Search... ng-model=search style="-webkit-box-shadow:none !important; padding-left: 6px;">
+<div class=input-group-btn>
+<button ng-disabled="!search.length" class="btn btn-default" type=submit style="height:34px;border-left:0px" ng-click="hc.getName(search)" ui-sref="FeedTagInfo({tagChild : search})">
+<i class="fa fa-search" style="color:#717f88"></i>
+</button>
+</div>
+</div>
+</form>
+</div>
+<div class="collapse navbar-collapse" id=myNavbar>
+<ul class="nav navbar-nav navbar-right col-md-2 col-sm-2 col-xs-2 text-center pad_right set_nav" style=padding-top:10px>
+<button type=button class="btn btn-primary" style="background-color:inherit !important;border:1px solid #fff" data-toggle=modal data-target="#myModal31"> login </button>
+</ul>
+</div>
+</div>
+</nav>
+<span ng-if="$root.url == '/:child/:tagChild?'">
+<div class="container-fluid text-center home_search" style=margin-top:58px>
+<h4 style="color:#292f33;margin-top: 20px;">{{nameTag}}</h4>
+</div>
+<div class="container-fluid text-center home_search1">
+<ul class=mar_zero_home_search style="display:-webkit-inline-box;">
+<li style="list-style-type:none;padding-right:20px;border-right:1px solid #e1e8ed "> <a class=nav-link ui-sref="FeedTagInfo({child:'New'})" ng-click="fi.getselectFeed('New')">New</a> </li>
+<li style="list-style-type:none;padding-right:20px;padding-left:20px;border-right:1px solid #e1e8ed"> <a class=nav-link ui-sref="FeedTagInfo({child:'Hot'})" ng-click="fi.getselectFeed('Hot')">Hot</a></li>
+<li style="list-style-type:none;padding-right:20px;padding-left:20px;border-right:1px solid #e1e8ed"><a class=nav-link ui-sref="FeedTagInfo({child:'Trending'})" ng-click="fi.getselectFeed('Trending')">Trending</a></li>
+<li style="list-style-type:none;padding-right:20px;padding-left:20px"><a class=nav-link ui-sref="FeedTagInfo({child:'Promoted'})" ng-click="fi.getselectFeed('Promoted')">Promoted</a></li>
+</ul>
+</div>
 </span>
 </span>
-  <!------navbar------------->
-    <div id="body" class="width" ng-if="$root.url !== '/' && $root.url !== '/Wallet' && $root.url !== '/:tag/:username/:permlink'  && $root.url !== '/Settings' && $root.url !== '/@{user}' && $root.url !== '/Blog' && $root.url !== '/Reply' && $root.url !== '/Message/{user}' && $root.url !== '/{user2}' && $root.url !== '/group/{groupname}' && $root.url !== '/creategroup' && $root.url !== '/Follower' && $root.url !== '/Following'">
-			<aside class="sidebar small-sidebar left-sidebar" style="margin-top:95px">
-				<div>
-          <ul>
-             <li>
-                 <ul>
-									 <span ng-if="hc.loginToken != undefined">
-                     <div class="col-md-12 four_sec " style="padding:0px" ng-init="hc.getUserInfo()">
-                      <li style="border-radius:5px 5px 0px 0px;width:100%;height:120px;list-style-type:none !important;background-image:url(1/images/gr_1.png);background-repeat:no-repeat;background-size:cover;margin-left:-2px"></li>
-                      <li class="text-center" style="background-color:#fff;border-bottom:1px solid #e5ebef;text-align:-webkit-center;text-align:-moz-center;list-style-type:none !important;border-left:2px solid #e1e8ed;border-right:2px solid #e1e8ed;margin-top:-10px;">
-                     <img ng-src={{hc.userInfo.userInfo.profile_image}} height="113" width="115" class="img-responsive img-rounded" style="z-index:1;margin-top:-80px;"/>
-                     <h3 style="color:#292f33;margin-bottom:0px;font-weight:bold">{{hc.userInfo.userInfo.name}}</h3>
-                     <span style="color:#8899a6">@{{hc.userInfo.userInfo.userName}}</span>
-                     </li>
-                     <div class="col-md-12 col-sm-12 col-xs-12 text-center" style="background-color:#fff;border:2px solid  #e1e8ed;border-top:0px;border-radius:0px 0px 5px 5px">
-                       <div class="col-md-4 col-sm-4 col-xs-4" style="padding:10px 0px;">
-                         <div class="col-md-12" style="padding:3px 0px;border-right:1px solid  #e1e8ed">
-                            <h6 class="head_text">POST</h6>
-                            <a ui-sref="Home"><h6 style="color:#0072bb;font-size:16px;font-weight:600;letter-spacing:0.6px">{{hc.userInfo.userInfo.totalPost}}</h6></a>
-                         </div>
-                       </div>
-                       <div class="col-md-4 col-sm-4 col-xs-4" style="padding:10px 0px;">
-                          <div class="col-md-12" style="padding:3px 0px;border-right:1px solid  #e1e8ed" >
-                            <h6 class="head_text">FOLLOWING</h6>
-                            <a ui-sref="Following1"><h6 style="color:#0072bb;font-size:16px;font-weight:600;letter-spacing:0.6px">{{hc.userInfo.userFollowingFollowersInfo.following_count}}</h6></a>
-                          </div>
-                       </div>
-                       <div class="col-md-4 col-sm-4 col-xs-4" style="padding:10px 0px;">
-                           <div class="col-md-12" style="padding:3px 0px;" >
-                              <h6 class="head_text">FOLLOWERS</h6>
-                              <a ui-sref="Follower1"><h6 style="color:#0072bb;font-size:16px;font-weight:600;letter-spacing:0.6px">{{hc.userInfo.userFollowingFollowersInfo.follower_count}}</h6></a>
-                           </div>
-                       </div>
-                   </div>
-								 </span>
-
-              </ul>
-          </li>
-
-              <li ng-if="hc.loginToken != undefined">
-                 <div ng-hide="showme" class="col-md-12 text-left third_sec" ng-init="hc.getTagTopicList()" style="padding:0px 10px 7px 20px;background-color:#fff;list-style-type:none !important;margin-top:20px;border-radius:5px 5px 5px 5px;border:2px solid #e1e8ed">
-                  <h5 style="color:#66757f;font-size:18px;font-weight:600">Tags & Topics</h5>
-                  <h6 style="color:#0072bb" ng-repeat="p in hc.TagTopicList"><div style="cursor:pointer" ui-sref="FeedTagInfo({tagChild : p.name})" ng-click="hc.getName(p.name)">{{p.name}}</div></h6>
-                  <h6 style="color:#66757f;cursor:pointer" ng-click="showme=true">Show More...</h6>
-              </div>
-							<div ng-show="showme" class="col-md-12 text-left third_sec scrollbar force-overflow" ng-init="hc.getTagTopicLists()" id="style-5" style="padding:0px 10px 7px 20px;height:780px;background-color:#fff;list-style-type:none !important;margin-top:20px;border-radius:5px 5px 5px 5px;border:2px solid #e1e8ed">
-							 <h5 style="color:#66757f;font-size:18px;font-weight:600">Tags & Topics</h5>
-							 <h6 style="color:#0072bb" ng-repeat="p in hc.TagTopicLists"><div style="cursor:pointer" ui-sref="FeedTagInfo({tagChild : p})" ng-click="hc.getName(p)">{{p}}</div></h6>
-					 </div>
-            </li>
-
-            <li ng-if="hc.loginToken == undefined">
-               <div ng-hide="showme" class="col-md-12 text-left third_sec" ng-init="hc.getTagTopicList()" style="padding:0px 10px 7px 20px;background-color:#fff;list-style-type:none !important;margin-top:-40px;border-radius:5px 5px 5px 5px;border:2px solid #e1e8ed">
-                <h5 style="color:#66757f;font-size:18px;font-weight:600">Tags & Topics</h5>
-                <h6 style="color:#0072bb" ng-repeat="p in hc.TagTopicList"><div style="cursor:pointer" ng-click="hc.getName(p.name)" ui-sref="FeedTagInfo({tagChild : p.name})" >{{p.name}}</div></h6>
-                <h6 style="color:#66757f;cursor:pointer" ng-click="showme=true">Show More...</h6>
-            </div>
-            <div ng-show="showme" class="col-md-12 text-left third_sec scrollbar force-overflow" ng-init="hc.getTagTopicLists()" id="style-5" style="padding:0px 10px 7px 20px;height:780px;background-color:#fff;list-style-type:none !important;margin-top:-40px;border-radius:5px 5px 5px 5px;border:2px solid #e1e8ed">
-             <h5 style="color:#66757f;font-size:18px;font-weight:600">Tags & Topics</h5>
-             <h6 style="color:#0072bb" ng-repeat="p in hc.TagTopicLists"><div style="cursor:pointer" ng-click="hc.getName(p)" ui-sref="FeedTagInfo({tagChild : p})" >{{p}}</div></h6>
-         </div>
-          </li>
-          </ul>
-				</div>
-       </li>
-     </ul>
-     </aside>
-       <section id="content" class="three-column" >
-         <article class="middleHeight" style="margin-top: 95px;">
-
-<div ng-if="$root.url !== '/Drafts' && $root.url !== '/Comments'  && $root.url !== '/:child/:tagChild?'" >
-		 <div class="col-md-12 col-sm-12 col-xs-12" style="background-color:#d7e9f4;border:2px solid #e1e8ed;border-radius:5px 5px 0px 0px"  ng-if="hc.loginToken != undefined">
-				 <div class="form-group ">
-						 <!-- <div class="col-md-1 col-sm-2 col-xs-2" style="padding:0px 0px 0px 0px">
-									 <img src={{hc.currentImage}} style="margin-top:6px;width:40px;height:40px;border-radius: 25px;" >
-							</div> -->
-              <div class="col-md-1 col-sm-2 col-xs-2" style="padding:3px 0px 0px 0px">
-                     <img ng-src="{{hc.currentImage}}" class="img-responsive img-rounded" style="margin-top:2px;width:35px;height:35px;">
-              </div>
-							<div class="col-md-11 col-sm-10 col-xs-10" style="padding-top:7px;padding:6px 0px 3px 7px">
-                <a ng-click="hc.clearCreateZapPopup()" data-target="#myModal12" data-toggle="modal" style="cursor:pointer"><img class="img-responsive img_mar11" src="images/textbox1.png"></a>
-									 <!-- <input type="text" id="email" class="form-control ex" ng-click="hc.clearCreateZapPopup()" placeholder="What's happening?" data-target="#myModal12" data-toggle="modal"> -->
-							</div>
-			 </div>
-	 </div>
-        <div  ng-if="hc.loginToken != undefined" class="col-md-12 seven_sec"></div>
-         <div  ng-if="hc.loginToken != undefined" class="col-md-12 col-sm-12 col-xs-12" style="background-color:#fff;border:1px solid #e1e8ed;" data-ng-controller='feedInfoCtrl as fi' ng-init='fi.getselectFeed()'>
-             <h4 style="color:#292f33;display:inline;text-transform:capitalize;vertical-align:-webkit-baseline-middle;vertical-align:-moz-baseline-middle" ng-model="selectFeed">{{selectFeed}}</h4>
-                 <div class="dropdown" style="margin-top:4px">
-                   <img src="images/z9.png" style="vertical-align:-webkit-baseline-middle;vertical-align:-moz-baseline-middle" />
-                      <div class="dropdown-content">
-                          <!-- <div class="desc" style="cursor:pointer" ui-sref="Feed" ng-click="fi.getselectFeed('Feed')">Feed</div> -->
-                          <div class="desc" style="cursor:pointer" ui-sref="FeedTagInfo({child:'New'})" ng-click="fi.getselectFeed('New')">New</div>
-                          <div class="desc" style="cursor:pointer" ui-sref="FeedTagInfo({child:'Hot'})" ng-click="fi.getselectFeed('Hot')">Hot</div>
-                          <div class="desc" style="cursor:pointer" ui-sref="FeedTagInfo({child:'Trending'})" ng-click="fi.getselectFeed('Trending')">Trending</div>
-                          <div class="desc" style="cursor:pointer" ui-sref="FeedTagInfo({child:'Promoted'})" ng-click="fi.getselectFeed('Promoted')">Promoted</div>
-                      </div>
-                </div>
-							  <a ng-click="hc.clearCreateZapPopup()" data-target="#myModal12" data-toggle="modal" style="outline:0px;cursor:pointer"><img src="1/images/createzap.png" class="pull-right" > </a>
-        </div>
-
-        <!-- <div ng-if="hc.loginToken != undefined && $root.url == '/:child/:tagChild?'" class="col-md-12 col-sm-12 col-xs-12" style="background-color:#fff;border:1px solid #e1e8ed;">
-          <div class="col-md-9" style="padding:8px 0px">
-               <h5 style="display:inline;vertical-align: -webkit-baseline-middle;color:#337ab7;cursor:pointer" ui-sref="Feed" ng-click="fi.getselectFeed('Feed')">Feed </h5>&nbsp;<h5 style="display:inline;vertical-align: -webkit-baseline-middle;color:rgb(232,232,232)">| </h5>&nbsp;
-               <h5 style="display:inline;vertical-align: -webkit-baseline-middle;color:#337ab7;cursor:pointer" ui-sref="FeedTagInfo({child:'New'})" ng-click="fi.getselectFeed('New')">New </h5>&nbsp;<h5 style="display:inline;vertical-align: -webkit-baseline-middle;color:rgb(232,232,232)">| </h5>&nbsp;
-               <h5 style="display:inline;vertical-align: -webkit-baseline-middle;color:#337ab7;cursor:pointer" ui-sref="FeedTagInfo({child:'Hot'})" ng-click="fi.getselectFeed('Hot')">Hot </h5>&nbsp;<h5 style="display:inline;vertical-align: -webkit-baseline-middle;color:rgb(232,232,232)">| </h5>&nbsp;
-               <h5 style="display:inline;vertical-align: -webkit-baseline-middle;color:#337ab7;cursor:pointer" ui-sref="FeedTagInfo({child:'Trending'})" ng-click="fi.getselectFeed('Trending')">Trending </h5>&nbsp;<h5 style="display:inline;vertical-align: -webkit-baseline-middle;color:rgb(232,232,232)">| </h5>&nbsp;
-              <h5 style="display:inline;vertical-align: -webkit-baseline-middle;color:#337ab7;cursor:pointer" ui-sref="FeedTagInfo({child:'Promoted'})" ng-click="fi.getselectFeed('Promoted')">Promoted </h5>&nbsp
-          </div>
-          <div class="col-md-3" style="padding:5px 0px">
-              <a ng-click="hc.clearCreateZapPopup()" data-target="#myModal12" data-toggle="modal" style="outline:0px;cursor:pointer"><img src="1/images/createzap.png" class="pull-right" > </a>
-         </div>
-       </div> -->
-
-
-
+<div id=body class=width ng-if="$root.url !== '/' && $root.url !== '/Wallet' && $root.url !== '/:tag/:username/:permlink'  && $root.url !== '/Settings' && $root.url !== '/@{user}' && $root.url !== '/Blog' && $root.url !== '/Reply' && $root.url !== '/Message/{user}' && $root.url !== '/tos'  && $root.url !== '/{user2}' && $root.url !== '/group/{groupname}' && $root.url !== '/creategroup' && $root.url !== '/Follower' && $root.url !== '/Following'">
+<aside class="sidebar small-sidebar left-sidebar" style=margin-top:95px>
+<div>
+<ul>
+<li>
+<ul>
+<span ng-if="hc.loginToken != undefined">
+<div class="col-md-12 four_sec " style=padding:0px ng-init="hc.getUserInfo()">
+<li style="border-radius:5px 5px 0px 0px;width:100%;height:120px;list-style-type:none !important;background-image:url(1/images/gr_1.png);background-repeat:no-repeat;background-size:cover;margin-left:-2px"></li>
+<li class=text-center style="background-color:#fff;border-bottom:1px solid #e5ebef;text-align:-webkit-center;text-align:-moz-center;list-style-type:none !important;border-left:2px solid #e1e8ed;border-right:2px solid #e1e8ed;margin-top:-10px;">
+<img ng-src={{hc.userInfo.userInfo.profile_image}} height=113 width=115 class="img-responsive img-rounded" style="z-index:1;margin-top:-80px;"/>
+<h3 style="color:#292f33;margin-bottom:0px;font-weight:bold">{{hc.userInfo.userInfo.name}}</h3>
+<span style="color:#8899a6">@{{hc.userInfo.userInfo.userName}}</span>
+</li>
+<div class="col-md-12 col-sm-12 col-xs-12 text-center" style="background-color:#fff;border:2px solid  #e1e8ed;border-top:0px;border-radius:0px 0px 5px 5px">
+<div class="col-md-4 col-sm-4 col-xs-4" style="padding:10px 0px;">
+<div class=col-md-12 style="padding:3px 0px;border-right:1px solid  #e1e8ed">
+<h6 class=head_text>POST</h6>
+<a ui-sref=Home><h6 style="color:#0072bb;font-size:16px;font-weight:600;letter-spacing:0.6px">{{hc.userInfo.userInfo.totalPost}}</h6></a>
 </div>
-
-<div ng-controller = "scrollCtrl">
-  <span ng-if="$root.url != '/{user2}' && $root.url != '/group/{groupname}'">
-	<div class="loading-dialog" id="loader" data-loading = " " ></div>
+</div>
+<div class="col-md-4 col-sm-4 col-xs-4" style="padding:10px 0px;">
+<div class=col-md-12 style="padding:3px 0px;border-right:1px solid  #e1e8ed">
+<h6 class=head_text>FOLLOWING</h6>
+<a ui-sref=Following1><h6 style="color:#0072bb;font-size:16px;font-weight:600;letter-spacing:0.6px">{{hc.userInfo.userFollowingFollowersInfo.following_count}}</h6></a>
+</div>
+</div>
+<div class="col-md-4 col-sm-4 col-xs-4" style="padding:10px 0px;">
+<div class=col-md-12 style="padding:3px 0px;">
+<h6 class=head_text>FOLLOWERS</h6>
+<a ui-sref=Follower1><h6 style="color:#0072bb;font-size:16px;font-weight:600;letter-spacing:0.6px">{{hc.userInfo.userFollowingFollowersInfo.follower_count}}</h6></a>
+</div>
+</div>
+</div>
 </span>
-    <div ui-view> </div>
+</ul>
+</li>
+<li ng-if="hc.loginToken != undefined">
+<div ng-hide=showme class="col-md-12 text-left third_sec" ng-init="hc.getTagTopicList()" style="padding:0px 10px 7px 20px;background-color:#fff;list-style-type:none !important;margin-top:20px;border-radius:5px 5px 5px 5px;border:2px solid #e1e8ed">
+<h5 style="color:#66757f;font-size:18px;font-weight:600">Tags & Topics</h5>
+<h6 style="color:#0072bb" ng-repeat="p in hc.TagTopicList"><div style=cursor:pointer ui-sref="FeedTagInfo({tagChild : p})" ng-click="hc.getName(p)">{{p}}</div></h6>
+<h6 style="color:#66757f;cursor:pointer" ng-click="showme=true">Show More...</h6>
+</div>
+<div ng-show=showme class="col-md-12 text-left third_sec scrollbar force-overflow" ng-init="hc.getTagTopicLists()" id=style-5 style="padding:0px 10px 7px 20px;height:780px;background-color:#fff;list-style-type:none !important;margin-top:20px;border-radius:5px 5px 5px 5px;border:2px solid #e1e8ed">
+<h5 style="color:#66757f;font-size:18px;font-weight:600">Tags & Topics</h5>
+<h6 style="color:#0072bb" ng-repeat="p in hc.TagTopicLists"><div style=cursor:pointer ui-sref="FeedTagInfo({tagChild : p})" ng-click="hc.getName(p)">{{p}}</div></h6>
+</div>
+</li>
+<li ng-if="hc.loginToken == undefined">
+<div ng-hide=showme class="col-md-12 text-left third_sec" ng-init="hc.getTagTopicList()" style="padding:0px 10px 7px 20px;background-color:#fff;list-style-type:none !important;margin-top:-40px;border-radius:5px 5px 5px 5px;border:2px solid #e1e8ed">
+<h5 style="color:#66757f;font-size:18px;font-weight:600">Tags & Topics</h5>
+<h6 style="color:#0072bb" ng-repeat="p in hc.TagTopicList"><div style=cursor:pointer ng-click="hc.getName(p)" ui-sref="FeedTagInfo({tagChild : p})">{{p}}</div></h6>
+<h6 style="color:#66757f;cursor:pointer" ng-click="showme=true">Show More...</h6>
+</div>
+<div ng-show=showme class="col-md-12 text-left third_sec scrollbar force-overflow" ng-init="hc.getTagTopicLists()" id=style-5 style="padding:0px 10px 7px 20px;height:780px;background-color:#fff;list-style-type:none !important;margin-top:-40px;border-radius:5px 5px 5px 5px;border:2px solid #e1e8ed">
+<h5 style="color:#66757f;font-size:18px;font-weight:600">Tags & Topics</h5>
+<h6 style="color:#0072bb" ng-repeat="p in hc.TagTopicLists"><div style=cursor:pointer ng-click="hc.getName(p)" ui-sref="FeedTagInfo({tagChild : p})">{{p}}</div></h6>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</aside>
+<section id=content class=three-column>
+<article class=middleHeight style="margin-top: 95px;">
+<div ng-if="$root.url !== '/Drafts' && $root.url !== '/Comments'  && $root.url !== '/:child/:tagChild?'">
+<div class="col-md-12 col-sm-12 col-xs-12" style="background-color:#d7e9f4;border:2px solid #e1e8ed;border-radius:5px 5px 0px 0px" ng-if="hc.loginToken != undefined">
+<div class="form-group ">
+<div class="col-md-1 col-sm-2 col-xs-2" style="padding:3px 0px 0px 0px">
+<img ng-src="{{hc.currentImage}}" class="img-responsive img-rounded" style="margin-top:2px;width:35px;height:35px;">
+</div>
+<div class="col-md-11 col-sm-10 col-xs-10" style="padding-top:7px;padding:6px 0px 3px 7px">
+<a ng-click="hc.clearCreateZapPopup()" data-target="#myModal12" data-toggle=modal style=cursor:pointer><img class="img-responsive img_mar11" src="images/textbox1.png"></a>
+</div>
+</div>
+</div>
+<div ng-if="hc.loginToken != undefined" class="col-md-12 seven_sec"></div>
+<div ng-if="hc.loginToken != undefined" class="col-md-12 col-sm-12 col-xs-12" style="background-color:#fff;border:1px solid #e1e8ed;" data-ng-controller='feedInfoCtrl as fi' ng-init='fi.getselectFeed()'>
+<h4 style="color:#292f33;display:inline;text-transform:capitalize;vertical-align:-webkit-baseline-middle;vertical-align:-moz-baseline-middle" ng-model=selectFeed>{{selectFeed}}</h4>
+<div class=dropdown style=margin-top:4px>
+<img src="images/z9.png" style="vertical-align:-webkit-baseline-middle;vertical-align:-moz-baseline-middle"/>
+<div class=dropdown-content>
+    <div class=desc style="cursor:pointer"><a href="/New/zappl">New</a></div>
+    <div class=desc style="cursor:pointer"><a href="/Hot/zappl">Hot</a></div>
+    <div class=desc style="cursor:pointer"><a href="/Trending/zappl">Trending</a></div>
+    <div class=desc style="cursor:pointer"><a href="/Promoted/zappl">Promoted</a></div>
+<!--
+<div class=desc style=cursor:pointer ui-sref="FeedTagInfo({child:'New'})" ng-click="fi.getselectFeed('New')">New</div>
+<div class=desc style=cursor:pointer ui-sref="FeedTagInfo({child:'Hot'})" ng-click="fi.getselectFeed('Hot')">Hot</div>
+<div class=desc style=cursor:pointer ui-sref="FeedTagInfo({child:'Trending'})" ng-click="fi.getselectFeed('Trending')">Trending</div>
+<div class=desc style=cursor:pointer ui-sref="FeedTagInfo({child:'Promoted'})" ng-click="fi.getselectFeed('Promoted')">Promoted</div>
+Will be turned when more users start posting!
+-->
+</div>
+</div>
+<a ng-click="hc.clearCreateZapPopup()" data-target="#myModal12" data-toggle=modal style="outline:0px;cursor:pointer"><img src="1/images/createzap.png" class=pull-right> </a>
+</div>
+</div>
+<div ng-controller=scrollCtrl>
+<span ng-if="$root.url != '/{user2}' && $root.url != '/group/{groupname}'">
+<div class=loading-dialog id=loader data-loading=" "></div>
+</span>
+<div ui-view> </div>
+</div>
+</article>
+</section>
+<aside class="sidebar small-sidebar right-sidebar" style=margin-top:104px>
+<div ng-init="hc.getWhoToFollow()">
+<ul>
+<li style=margin-top:-9px>
+<div ng-if="hc.loginToken != undefined" class="col-md-12 col-sm-12 col-xs-12 second_sec" style="background-color:#fff;border:2px solid #e1e8ed;border-radius:5px;padding-bottom:10px ">
+<h5 style="color:#66757f;font-size:18px;font-weight:600">Who to follow</h5>
+<div class=col-md-12 style=padding:0px ng-repeat="n in whoFollowList | limitTo:5">
+<div class="col-md-6 col-sm-6 col-xs-6 side_pad" style="padding: 15px 0px;">
+<h5 style="display:inline;color:#333333;font-weight:600;cursor:pointer;overflow:hidden;word-break:break-all;white-space:normal;" ui-sref="Profile({user : n})">{{n}}</h5>
+</div>
+<div class="col-md-4 col-sm-4 col-xs-4 side_pad">
+<input type=image src="1/images/followus.png" ng-click="hc.postFollow(n)" style="border:none !important">
+</div>
+<div class="col-md-12 col-sm-12 col-xs-12 text-center" style="background-color:#fff;margin-top: 5px;border:2px solid  #e1e8ed;border-top:0px;border-radius:0px 0px 5px 5px"></div>
+</div>
+<span style="color:#0072bb;padding-left:4px;cursor:pointer" class=pull-right ng-click="hc.getWhoToFollow()"> View More >> </span>
+</div>
+</li>
+<li ng-if="hc.loginToken != undefined">
+
+<div class="col-md-12 text-left first_sec" style="padding:10px 10px 10px 20px;background-color:#fff;list-style-type:none !important;border-radius:5px 5px 5px 5px;border:2px solid #e1e8ed;margin-top:20px">
+<p style="color:#8899a6;font-size:12px">@ 2017 zappl About Help Center <a ui-sref="TOS">Terms<br/>
+Privacy Policy</a> Cookies Ads Info Brand <br/>
+Blog Status AppsJobs Business Developers</p>
 </div>
 
+</li>
+<li ng-if="hc.loginToken == undefined">
 
-        </article>
-          </section>
-        <aside class="sidebar small-sidebar right-sidebar" style="margin-top:104px">
-					<div ng-init="hc.getWhoToFollow()">
+<div class="col-md-12 text-left first_sec" style="padding:10px 10px 10px 20px;background-color:#fff;list-style-type:none !important;border-radius:5px 5px 5px 5px;border:2px solid #e1e8ed;margin-top:-40px">
+<p style="color:#8899a6;font-size:12px">@ 2017 zappl About Help Center <a ui-sref="TOS">Terms<br/>
+Privacy Policy</a> Cookies Ads Info Brand <br/>
+Blog Status AppsJobs Business Developers</p>
+</div>
 
-
-						<ul>
-								 <li style="margin-top:-9px">
-											<div ng-if="hc.loginToken != undefined"  class="col-md-12 col-sm-12 col-xs-12 second_sec" style="background-color:#fff;border:2px solid #e1e8ed;border-radius:5px;padding-bottom:10px ">
-										<h5 style="color:#66757f;font-size:18px;font-weight:600">Who to follow</h5>
-											 <div class="col-md-12" style="padding:0px" ng-repeat="n in whoFollowList | limitTo:5">
-
-													 <div class="col-md-6 col-sm-6 col-xs-6 side_pad" style="padding: 15px 0px;">
-															<h5 style="display:inline;color:#333333;font-weight:600;cursor:pointer;overflow:hidden;word-break:break-all;white-space:normal;" ui-sref="Profile({user : n})">{{n}}</h5>
-															</div>
-															<div class="col-md-4 col-sm-4 col-xs-4 side_pad" >
-																<input type="image" src="1/images/followus.png" ng-click="hc.postFollow(n)"  style="border:none !important">
-													 </div>
-													 <div class="col-md-12 col-sm-12 col-xs-12 text-center" style="background-color:#fff;margin-top: 5px;border:2px solid  #e1e8ed;border-top:0px;border-radius:0px 0px 5px 5px"></div>
-											</div>
-										 <span style="color:#0072bb;padding-left:4px;cursor:pointer" class="pull-right" ng-click="hc.getWhoToFollow()"> View More >> </span>
-									</div>
-						 </li>
-						 <li ng-if="hc.loginToken != undefined">
-									<div class="col-md-12 text-left first_sec" style="padding:10px 10px 10px 20px;background-color:#fff;list-style-type:none !important;border-radius:5px 5px 5px 5px;border:2px solid #e1e8ed;margin-top:20px">
-										 <p style="color:#ccd6dd;font-size:12px">@ 2017 zappl About Help Center Terms<br />
-										 Privacy Polocy Cookies Ads Info Brand <br />
-										 Blog Status AppsJobs Business Developers</p>
-									</div>
-							</li>
-              <li ng-if="hc.loginToken == undefined">
- 									<div class="col-md-12 text-left first_sec" style="padding:10px 10px 10px 20px;background-color:#fff;list-style-type:none !important;border-radius:5px 5px 5px 5px;border:2px solid #e1e8ed;margin-top:-40px">
- 										 <p style="color:#ccd6dd;font-size:12px">@ 2017 zappl About Help Center Terms<br />
- 										 Privacy Polocy Cookies Ads Info Brand <br />
- 										 Blog Status AppsJobs Business Developers</p>
- 									</div>
- 							</li>
-						</ul>
-					</div>
-        </aside>
-            <div class="clear"></div>
-    </div>
-		<!---Modal for create zap------->
-		<div ng-controller="homeCtrl as hc" id="myModal" class="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="background-color:#rgba(0,0,0,0.5)">
-		    <div class="modal-dialog">
-		        <div class="modal-content">
-		            <div class="modal-header" style="border-bottom:0px">
-		             <button type="button" class="close" data-dismiss="modal" style="color:#000 !important;outline:0px">&times;</button>
-		         </div>
-		         <div class="modal-body" style="padding:0px 25px">
-		            <div class="form-group">
-		              <input type="text" class="form-control input" ng-model="title" placeholder="Title">
-		            </div>
-								<form>
-								 <fieldset>
-									 <div class="col-md-12" style="padding:0px">
-										 <textarea id="noise" class="widgEditor nothing" style="width:100%;resize:vertical"></textarea>
-									 </div>
-								 </fieldset>
-							 </form>
-		            <!-- <div class="form-group">
-		              <textarea class="form-control" rows="9" placeholder="Write your zap..." style="resize:none;border-radius:3px 3px 3px 3px" >
-		              </textarea>
-		            </div> -->
-		           <div class="col-md-1">
-								 <span class="select-wrapper">
-										 <input type="file" tooltip="upload image/video" name="image_src" style="width: 26px;height: 26px;opacity: 0;filter:alpha(opacity=0);" onchange="angular.element(this).scope().fileUpload(this)"/>
-								 </span>
-		           </div>
-		           <div class="col-md-1" style="padding-top:11px">
-		              <a data-target="#myModal1" data-toggle="modal"><i class="fa fa-dedent" style="color:#717f88;font-size:22px;outline:none"></i></a>
-		           </div>
-                <div class="col-md-12" style="padding:20px 0px 0px 0px">
-										<div class="col-md-7" style="padding:0px">
-											 <div class="col-md-3" style="padding:4px 0px 0px 0px">
-													 <span style="color:#8899a6;line-height:30px">Rewards :</span>
-											 </div>
-											 <div class="col-md-9" style="padding:0px 7px;margin-left:-12px">
-														 <select class="form-control" id="sel1" style="color:#8899a6" ng-model="hc.popUpListSelect" >
-															 <option style="color:#8899a6" ng-repeat="x in hc.popUpList" value="{{x}}">{{x}}</option>
-														 </select>
-											</div>
-									 </div>
-									 <div class="col-md-5" style="padding:4px 0px 0px 0px">
-											<span style="color:#8899a6;line-height:30px">Upvote post</span>&nbsp;&nbsp;&nbsp;
-											<input  id="chkPassport" type="checkbox" ng-model="hc.hasPost" style="border-radius:0px !important">
-										<button type="button" class="btn btn-primary hover_eff" ng-click ="hc.draftPost()">Save as draft</button>
-									</div>
-								</div>
-								<div class="col-md-12" style="padding:0px">
-									 <a style="cursor:pointer" ng-click="hc.routeToDraft()"><h6>Show Save Drafts</h6></a>
-								</div>
-		          </div>
-		          <div class="modal-footer text-center" style="border-top:0px;text-align:center !important">
-								<div class="col-md-12" style="margin-top:20px">
-								 <button type="button" class="btn button_layout" data-dismiss="modal" ng-disabled="hc.hasPost == true && hc.popUpListSelect=='' " ng-click="hc.checkPost()"><span style="color:3292f33;font-weight:600">Post</span></button>
-							 </div>
-							 <input type="text" class="input" id="idField" style="visibility: hidden;">
-		         </div>
-		       </div>
-		   </div>
-		</div>
-
-		<div ng-controller="homeCtrl as hc" id="myModal1" class="modal modal-child" data-backdrop-limit="1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-modal-parent="#myModal" style="background-color:#rgba(0,0,0,0.7)">
-		    <div class="modal-dialog">
-		        <!-- Modal content-->
-		        <div class="modal-content">
-		            <div class="modal-header" style="border-bottom:0px">
-		             <button type="button" class="close" data-dismiss="modal" style="color:#000 !important;outline:0px">&times;</button>
-		            </div>
-		            <div class="modal-body" style="padding:0px 25px">
-		                <div class="form-group">
-		                   <input id='youtubeVideo' type="text" class="form-control input" placeholder="Enter video URL">
-		                </div>
-		             </div>
-		             <div class="modal-footer text-center" style="border-top:0px;text-align:center !important">
-		             <div class="col-md-12" style="margin-top:20px">
-		               <button type="button" class="btn button_layout" data-dismiss="modal" style="color:#333333;font-weight:600;" ng-click="hc.youTube()">Submit</button>
-		            </div>
-		         </div>
-
-		        </div>
-		    </div>
-		</div>
-		<!---Modal for create zap------->
-
-
-
-		<script>
-		$('.modal-child').on('show.bs.modal', function () {
-		    var modalParent = $(this).attr('data-modal-parent');
-		    $(modalParent).css('opacity', 0);
-			$(modalParent).css('background-color', '#000');
-		});
-
-		$('.modal-child').on('hidden.bs.modal', function () {
-		    var modalParent = $(this).attr('data-modal-parent');
-		    $(modalParent).css('opacity', 1);
-		});
-		</script>
-
-		<script>
-		$(document.body).on('hide.bs.modal', function () {
-		    $('body').css('padding-right','0');
-		});
-		$(document.body).on('hidden.bs.modal', function () {
-		    $('body').css('padding-right','0');
-		});
-		</script>
-
-
-
-
-
-
-
-		<div ng-controller="homeCtrl as hc" class="modal fade" id="myModal12" role="dialog" >
-
-				<div class="modal-dialog">
-					<div class="modal-content">
-						 <div class="modal-header" style="border-bottom:0px">
-								 <button type="button" class="close" data-dismiss="modal" style="color:#000 !important;outline:0px">&times;</button>
-						 </div>
-						 <div class="modal-body" style="padding:0px 25px">
-
-								<div class="form-group">
-									<input type="text" id="titles" class="form-control input" ng-model="title" placeholder="Title">
-							 </div>
-               <div class="col-md-12" style="padding:0px">
-										<textarea id="txtModal12" rows="4" ng-model="text"  maxlength="240" style="width:100%;resize:vertical;border:1px solid #ccc"></textarea>
-                    <!-- <span id="count1234"></span> -->
-								</div>
-								 <br>
-
-								<div id="appearImage" class="col-md-12" style="border:1px solid #eee;padding:30px 0px;display:none">
-		               <div class="col-md-6">
-										 <!-- <img width=250 height=250 id='imgLoad' ng-repeat="imageSource in imageSources track by $index" ng-src="{{imageSource}}" class="img-responsive"/> -->
-										 <img width=250 height=250 id='imgLoad' class="img-responsive"/>
-										 <br/>
-										 <a style="cursor:pointer" ng-click="hc.deleteUploadMedia()">remove</a>
-									 </div>
-		            </div>
-
-								<div id="appearVideo" class="col-md-12" style="border:1px solid #eee;padding:30px 0px;display:none">
-		               <div class="col-md-3">
-										 <!-- <video width="320" height="240" controls><source ng-repeat="videoSources in videoSource track by $index" ng-src="{{videoSources}}" type="video/mp4"></video> -->
-										 <video width="320" height="240" controls><source id='videoLoad' type="video/mp4"></video>
-										 <br/>
-										 <a style="cursor:pointer" ng-click="hc.deleteUploadMedia()">remove</a>
-									 </div>
-		            </div>
-
-								<div id="appearUrlVideo" class="col-md-12" style="border:1px solid #eee;padding:30px 0px;display:none">
-		               <div class="col-md-3">
-										 <img width=250 height=250 src="images/YouTube-social-icon2.jpg" class="img-responsive"/>
-										 <br/>
-										 <a style="cursor:pointer" ng-click="hc.deleteUploadMedia()">remove</a>
-									 </div>
-		            </div>
-
-							<div id='uploadImages' class="col-md-1 col-xs-2" style="padding-left:0px">
-								<span class="select-wrapper">
-										<input type="file" name="image_src" style="width: 26px;height: 26px;opacity: 0;filter:alpha(opacity=0);" onchange="angular.element(this).scope().fileWhatsHappening(this)"/>
-								</span>
-							</div>
-
-								<div id='uploadVideos' class="col-md-2 col-xs-2" style="padding-top:11px;margin-left: -20px;margin-top: 2px;">
- 		              <!-- <a data-target="#myModal1212" data-toggle="modal"><i class="fa fa-dedent" style="color:#717f88;font-size:22px;outline:none"></i></a> -->
-                      <a data-target="#myModal1212" data-toggle="modal"><img src="1/images/youtube.png"></a>
- 		           </div>
-
-               <div  class="col-md-6 col-xs-6" style="padding-top:11px">
-                 <span id="chars-remaining"></span>
-              </div>
-
-
-								<div class="col-md-12" style="padding:20px 0px 0px 0px;margin-top:18px">
-										 <div class="col-md-7" style="padding:0px">
-												<div class="col-md-3" style="padding:4px 0px 0px 0px">
-														<span style="color:#8899a6;line-height:30px">Rewards :</span>
-												</div>
-												<div class="col-md-9" style="padding:0px 7px;margin-left:-12px">
-															<select class="form-control" id="sel2" style="color:#8899a6" ng-model="hc.popUpListSelect" >
-																<option style="color:#8899a6" ng-repeat="x in hc.popUpList" value="{{x}}">{{x}}</option>
-															</select>
-											</div>
-								</div>
-								<div class="col-md-5 space " style="padding:4px 0px 0px 0px">
-                    <div class="col-xs-6" style="padding:0px">
-                       <span style="color:#8899a6;line-height:30px">Upvote post</span>&nbsp;&nbsp;&nbsp;
-											 <input  id="chkPassport" type="checkbox" ng-model="hc.hasPost" style="height: 10px;width: 10px;padding: 4px;margin-right: 10px;border: 1px solid #2ea8f3 !important;border-radius: 3px;">
-                    </div>
-                    <div class="col-xs-6 text-right" style="padding:0px">
-                       <button type="button" class="btn btn-primary hover_eff " ng-click ="hc.draftPost()">Save as draft</button>
-									  </div>
-                </div>
-								 </div>
-								 <div class="col-md-12 text-center " style="padding:0px">
-										<a style="cursor:pointer" ng-click="hc.routeToDraft()"><h6 class="mar_top">Show Save Drafts</h6></a>
-								 </div>
-					</div>
-					<div class="modal-footer text-center" style="border-top:0px;text-align:center !important">
-						<div class="col-md-12" style="margin-top:20px">
-							<button type="button" class="btn button_layout" data-dismiss="modal" ng-disabled="!title.length || !text.length" ng-click="hc.postWhatsHappening()"><span style="color:3292f33;font-weight:600">Post</span></button>
-						</div>
-						<input type="text" id="idField" class="input" style="visibility: hidden;">
-					</div>
-					</div>
-			</div>
-		</div>
-
-		<div ng-controller="homeCtrl as hc" id="myModal1212" class="modal modal-child" data-backdrop-limit="1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-modal-parent="#myModal" style="background-color:#rgba(0,0,0,0.7)">
-				<div class="modal-dialog">
-						<!-- Modal content-->
-						<div class="modal-content">
-								<div class="modal-header" style="border-bottom:0px">
-								 <button type="button" class="close" data-dismiss="modal" style="color:#000 !important;outline:0px">&times;</button>
-								</div>
-								<div class="modal-body" style="padding:0px 25px">
-										<div class="form-group">
-											<h3>Enter youtube URL</h3>
-											<br/>
-											 <input id='youtubeVideo1' ng-model="ytb" type="text" class="form-control input" placeholder="Enter youtube URL">
-										</div>
-								 </div>
-								 <div class="modal-footer text-center" style="border-top:0px;text-align:center !important">
-								 <div class="col-md-12" style="margin-top:20px">
-                   <p style="color:red">{{hc.ytbErr}}</p>
-									 <button type="button" class="btn button_layout" data-dismiss="modal" style="color:#333333;font-weight:600;" ng-disabled="!ytb.length" ng-click="hc.youTube()">Submit</button>
-								</div>
-						 </div>
-
-						</div>
-				</div>
-		</div>
-
-
-		<div class="modal fade" id="myModal31" role="dialog" data-ng-controller="loginCtrl">
-		    <div class="modal-dialog">
-
-		      <!-- Modal content-->
-		      <div class="modal-content">
-		        <div class="modal-header" style="border-bottom:0px">
-		          <button type="button" class="close" data-dismiss="modal">&times;</button>
-		        </div>
-		        <div class="modal-body text-center" style="padding:10px 40px">
-		                  <img src="1/images/blue_logo.png" >
-		                  <h2 style="font-weight:bold">Log in to your account</h2>
-		                  <p style="color:#66757f">Login with Steem post key.</p>
-		                  <div class="form-group">
-												<input id="test" placeholder="User name" type="text" ng-model="name" class="input"   style="padding:20px;width:100%" required=" "/>
-		                  </div>
-		                  <div class="form-group">
-													 <input type="password" ng-model="password" class="input"  placeholder="Password" style="padding:20px;width:100%" required=" "/>
-				                   <div style="color:red">{{errorMessage}}</div>
-		                  </div>
-		        </div>
-		        <div class="modal-footer text-center" style="border-top:0px;text-align:center !important">
-							<a style="color:#292f33">
-							<input type="submit" id="btnSubmit" value="login" data-dismiss="modal" class="btn button_layout" ng-click="verifyUser()">
-							</a>
-		        </div>
-		      </div>
-		    </div>
-		</div>
-
-
-
-  </div>
+</li>
+</ul>
+</div>
+</aside>
+<div class=clear></div>
+</div>
+<div ng-controller="homeCtrl as hc" id=myModal1 class="modal modal-child" data-backdrop-limit=1 tabindex=-1 role=dialog aria-labelledby=myModalLabel aria-hidden=true data-modal-parent="#myModal" style="background-color:#rgba(0,0,0,0.7)">
+<div class=modal-dialog>
+<div class=modal-content>
+<div class=modal-header style=border-bottom:0px>
+<button type=button class=close data-dismiss=modal style="color:#000 !important;outline:0px">&times;</button>
+</div>
+<div class=modal-body style="padding:0px 25px">
+<div class=form-group>
+<input id=youtubeVideo class="form-control input" placeholder="Enter video URL">
+</div>
+</div>
+<div class="modal-footer text-center" style="border-top:0px;text-align:center !important">
+<div class=col-md-12 style=margin-top:20px>
+<button type=button class="btn button_layout" data-dismiss=modal style="color:#333333;font-weight:600;" ng-click="hc.youTube()">Submit</button>
 </div>
 </div>
 </div>
 </div>
-
-
+</div>
+<script>$('.modal-child').on('show.bs.modal',function(){var modalParent=$(this).attr('data-modal-parent');$(modalParent).css('opacity',0);$(modalParent).css('background-color','#000');});$('.modal-child').on('hidden.bs.modal',function(){var modalParent=$(this).attr('data-modal-parent');$(modalParent).css('opacity',1);});</script>
+<script>$(document.body).on('hide.bs.modal',function(){$('body').css('padding-right','0');});$(document.body).on('hidden.bs.modal',function(){$('body').css('padding-right','0');});</script>
+<div ng-controller="homeCtrl as hc" class="modal fade" id=myModal12 role=dialog>
+<div class=modal-dialog>
+<div class=modal-content>
+<div class=modal-header style=border-bottom:0px>
+<button type=button class=close data-dismiss=modal style="color:#000 !important;outline:0px">&times;</button>
+</div>
+<div class=modal-body style="padding:0px 25px">
+<div class=form-group>
+<input id=titles class="form-control input" ng-model=title placeholder=Title>
+</div>
+<div class=col-md-12 style=padding:0px>
+<textarea id=txtModal12 rows=4 ng-model=text maxlength=240 style="width:100%;resize:vertical;border:1px solid #ccc"></textarea>
+</div>
+<br>
+<div id=appearImage class=col-md-12 style="border:1px solid #eee;padding:30px 0px;display:none">
+<div class=col-md-6>
+<img width=250 height=250 id=imgLoad class=img-responsive />
+<br/>
+<a style=cursor:pointer ng-click="hc.deleteUploadMedia()">remove</a>
+</div>
+</div>
+<div id=appearVideo class=col-md-12 style="border:1px solid #eee;padding:30px 0px;display:none">
+<div class=col-md-3>
+<video width=320 height=240 controls><source id=videoLoad type="video/mp4"></video>
+<br/>
+<a style=cursor:pointer ng-click="hc.deleteUploadMedia()">remove</a>
+</div>
+</div>
+<div id=appearUrlVideo class=col-md-12 style="border:1px solid #eee;padding:30px 0px;display:none">
+<div class=col-md-3>
+<img width=250 height=250 src="images/YouTube-social-icon2.jpg" class=img-responsive />
+<br/>
+<a style=cursor:pointer ng-click="hc.deleteUploadMedia()">remove</a>
+</div>
+</div>
+<div id=uploadImages class="col-md-1 col-xs-3" style=padding-left:0px>
+<span class=select-wrapper>
+<input type=file name=image_src style="width: 39px;height: 26px;opacity: 0;filter:alpha(opacity=0);" onchange="angular.element(this).scope().fileWhatsHappening(this)"/>
+</span>
+</div>
+<div id=uploadVideos class="col-md-2 col-xs-4" style="padding-top:11px;margin-top: 2px;">
+<a data-target="#myModal1212" data-toggle=modal><img src="1/images/youtube.png"></a>
+</div>
+<div class="col-md-6 col-xs-12" style="padding-top: 11px">
+<span id=chars-remaining></span>
+</div>
+<div class=col-md-12 style="padding:20px 0px 0px 0px;margin-top:30px">
+<div class=col-md-7 style=padding:0px>
+<div class=col-md-3 style="padding:4px 0px 0px 0px">
+<span style="color:#8899a6;line-height:30px">Rewards :</span>
+</div>
+<div class=col-md-9 style="padding:0px 7px;margin-left:-12px">
+<select class=form-control id=sel2 style="color:#8899a6" ng-model=hc.popUpListSelect>
+<option style="color:#8899a6" ng-repeat="x in hc.popUpList" value="{{x}}">{{x}}</option>
+</select>
+</div>
+</div>
+<div class="col-md-5 space " style="padding:4px 0px 0px 0px">
+<div class=col-xs-6 style=padding:0px>
+<span style="color:#8899a6;line-height:30px">Upvote post</span>&nbsp;&nbsp;&nbsp;
+<input id=chkPassport type=checkbox ng-model=hc.hasPost style="height: 10px;width: 10px;padding: 4px;margin-right: 10px;border: 1px solid #2ea8f3 !important;border-radius: 3px;">
+</div>
+<div class="col-xs-6 text-right" style=padding:0px>
+<button type=button class="btn btn-primary hover_eff " ng-click="hc.draftPost()">Save as draft</button>
+</div>
+</div>
+</div>
+<div class="col-md-12 text-center " style=padding:0px>
+<a style=cursor:pointer ng-click="hc.routeToDraft()"><h6 class=mar_top>Show Save Drafts</h6></a>
+</div>
+</div>
+<div class="modal-footer text-center" style="border-top:0px;text-align:center !important">
+<div class=col-md-12>
+<button type=button class="btn button_layout" data-dismiss=modal ng-disabled="!title.length || !text.length" ng-click="hc.postWhatsHappening()"><span style="color:3292f33;font-weight:600">Post</span></button>
+</div>
+<input id=idField class=input style="visibility: hidden;">
+</div>
+</div>
+</div>
+</div>
+<div ng-controller="homeCtrl as hc" id=myModal1212 class="modal modal-child" data-backdrop-limit=1 tabindex=-1 role=dialog aria-labelledby=myModalLabel aria-hidden=true data-modal-parent="#myModal" style="background-color:#rgba(0,0,0,0.7)">
+<div class=modal-dialog>
+<div class=modal-content>
+<div class=modal-header style=border-bottom:0px>
+<button type=button class=close data-dismiss=modal style="color:#000 !important;outline:0px">&times;</button>
+</div>
+<div class=modal-body style="padding:0px 25px">
+<div class=form-group>
+<h3>Enter youtube URL</h3>
+<br/>
+<input id=youtubeVideo1 ng-model=ytb class="form-control input" placeholder="Enter youtube URL">
+</div>
+</div>
+<div class="modal-footer text-center" style="border-top:0px;text-align:center !important">
+<div class=col-md-12 style=margin-top:20px>
+<p style=color:red>{{hc.ytbErr}}</p>
+<button type=button class="btn button_layout" data-dismiss=modal style="color:#333333;font-weight:600;" ng-disabled="!ytb.length" ng-click="hc.youTube()">Submit</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="modal fade" id=myModal31 role=dialog data-ng-controller=loginCtrl>
+<div class=modal-dialog>
+<div class=modal-content>
+<div class=modal-header style=border-bottom:0px>
+<button type=button class=close data-dismiss=modal>&times;</button>
+</div>
+<div class="modal-body text-center" style="padding:10px 40px">
+<img src="1/images/blue_logo.png">
+<h2 style=font-weight:bold>Log in to your account</h2>
+<p style="color:#66757f">Login with Steem post key.</p>
+<div class=form-group>
+<input id=test placeholder="User name" ng-model=name class=input style="padding:20px;width:100%" required />
+</div>
+<div class=form-group>
+<input type=password ng-model=password class=input placeholder=Password style="padding:20px;width:100%" required />
+<div style=color:red>{{errorMessage}}</div>
+</div>
+</div>
+<div class="modal-footer text-center" style="border-top:0px;text-align:center !important">
+<a style="color:#292f33">
+<input type=submit id=btnSubmit value=login data-dismiss=modal class="btn button_layout" ng-click="verifyUser()">
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 <div ng-if="layout.loginToken == null">
 <div ng-if="$root.url == '/'">
-  <div class="loading-dialog" id="loader" data-loading = " " ></div>
-  <div ui-view></div>
+<div class=loading-dialog id=loader data-loading=" "></div>
+<div ui-view></div>
 </div>
 </div>
-
 <div ng-if="layout.checkToken() != false">
 <div ng-if="$root.url == '/Wallet'">
-  <div ui-view></div>
+<div ui-view></div>
 </div>
 </div>
-
-<div ng-controller = "scrollCtrl">
-
+<div ng-controller=scrollCtrl>
 <div ng-init="layout.checkToken() != false">
 <div ng-if="$root.url == '/:tag/:username/:permlink'">
-  <span>
-	<div class="loading-dialog" id="loader" data-loading = " " ></div>
+<span>
+<div class=loading-dialog id=loader data-loading=" "></div>
 </span>
-  <div ui-view></div>
+<div ui-view></div>
 </div>
 </div>
-
 <div ng-init="layout.checkToken() != false">
 <div ng-if="$root.url == '/Message/{user}'">
-  <div ui-view></div>
+<div ui-view></div>
 </div>
 </div>
-
 <div ng-init="layout.checkToken() != false">
 <div ng-if="$root.url == '/{user2}'">
-  <div ui-view></div>
+<div ui-view></div>
 </div>
 </div>
-
 <div ng-init="layout.checkToken() != false">
 <div ng-if="$root.url == '/group/{groupname}'">
-  <div ui-view></div>
+<div ui-view></div>
 </div>
 </div>
-
 <div ng-init="layout.checkToken() != false">
 <div ng-if="$root.url == '/creategroup'">
-  <div ui-view></div>
+<div ui-view></div>
 </div>
 </div>
-
 <div ng-init="layout.checkToken() != false">
 <div ng-if="$root.url == '/Settings'">
-  <div ui-view></div>
+<div ui-view></div>
 </div>
 </div>
-
 <div ng-if="layout.checkToken() != false">
-
 <div ng-if="$root.url == '/@{user}'">
-  <span ng-if="$root.url != '/{user2}'">
-	<div class="loading-dialog" id="loader" data-loading = " " ></div>
+<span ng-if="$root.url != '/{user2}'">
+<div class=loading-dialog id=loader data-loading=" "></div>
 </span>
-	<div ui-view></div>
+<div ui-view></div>
 </div>
 </div>
-
 <div ng-init="layout.checkToken() != false">
 <div ng-if="$root.url == '/Blog'">
-  <span ng-if="$root.url != '/{user2}'">
-	<div class="loading-dialog" id="loader" data-loading = " " ></div>
+<span ng-if="$root.url != '/{user2}'">
+<div class=loading-dialog id=loader data-loading=" "></div>
 </span>
-	<div ui-view></div>
+<div ui-view></div>
 </div>
 </div>
-
 <div ng-init="layout.checkToken() != false">
 <div ng-if="$root.url == '/Reply'">
-	<div ui-view></div>
+<div ui-view></div>
 </div>
 </div>
-
+<div ng-init="layout.checkToken() != false">
+<div ng-if="$root.url == '/tos'">
+<div ui-view></div>
+</div>
+</div>
 <div ng-if="layout.checkToken() != false">
 <div ng-if="$root.url == '/Following'">
-	<div ui-view></div>
+<div ui-view></div>
 </div>
 </div>
-
 <div ng-if="layout.checkToken() != false">
 <div ng-if="$root.url == '/Follower'">
-	<div ui-view></div>
+<div ui-view></div>
 </div>
 </div>
-
 </div>
-  </body>
-
-  </html>
+</body>
+</html>

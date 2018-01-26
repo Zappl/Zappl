@@ -1,50 +1,11 @@
 <div ng-controller="homeCtrl as hc" style="margin-top: 80px;" ng-init="hc.getUserFollowingList1423()">
+
+  <span ng-if="hc.testCurrentUser == hc.username" ng-init = "hc.getUserInfoHome()"></span>
+  <span ng-if="hc.testCurrentUser !== hc.username" ng-init = "hc.getUserInfo()"></span>
+
+
   <div class="container-fluid blue_background_remove" style="background-image:url(1/images/profile_blue.png);padding:90px 0px;background-size:cover;background-repeat:no-repeat;margin-top:-20px">
   </div>
-
-<!-- <div class="container-fluid profilemiddleHeight" style="background-color:#fff;padding:0px 15px;border:1px solid #e1e8ed;margin-top:2px">
-           <div class="col-md-4">
-           </div>
-           <div class="col-md-6  text-center" ng-if="hc.loginToken != undefined">
-               <div class="col-md-2 col-xs-4" >
-                   <a ui-sref="Profile({user : hc.testCurrentUser})"><h6 style="cursor:pointer" class="head_text">POST</h6></a>
-                   <a ui-sref="Profile({user : hc.testCurrentUser})"><h6 style="color:#0072bb;font-size:12px;font-weight:600;cursor:pointer">{{hc.userInfo.userInfo.totalPost}}</h6></a>
-                </div>
-                <div class="col-md-2 col-xs-4" style="padding:0px">
-                    <a ui-sref="Profile.Following" ><h6 style="cursor:pointer" class="head_text">FOLLOWING</h6></a>
-                    <a ui-sref="Profile.Following" ><h6 style="color:#0072bb;font-size:12px;font-weight:600;cursor:pointer">{{hc.userInfo.userFollowingFollowersInfo.following_count}}</h6></a>
-                </div>
-                <div class="col-md-2 col-xs-4" style="padding:0px">
-                   <a ui-sref="Profile.Follower" ><h6 style="cursor:pointer" class="head_text">FOLLOWERS</h6></a>
-                   <a ui-sref="Profile.Follower" ><h6 style="color:#0072bb;font-size:12px;font-weight:600;cursor:pointer">{{hc.userInfo.userFollowingFollowersInfo.follower_count}}</h6></a>
-                </div>
-           </div>
-
-           <div class="col-md-6  text-center" ng-if="hc.loginToken == undefined">
-               <div class="col-md-2 col-xs-4" >
-                   <a ui-sref="Profile({user : hc.testCurrentUser})"><h6 style="cursor:pointer" class="head_text">POST</h6></a>
-                   <a ui-sref="Profile({user : hc.testCurrentUser})"><h6 style="color:#0072bb;font-size:12px;font-weight:600;cursor:pointer">{{hc.userInfo.userInfo.totalPost}}</h6></a>
-                </div>
-                <div class="col-md-2 col-xs-4" style="padding:0px">
-                    <a ui-sref="Profile.Following" ><h6 style="cursor:pointer" class="head_text">FOLLOWING</h6></a>
-                    <h6 style="color:#0072bb;font-size:12px;font-weight:600">{{hc.userInfo.userFollowingFollowersInfo.following_count}}</h6>
-                </div>
-                <div class="col-md-2 col-xs-4" style="padding:0px">
-                   <a ui-sref="Profile.Follower" ><h6 style="cursor:pointer" class="head_text">FOLLOWERS</h6></a>
-                   <h6 style="color:#0072bb;font-size:12px;font-weight:600">{{hc.userInfo.userFollowingFollowersInfo.follower_count}}</h6>
-                </div>
-           </div>
-
-
-
-            <div class="col-md-2 col-xs-12 text-center pad_bottom_mb follow_set follow_set1" ng-if="hc.loginToken != undefined">
-            <span ng-if="hc.userInfo.userInfo.name !== hc.username">
-              <span ng-if="hc.FollList == true" style="cursor:pointer"><a ng-click="hc.testFollow(hc.userInfo.userInfo.userName)"> <img src="1/images/followus.png" style="margin-top:10px"></a></span>
-              <span ng-if="hc.FollList == false" style="cursor:pointer"><a ng-click="hc.testUnfollow(hc.userInfo.userInfo.userName)"><img src="1/images/unfollow.png" style="margin-top:7px;"></a></span>
-            </span>
-           </div>
-</div> -->
-
 
 <div class="container-fluid profilemiddleHeight" style="background-color:#fff;padding:0px 15px;border:1px solid #e1e8ed;margin-top:2px">
 <div style="max-width:100%;height:auto;background-color:#fff">
@@ -75,7 +36,7 @@
                  <div class="col-md-12  text-center">
                        <div class="col-md-4 col-xs-4" >
                           <a ui-sref="Profile({user : hc.testCurrentUser})"><h6 class="head_text">POST</h6></a>
-                          <a ui-sref="Profile({user : hc.testCurrentUser})"><h6 style="color:#0072bb;font-size:12px;font-weight:600;">100</h6></a>
+                          <a ui-sref="Profile({user : hc.testCurrentUser})"><h6 style="color:#0072bb;font-size:12px;font-weight:600;">{{hc.userInfo.userInfo.totalPost}}</h6></a>
                        </div>
                        <div class="col-md-4 col-xs-4" style="padding:0px">
                            <a ui-sref="Profile.Following"><h6 class="head_text">FOLLOWING</h6></a>
@@ -103,7 +64,7 @@
 
 <div id="body" class="width">
 <!--------first side section------------->
-<aside class="sidebar small-sidebar left-sidebar" style="margin-top:0px" ng-init="hc.getUserInfo()">
+<aside class="sidebar small-sidebar left-sidebar" style="margin-top:0px">
        <ul>
           <li>
             <ul>
@@ -124,7 +85,7 @@
     <li>
       <div ng-hide="showme" class="col-md-12 text-left third_sec" ng-init="hc.getTagTopicList()" style="padding:0px 10px 7px 20px;background-color:#fff;list-style-type:none !important;margin-top:20px;border-radius:5px 5px 5px 5px;border:2px solid #e1e8ed">
        <h5 style="color:#66757f;font-size:18px;font-weight:600">Tags & Topics</h5>
-       <h6 style="color:#0072bb" ng-repeat="p in hc.TagTopicList"><div style="cursor:pointer" ng-click="hc.getName2(p.name)" ui-sref="FeedTagInfo({tagChild : p.name})" >{{p.name}}</div></h6>
+       <h6 style="color:#0072bb" ng-repeat="p in hc.TagTopicList"><div style="cursor:pointer" ng-click="hc.getName2(p)" ui-sref="FeedTagInfo({tagChild : p})" >{{p}}</div></h6>
        <h6 style="color:#66757f;cursor:pointer" ng-click="showme=true">Show More...</h6>
    </div>
    <div ng-show="showme" class="col-md-12 text-left third_sec scrollbar force-overflow" ng-init="hc.getTagTopicLists()" id="style-5" style="padding:0px 10px 7px 20px;height:780px;background-color:#fff;list-style-type:none !important;margin-top:20px;border-radius:5px 5px 5px 5px;border:2px solid #e1e8ed">
@@ -142,14 +103,15 @@
 <!----------------------------------------------------------------second section------------------------------------------------------------------>
 <section id="content" class="three-column" >
    <article>
-     <span ng-if="hc.loginToken != undefined" ng-init="hc.postActive()">
+     <!-- <span ng-if="hc.loginToken != undefined" ng-init="hc.postActive()"> -->
+       <span ng-init="hc.postActive()">
          <div ng-if=" $root.url == '/@{user}' || $root.url == '/Blog' || $root.url == '/Reply'" class="col-md-12 col-sm-12 col-xs-12" style="background-color:#fff;border:1px solid #e1e8ed;border-radius:5px 5px 0px 0px">
              <ul class="mar_zero_home_search" style="display:-webkit-inline-box;margin:0px;margin-top:10px">
                      <li style="list-style-type:none;padding-right:10px;border-right:1px solid #e1e8ed"> <a id="postPost" class="nav-link" ui-sref="Profile">Post</a> </li>
                      <li style="list-style-type:none;padding-right:10px;padding-left:10px;border-right:1px solid #e1e8ed">  <a id="postBlog" class="nav-link" ui-sref="Profile.Blog">Blog</a></li>
                      <li style="list-style-type:none;padding-left:10px"><a id="postReply" class="nav-link" ui-sref="Profile.Reply">Replies</a></li>
             </ul>
-                     <a ng-click="hc.clearCreateZapPopup()" data-target="#myModal12" data-toggle="modal" style="outline:0px"><img src="1/images/submitzap.png" class="pull-right" > </a>
+                     <span ng-if="hc.loginToken != undefined"><a ng-click="hc.clearCreateZapPopup()" data-target="#myModal12" data-toggle="modal" style="outline:0px"><img src="1/images/submitzap.png" class="pull-right" > </a></span>
        </div>
      </span>
 <div ng-if="$root.url == '/@{user}'">
@@ -242,7 +204,7 @@
                </a> <br />
                </span>
                <span ng-if="n.nsfw === true">
-                       <p style="font-size: smaller;">This post is <span style="color: red;border: 1px solid red;border-radius: 3px;padding: 1px;">nsfw</span>.You can <a ui-sref="UserPost({tag : n.tags,username: n.author, permlink: n.permlink})">reveal it</a> or adjust your <a href="/#!/Settings">display preferences</a>.</p>
+                       <p style="font-size: smaller;">This post is <span style="color: red;border: 1px solid red;border-radius: 3px;padding: 1px;">nsfw</span>.You can <a ui-sref="UserPost({tag : n.tags,username: n.author, permlink: n.permlink})">reveal it</a> or adjust your <a href="/Settings">display preferences</a>.</p>
                </span>
                  <a ng-click="hc.postVote_Profile(n.author,n.permlink,$index)"><img ng-if="n.isVote == false" style="cursor:pointer" src="images/z12.png" /><img ng-if="n.isVote == true" style="cursor:pointer" src="images/z143.png" /></a><span style="color:#717f88;font-size:13px">${{n.upvote}}</span> &nbsp;
                  <span style="color:#717f88">.</span>&nbsp;
@@ -260,7 +222,7 @@
 
 <span ng-if="hc.testCurrentUser == hc.username">
   <span ng-if="hc.nsfw === 'Always warn'">
-    <div data-ng-controller = "setting_public_profileCtrl as sc" ng-init = "hc.getUserInfoHome()">
+    <div data-ng-controller = "setting_public_profileCtrl as sc">
       <div class="col-md-12 col-sm-12 col-xs-12" ng-repeat="n in userPostInfoHome"  style="background-color:#fff;border:2px solid #e1e8ed;border-top:0px">
         <div class="col-md-1 col-sm-1 col-xs-1" style="padding:10px 0px 0px 0px;"  ui-sref="Profile({user : n.author})">
            <img ng-src="{{n.profileImage}}" class="img-responsive img-rounded hei_view" style="width:45px;height:45px"/>
@@ -277,7 +239,7 @@
                 <a ui-sref="UserPost({tag : n.tags,username: n.author, permlink: n.permlink})">
 
                   <span ng-show="n.v === true && n.i === false && n.y === false">
-                    <video width="100%" height="300" controls><source ng-src="{{n.image1}}" type="video/mp4"></video>
+                    <video width="100%" height="300" controls style="background-color:#000;"><source ng-src="{{n.image1}}" type="video/mp4"></video>
                     <!-- <video width="420" height="345" controls><source src="{{n.image1}}" type="video/mp4"></video> -->
                   </span>
 
@@ -294,7 +256,7 @@
                 </a> <br />
             </span>
             <span ng-if="n.nsfw === true">
-              <p style="font-size: smaller;">This post is <span style="color: red;border: 1px solid red;border-radius: 3px;padding: 1px;">nsfw</span>.You can <a ui-sref="UserPost({tag : n.tags,username: n.author, permlink: n.permlink})">reveal it</a> or adjust your <a href="/#!/Settings">display preferences</a>.</p>
+              <p style="font-size: smaller;">This post is <span style="color: red;border: 1px solid red;border-radius: 3px;padding: 1px;">nsfw</span>.You can <a ui-sref="UserPost({tag : n.tags,username: n.author, permlink: n.permlink})">reveal it</a> or adjust your <a href="/Settings">display preferences</a>.</p>
             </span>
                 <a ng-click="hc.postVote_Home(n.author,n.permlink,$index)">
                   <img ng-if="n.isVote == false" style="cursor:pointer" src="images/z12.png" />
@@ -318,7 +280,7 @@
     </span>
 
     <span ng-if="hc.nsfw === 'Always show'">
-      <div data-ng-controller = "setting_public_profileCtrl as sc" ng-init = "hc.getUserInfoHome()">
+      <div data-ng-controller = "setting_public_profileCtrl as sc">
         <div class="col-md-12 col-sm-12 col-xs-12" ng-repeat="n in userPostInfoHome"  style="background-color:#fff;border:2px solid #e1e8ed;border-top:0px">
           <div class="col-md-1 col-sm-1 col-xs-1" style="padding:10px 0px 0px 0px;"  ui-sref="Profile({user : n.author})">
              <img ng-src="{{n.profileImage}}" class="img-responsive img-rounded hei_view" style="width:45px;height:45px"/>
@@ -334,7 +296,7 @@
                   <a ui-sref="UserPost({tag : n.tags,username: n.author, permlink: n.permlink})">
 
                     <span ng-show="n.v === true && n.i === false && n.y === false">
-                      <video width="100%" height="300" controls><source ng-src="{{n.image1}}" type="video/mp4"></video>
+                      <video width="100%" height="300" controls style="background-color:#000;"><source ng-src="{{n.image1}}" type="video/mp4"></video>
                       <!-- <video width="420" height="345" controls><source src="{{n.image1}}" type="video/mp4"></video> -->
                     </span>
 
@@ -369,7 +331,7 @@
       </span>
 
       <span ng-if="hc.nsfw === 'Always hide'">
-        <div data-ng-controller = "setting_public_profileCtrl as sc" ng-init = "hc.getUserInfoHome()">
+        <div data-ng-controller = "setting_public_profileCtrl as sc">
           <div class="col-md-12 col-sm-12 col-xs-12" ng-repeat="n in userPostInfoHome" ng-if="n.nsfw === false"  style="background-color:#fff;border:2px solid #e1e8ed;border-top:0px">
             <div class="col-md-1 col-sm-1 col-xs-1" style="padding:10px 0px 0px 0px;"  ui-sref="Profile({user : n.author})">
                <img ng-src="{{n.profileImage}}" class="img-responsive img-rounded hei_view" style="width:45px;height:45px"/>
@@ -385,7 +347,7 @@
                     <a ui-sref="UserPost({tag : n.tags,username: n.author, permlink: n.permlink})">
 
                       <span ng-show="n.v === true && n.i === false && n.y === false">
-                        <video width="100%" height="300" controls><source ng-src="{{n.image1}}" type="video/mp4"></video>
+                        <video width="100%" height="300" controls style="background-color:#000;"><source ng-src="{{n.image1}}" type="video/mp4"></video>
                       </span>
 
                       <span ng-show="n.y === true && n.i === false && n.v === false">
@@ -497,8 +459,8 @@
         </li>
         <li>
           <div class="col-md-12 text-left first_sec" style="padding:10px 10px 10px 20px;background-color:#fff;list-style-type:none !important;border-radius:5px 5px 5px 5px;border:2px solid #e1e8ed;margin-top:20px">
-             <p style="color:#ccd6dd;font-size:12px">@ 2017 zappl About Help Center Terms<br />
-             Privacy Polocy Cookies Ads Info Brand <br />
+             <p style="color:#8899a6;font-size:12px">@ 2017 zappl About Help Center <a ui-sref="TOS">Terms<br/>
+             Privacy Policy</a> Cookies Ads Info Brand <br />
              Blog Status AppsJobs Business Developers</p>
           </div>
       </li>
@@ -509,62 +471,3 @@
 <div class="clear"></div>
 </div>
 </div>
-
-
-
-
-<!-- Modal -->
-
-<!-- <div ng-controller="homeCtrl as hc" class="modal fade" id="myModal" role="dialog" >
-    <div class="modal-dialog">
-      <div class="modal-content">
-         <div class="modal-header" style="border-bottom:0px">
-             <button type="button" class="close" data-dismiss="modal" style="color:#000 !important;outline:0px">&times;</button>
-         </div>
-         <div class="modal-body" style="padding:0px 25px">
-            <div class="form-group">
-              <input type="text" id="titles" class="form-control" ng-model="title" placeholder="Title">
-           </div>
-           <form>
-           <fieldset>
-                <textarea id="noise" class="widgEditor nothing"></textarea>
-           </fieldset>
-          </form>
-           <span class="select-wrapper">
-               <input type="file" name="image_src" style="width: 26px;height: 26px;opacity: 0;filter:alpha(opacity=0);" onchange="angular.element(this).scope().fileUpload(this)"/>
-           </span>
-           <div class="col-md-12" style="padding:20px 0px 0px 0px">
-                <div class="col-md-7" style="padding:0px">
-                   <div class="col-md-3" style="padding:4px 0px 0px 0px">
-                       <span style="color:#8899a6;line-height:30px">Rewards :</span>
-                   </div>
-                   <div class="col-md-9" style="padding:0px 7px;margin-left:-12px">
-                         <select class="form-control" id="sel1" style="color:#8899a6" ng-model="hc.popUpListSelect" >
-                           <option value="">---Please select rewards---</option>
-                           <option style="color:#8899a6" ng-repeat="x in hc.popUpList" value="{{x}}">{{x}}</option>
-                         </select>
-                  </div>
-               </div>
-               <div class="col-md-5" style="padding:4px 0px 0px 0px">
-                  <span style="color:#8899a6;;line-height:30px">Upvote post</span>&nbsp;&nbsp;&nbsp;
-                  <input  id="chkPassport" type="checkbox" ng-model="hc.hasPost" style="border-radius:0px !important">
-                <button type="button" class="btn btn-primary hover_eff" ng-click ="hc.draftPost()">Save as draft</button>
-              </div>
-            </div>
-            <div class="col-md-12" style="padding:0px">
-               <a style="cursor:pointer" ng-click="hc.routeToDraft()"><h6>Show Save Drafts</h6></a>
-            </div>
-      </div>
-     <div class="modal-footer text-center" style="border-top:0px;text-align:center !important">
-       <div class="col-md-12" style="margin-top:20px">
-         <button type="button" class="btn button_layout" data-dismiss="modal" ng-disabled="hc.hasPost == true && hc.popUpListSelect=='' " ng-click="hc.checkPost()"><span style="color:3292f33;font-weight:600">Post</span></button>
-       </div>
-       <input type="text" id="idField" style="visibility: hidden;">
-     </div>
-      </div>
-  </div>
-</div> -->
-
-
-
-<!-----Modal------------------>

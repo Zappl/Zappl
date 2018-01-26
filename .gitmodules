@@ -1,0 +1,3 @@
+[submodule "apns"]
+	path = apns
+	url = http://github.com/neoziro/node-apns.git

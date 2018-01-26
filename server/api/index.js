@@ -34,94 +34,6 @@ var md = new Remarkable('full', {
   }
 });
 
-
-// exports.postSQLite = function(data,callback){
-//   db.collection("SqliteTbl").find({}).toArray(function(err, result){
-//     if(result != []){
-//       db.SqliteTbl.drop({});
-//     }
-//     db.SqliteTbl.save({
-//             list : data.list
-//             }, function(err) {
-//                 if (err) {
-//                 console.log(err);
-//                 callback(err,null);
-//               }
-//               callback(null);
-//         });
-//   })
-// }
-
-exports.getSQInfo = function(callback){
-  db.collection("SqliteTbl").find({}).toArray(function(err, result){
-    if (err) {
-      console.log("err  ",err);
-      callback(err,null);
-    }
-    console.log("result",result);
-    callback(null,result);
-  });
-
-};
-
-
-exports.postPSGSQLite = function(data,callback){
-  console.log("fi postsq",data);
-  db.collection("PSG").find({}).toArray(function(err, result){
-    if(result != []){
-      //db.SqliteTbl.drop({});
-    }
-    db.PSG.save({
-      SegmentID:data.SegmentID,
-      PathID:data.PathID,
-      Count:data.Count,
-      MinLevel:data.MinLevel,
-      MaxLevel:data.MaxLevel,
-      MinLon:data.MinLon,
-      MinLat:data.MinLat,
-      MaxLon:data.MaxLon,
-      Buffer:data.Buffer
-            }, function(err) {
-                if (err) {
-                console.log(err);
-                callback(err,null);
-              }
-              callback(null);
-        });
-  })
-}
-exports.postSQLite = function(data,callback){
-  console.log("fi postsq",data);
-  db.collection("SqliteTbl").find({}).toArray(function(err, result){
-    if(result != []){
-      //db.SqliteTbl.drop({});
-    }
-    db.SqliteTbl.save({
-            Name : data.Name,
-            Seq : data.Seq
-            }, function(err) {
-                if (err) {
-                console.log(err);
-                callback(err,null);
-              }
-              callback(null);
-        });
-  })
-}
-
-exports.getPSGInfo = function(callback){
-  db.collection("PSG").find({}).toArray(function(err, result){
-    if (err) {
-      console.log("err  ",err);
-      callback(err,null);
-    }
-    console.log("result",result);
-    callback(null,result);
-  });
-
-};
-
-
 exports.setRoomHistory = function(data,callback){
   db.chatRoomHistory.findOne({
         roomName : data.roomName
@@ -130,7 +42,6 @@ exports.setRoomHistory = function(data,callback){
           console.log(err);
         }
         else{
-          // console.log("valueInfo",Info);
           if(Info !== undefined && Info !== null && Info !=='')
           {
             db.chatRoomHistory.update({
@@ -174,28 +85,6 @@ exports.setRoomHistory = function(data,callback){
       });
     }
 
-// exports.getRoomHistory = function(username,callback){
-//   db.chatRoomHistory.findOne({
-//           room : room
-//         }, function(err, valueInfo) {
-//           if (err) {
-//             console.log(err);
-//           }
-//           if(valueInfo !== undefined && valueInfo !== null && valueInfo !=='')
-//           {
-//             var data = {
-//               room : valueInfo.room,
-//               chat : valueInfo.chat
-//             }
-//             callback(null,data);
-//           }
-//           else {
-//             callback(null);
-//           }
-//         });
-//   };
-
-
 exports.setRoomList = function(data,callback){
   db.roomList.findOne({
         username : data.username
@@ -204,7 +93,6 @@ exports.setRoomList = function(data,callback){
           console.log(err);
         }
         else{
-          // console.log("valueInfo",valueInfo);
           if(valueInfo !== undefined && valueInfo !== null && valueInfo !=='')
           {
             db.roomList.update({
@@ -236,100 +124,6 @@ exports.setRoomList = function(data,callback){
         }
       });
     }
-
-
-
-
-// exports.setChat = function(data,callback){
-//   db.chatData.findOne({
-//         room : data.room
-//         }, function(err, valueInfo) {
-//         if (err) {
-//           console.log(err);
-//         }
-//         else{
-//           // console.log("valueInfo",valueInfo);
-//           if(valueInfo !== undefined && valueInfo !== null && valueInfo !=='')
-//           {
-//             db.chatData.update({
-//               room : data.room
-//             }, {
-//               '$set': {
-//                 chat : data.chat
-//                 }
-//             }, function(err) {
-//               if (err) {
-//                 console.log(err);
-//                 callback(err,null);
-//               }
-//               callback(null);
-//             });
-//           }
-//           else {
-//             db.chatData.save({
-//               room : data.room,
-//               chat : data.chat
-//                 }, function(err) {
-//                   if (err) {
-//                   console.log(err);
-//                   callback(err,null);
-//                 }
-//                 callback(null);
-//               });
-//           }
-//         }
-//       });
-//     }
-
-
-// exports.setChat = function(data,callback){
-//   db.chatData.findOne({
-//         room : data.room
-//         }, function(err, valueInfo) {
-//         if (err) {
-//           console.log(err);
-//         }
-//         else{
-//             if(valueInfo !== undefined && valueInfo !== null && valueInfo !=='')
-//           {
-//             db.chatData.update({
-//               room : data.room
-//             }, {
-//               '$set': {
-//                 chat : data.chat,
-//                 displayName : data.displayName,
-//                 type : data.type,
-//                 members : data.members,
-//                 img : data.img
-//                 }
-//             }, function(err) {
-//               if (err) {
-//                 console.log(err);
-//                 callback(err,null);
-//               }
-//               callback(null);
-//             });
-//           }
-//           else {
-//             db.chatData.save({
-//               room : data.room,
-//               chat : data.chat,
-//               displayName : data.displayName,
-//               type : data.type,
-//               members : data.members,
-//               img : data.img
-//                 }, function(err) {
-//                   if (err) {
-//                   console.log(err);
-//                   callback(err,null);
-//                 }
-//                 callback(null);
-//               });
-//           }
-//         }
-//       });
-//     }
-
 
 exports.setChat = function(data,callback){
   db.chatData.findOne({
@@ -378,28 +172,6 @@ exports.setChat = function(data,callback){
         }
       });
     }
-
-
-    // exports.getChat = function(room,callback){
-    //   db.chatData.findOne({
-    //           room : room
-    //         }, function(err, valueInfo) {
-    //           if (err) {
-    //             console.log(err);
-    //           }
-    //           if(valueInfo !== undefined && valueInfo !== null && valueInfo !=='')
-    //           {
-    //             var data = {
-    //               room : valueInfo.room,
-    //               chat : valueInfo.chat
-    //             }
-    //             callback(null,data);
-    //           }
-    //           else {
-    //             callback(null);
-    //           }
-    //         });
-    //   };
 
     exports.getChat = function(room,callback){
       db.chatData.findOne({
@@ -549,15 +321,11 @@ exports.setRegToken = function(userName,regToken,deviceType){
 exports.generateToken = function(data,callback){
   var deviceId = data.deviceId;
 
-
-
-
   db.accessTokens.findOne({
         deviceId : deviceId
       }, function(err, tokenVal) {
         if (err) {
           console.log(err);
-          // logger.info('get API(generateToken), ERROR :- ',err.message);
         }
         if(tokenVal !== undefined && tokenVal !== null && tokenVal !=='')
         {
@@ -566,15 +334,13 @@ exports.generateToken = function(data,callback){
           }), function(err) {
             if (err) {
               console.log(err);
-              // logger.info('get API(generateToken), ERROR :- ',err.message);
-            }
+              }
           };
         }
           jwt.sign(data, secretKey, function(err, token) {
             if(err){
               console.log(err);
-              // logger.info('get API(generateToken), ERROR :- ',err.message);
-              callback(err,null);
+                callback(err,null);
             }
             var decode = jwt.verify(token, secretKey);
             db.accessTokens.save({
@@ -592,7 +358,6 @@ exports.generateToken = function(data,callback){
           }, function(err, tokenVal) {
             if (err) {
               console.log(err);
-              // logger.info('get API(logout), ERROR :- ',err.message);
             }
             if(tokenVal !== undefined && tokenVal !== null && tokenVal !=='')
             {
@@ -601,7 +366,6 @@ exports.generateToken = function(data,callback){
               }), function(err) {
                 if (err) {
                   console.log(err);
-                  // logger.info('get API(logout), ERROR :- ',err.message);
                   callback(err,null);
                 }
                 callback(null);
@@ -617,7 +381,6 @@ exports.getToken = function(deviceId,callback){
       }, function(err, tokenVal) {
         if (err) {
           console.log(err);
-          // logger.info('get API(getToken), ERROR :- ',e.message);
         }
         if(tokenVal !== undefined && tokenVal !== null && tokenVal !== '')
         {
@@ -626,7 +389,6 @@ exports.getToken = function(deviceId,callback){
             var timeStamp = d.getTime()/1000;
             if(decode.expirationTimestamp - timeStamp > 0)
             {
-                // console.log(decode.expirationTimestamp - timeStamp > 0);
                 callback(null,tokenVal);
             }
             else {
@@ -644,7 +406,6 @@ exports.verifyToken = function(token,callback){
     jwt.verify(token, secretKey, function(err, decoded) {
       if(err){
         console.log(err);
-        // logger.info('get API(verifyToken), ERROR :- ',e.message);
         callback(err,null);
       }
     callback(null,decoded);
@@ -657,8 +418,7 @@ exports.getVotingWeight = function(userName,callback){
         }, function(err, votingInfo) {
           if (err) {
             console.log(err);
-            // logger.info('get API(getVotingWeight), ERROR :- ',e.message);
-          }
+            }
 
           if(votingInfo !== undefined && votingInfo !== null && votingInfo !=='')
           {
@@ -776,7 +536,6 @@ exports.getVotingWeight = function(userName,callback){
           }, function(err, votingInfo) {
             if (err) {
               console.log(err);
-              // logger.info('get API(setVotingWeight), ERROR :- ',e.message);
             }
 
             if(votingInfo !== undefined && votingInfo !== null && votingInfo !=='')
@@ -791,7 +550,6 @@ exports.getVotingWeight = function(userName,callback){
               }, function(err) {
                 if (err) {
                   console.log(err);
-                  // logger.info('get API(setVotingWeight), ERROR :- ',e.message);
                   callback(err,null);
                 }
                 callback(null);
@@ -804,7 +562,6 @@ exports.getVotingWeight = function(userName,callback){
                   }, function(err) {
                     if (err) {
                       console.log(err);
-                      // logger.info('get API(setVotingWeight), ERROR :- ',e.message);
                       callback(err,null);
                     }
                     callback(null);
@@ -823,7 +580,6 @@ exports.getVotingWeight = function(userName,callback){
 
               if(nsfwInfo !== undefined && nsfwInfo !== null && nsfwInfo !=='')
               {
-
                 db.nsfwSettings.update({
                   userName: userName
                 }, {
@@ -853,236 +609,204 @@ exports.getVotingWeight = function(userName,callback){
             });
       };
 
-
     exports.getTagTopicList = function(callback){
-        http.get("https://api.steemjs.com/get_state?path=%2Ftags", function(res) {
-            var body = '';
-            res.on('data', function(data){
-                body += data;
-            });
-            res.on('end', function(err) {
-                var parsedBody = JSON.parse(body);
-                if (typeof parsedBody !== 'undefined'){
-                    tagTopicList = {
-                          list  : Object.keys(parsedBody.tags)
-                    };
-                }
-                if(err){
-                  console.log(err);
-                    // logger.info('get API(getTagTopicList) - https://api.steemjs.com/get_state, ERROR :- ',e.message);
-                  callback(err,null);
-                }
-                else{
-                  callback(null,tagTopicList);
-                }
-            });
-        })
-        .on('error', function(e) {
-          console.log(e);
-          // logger.info('get API(getTagTopicList) - https://api.steemjs.com/get_state, ERROR :- ',e.message);
-            callback(e,null);
-        });
+      var path = '/tags';
+      steem.api.getState(path, function(err, result) {
+        if(err){
+          console.log(err);
+            callback(err,null);
+          }
+        else{
+          tagTopicList = {
+                list  : Object.keys(result.tags)
+          }
+          callback(null,tagTopicList);
+        }
+      });
     };
+
+    exports.getTagTopicLists = function(callback){
+      var afterTag = 'zappl';
+      var limit = 30;
+      var tagTopicList = [];
+      steem.api.getTrendingTags(afterTag, limit, function(err, result) {
+        if(err){
+          console.log(err);
+            callback(err,null);
+          }
+          else{
+            for (var i=0; i<= 29 ; i++){
+              tagTopicList.push(result[i].name)
+            }
+            callback(null,tagTopicList);
+          }
+        });
+      };
 
 exports.getUserInfo = function(userName,callback){
     var profile_image = '';
     var user_info={};
-    http.get("https://api.steemjs.com/get_accounts?names[]=%5B%22"+userName+"%22%5D", function(res) {
-        var body = '';
-        res.on('data', function(data){
-            body += data;
-        });
-        res.on('end', function(err,res) {
-          //console.log("BODY getUserInfo", body);
-        if(body!==undefined && body!==null && body!==''){
-          try{
-            var parsedBody = JSON.parse(body);
-          }
-          catch(e){
-            console.log(e);
-            var parsedBody = body;
-          }
-           //var parsedBody = JSON.parse(body);
-            if (typeof parsedBody[0] !== 'undefined') {
-                  if(parsedBody[0].json_metadata.length > 0){
-                      var profileData = JSON.parse(parsedBody[0].json_metadata);
-                      if(profileData.profile.profile_image !== undefined  && profileData.profile.profile_image.length > 0){
-                        profile_image = profileData.profile.profile_image;
-                      }
-                      else{
-                        profile_image = 'https://worldarts2015.s3-us-west-2.amazonaws.com/images/default-profile-picture.jpg?cache=1473463677';
-                      }
-
-                      if(profileData.profile.cover_image !== undefined  && profileData.profile.cover_image.length > 0){
-                        cover_image = profileData.profile.cover_image;
-                      }
-                      else{
-                        cover_image = 'https://png.pngtree.com/thumb_back/fw800/back_pic/00/02/68/82561a11878da26.jpg';
-                      }
-                      if(profileData.profile.about !== undefined  && profileData.profile.about.length > 0){
-                        about = profileData.profile.about;
-                      }
-                      else{
-                        about = '';
-                      }
-                      if(profileData.profile.location !== undefined  && profileData.profile.location.length > 0){
-                        location = profileData.profile.location;
-                      }
-                      else{
-                        location = 'Location - NA';
-                      }
-                      if(profileData.profile.name !== undefined  && profileData.profile.name.length > 0){
-                        name = profileData.profile.name;
-                      }
-                      else{
-                        name =parsedBody[0].name;
-                      }
-                      if(profileData.profile.website !== undefined  && profileData.profile.website.length > 0){
-                        website = profileData.profile.website;
-                      }
-                      else{
-                        website =parsedBody[0].website;
-                      }
-                  }
-                  else {
-                      profile_image = 'https://worldarts2015.s3-us-west-2.amazonaws.com/images/default-profile-picture.jpg?cache=1473463677';
-                      cover_image = 'https://png.pngtree.com/thumb_back/fw800/back_pic/00/02/68/82561a11878da26.jpg';
-                      about = '';
-                      location = '';
-                      name = parsedBody[0].name;
-                      website = '';
-                  }
-                  var createdAcc = parsedBody[0].created;
-                  var month = createdAcc.substr(5, 2);
-                  var year = createdAcc.substr(0,4);
-                  var mnth;
-                  	switch(month) {
-                      case "01":
-                         mnth =  "January"
-                          break;
-                      case "02":
-                         mnth =  "February"
-                          break;
-                      case "03":
-                         mnth =  "March"
-                          break;
-                      case "04":
-                         mnth =  "April"
-                          break;
-                      case "05":
-                         mnth =  "May"
-                          break;
-                      case "06":
-                         mnth =  "June"
-                          break;
-                      case "07":
-                         mnth =  "July"
-                          break;
-                      case "08":
-                         mnth =  "August"
-                          break;
-                      case "09":
-                         mnth =  "September"
-                          break;
-                      case "10":
-                         mnth =  "October"
-                          break;
-                      case "11":
-                         mnth =  "November"
-                          break;
-                      case "12":
-                         mnth =  "December"
-                          break;
-                     }
-                   user_info = {
-                        userName        : parsedBody[0].name,
-                        profile_image   : profile_image,
-                        cover_image     : cover_image,
-                        about           : about,
-                        location        : location,
-                        name            : name,
-                        website         : website,
-                        totalPost       : parsedBody[0].post_count,
-                        postingKey      : parsedBody[0].posting.key_auths[0][0],
-                        memo_key        : parsedBody[0].memo_key,
-                        publicActiveKey : parsedBody[0].active.key_auths[0][0],
-                        created         : mnth + " "+ year
-                  }
-              }
-              else {
-                  user_info = {};
-              }
-              if(err){
-                console.log(err);
-                callback(err,null);
-              }
-              else {
-                callback(null,user_info);
-              }
-        }
-        else{
-          callback(null, '');
-        }
-
-          });
-
-    })
-      .on('error', function(e) {
-        console.log(e);
+    var name = [userName];
+    steem.api.getAccounts(name, function(err, result) {
+      if(err){
+        console.log("ERROR", err);
         logger.info('get API(getUserInfo) - https://api.steemjs.com/get_accounts, userName = ',userName);
-        callback(e,null);
+        callback(err,null);
+      }
+      else{
+        if(result[0].json_metadata.length > 0){
+            var profileData = JSON.parse(result[0].json_metadata);
+            if(profileData.profile !== undefined){
+              if(profileData.profile.profile_image !== undefined  && profileData.profile.profile_image.length > 0){
+                profile_image = profileData.profile.profile_image;
+              }
+              else{
+                profile_image = 'https://worldarts2015.s3-us-west-2.amazonaws.com/images/default-profile-picture.jpg?cache=1473463677';
+              }
+
+              if(profileData.profile.cover_image !== undefined  && profileData.profile.cover_image.length > 0){
+                cover_image = profileData.profile.cover_image;
+              }
+              else{
+                cover_image = 'https://png.pngtree.com/thumb_back/fw800/back_pic/00/02/68/82561a11878da26.jpg';
+              }
+              if(profileData.profile.about !== undefined  && profileData.profile.about.length > 0){
+                about = profileData.profile.about;
+              }
+              else{
+                about = '';
+              }
+              if(profileData.profile.location !== undefined  && profileData.profile.location.length > 0){
+                location = profileData.profile.location;
+              }
+              else{
+                location = 'Location - NA';
+              }
+              if(profileData.profile.name !== undefined  && profileData.profile.name.length > 0){
+                name = profileData.profile.name;
+              }
+              else{
+                name =result[0].name;
+              }
+              if(profileData.profile.website !== undefined  && profileData.profile.website.length > 0){
+                website = profileData.profile.website;
+              }
+              else{
+                website =result[0].website;
+              }
+            }
+            else {
+                profile_image = 'https://worldarts2015.s3-us-west-2.amazonaws.com/images/default-profile-picture.jpg?cache=1473463677';
+                cover_image = 'https://png.pngtree.com/thumb_back/fw800/back_pic/00/02/68/82561a11878da26.jpg';
+                about = '';
+                location = '';
+                name = result[0].name;
+                website = '';
+            }
+        }
+        else {
+            profile_image = 'https://worldarts2015.s3-us-west-2.amazonaws.com/images/default-profile-picture.jpg?cache=1473463677';
+            cover_image = 'https://png.pngtree.com/thumb_back/fw800/back_pic/00/02/68/82561a11878da26.jpg';
+            about = '';
+            location = '';
+            name = result[0].name;
+            website = '';
+        }
+        var createdAcc = result[0].created;
+        var month = createdAcc.substr(5, 2);
+        var year = createdAcc.substr(0,4);
+        var mnth;
+          switch(month) {
+            case "01":
+               mnth =  "January"
+                break;
+            case "02":
+               mnth =  "February"
+                break;
+            case "03":
+               mnth =  "March"
+                break;
+            case "04":
+               mnth =  "April"
+                break;
+            case "05":
+               mnth =  "May"
+                break;
+            case "06":
+               mnth =  "June"
+                break;
+            case "07":
+               mnth =  "July"
+                break;
+            case "08":
+               mnth =  "August"
+                break;
+            case "09":
+               mnth =  "September"
+                break;
+            case "10":
+               mnth =  "October"
+                break;
+            case "11":
+               mnth =  "November"
+                break;
+            case "12":
+               mnth =  "December"
+                break;
+           }
+         user_info = {
+              userName        : result[0].name,
+              profile_image   : profile_image,
+              cover_image     : cover_image,
+              about           : about,
+              location        : location,
+              name            : name,
+              website         : website,
+              totalPost       : result[0].post_count,
+              postingKey      : result[0].posting.key_auths[0][0],
+              memo_key        : result[0].memo_key,
+              publicActiveKey : result[0].active.key_auths[0][0],
+              created         : mnth + " "+ year
+        }
+      callback(null,user_info);
+      }
     });
-  };
+    };
+
   exports.validateUser = function(userName,callback){
       var user_info={};
-      http.get("https://api.steemjs.com/get_accounts?names[]=%5B%22"+userName+"%22%5D", function(res) {
-          var body = '';
-          res.on('data', function(data){
-              body += data;
-          });
-          res.on('end', function(err,res) {
-              var parsedBody = JSON.parse(body);
-              if (typeof parsedBody[0] !== 'undefined') {
-                       user_info = {
-                          userName        : parsedBody[0].name,
-                          postingKey      : parsedBody[0].posting.key_auths[0][0],
-                          memo_key        : parsedBody[0].memo_key,
-                          publicActiveKey : parsedBody[0].active.key_auths[0][0]
-                        }
-              }
-              else {
-                  user_info = {};
-              }
-              if(err){
-                console.log(err);
-                callback(err,null);
-              }
-              else {
-                callback(null,user_info);
-              }
-            });
-      })
-        .on('error', function(e) {
-          console.log(e);
-          // logger.info('get API(validateUser) - https://api.steemjs.com/get_accounts, ERROR :- ',e.message);
-          callback(e,null);
-      });
+      var name = [userName];
+      steem.api.getAccounts(name, function(err, res) {
+      if(err){
+          console.log(err);
+          callback(err,null);
+          }
+      else{
+          user_info = {
+                        userName        : res[0].name,
+                        postingKey      : res[0].posting.key_auths[0][0],
+                        memo_key        : res[0].memo_key,
+                        publicActiveKey : res[0].active.key_auths[0][0]
+                      }
+          callback(null,user_info);
+          }
+        });
     };
 
     exports.getUserProfileImage = function(userName,callback){
         var profile_image = '';
         var user_info={};
-        http.get("https://api.steemjs.com/get_accounts?names[]=%5B%22"+userName+"%22%5D", function(res) {
-            var body = '';
-            res.on('data', function(data){
-                body += data;
-            });
-            res.on('end', function(err,res) {
-              if(body!==undefined && body!==null && body!==''){
-                var parsedBody = JSON.parse(body);
-                if (typeof parsedBody[0] !== 'undefined') {
-                    if(parsedBody[0].json_metadata.length > 0){
-                        var profileData = JSON.parse(parsedBody[0].json_metadata);
+        var name = [userName];
+        steem.api.getAccounts(name, function(err, result) {
+          if(err){
+            console.log("ERROR", err);
+            callback(err,null);
+          }
+          else{
+            if (typeof result[0] !== 'undefined') {
+                  if(result[0].json_metadata.length > 0){
+                      var profileData = JSON.parse(result[0].json_metadata);
+                      if(profileData.profile !== undefined){
                         if(profileData.profile.profile_image !== undefined  && profileData.profile.profile_image.length > 0){
                           profile_image = profileData.profile.profile_image;
                         }
@@ -1090,626 +814,409 @@ exports.getUserInfo = function(userName,callback){
                             profile_image = 'https://worldarts2015.s3-us-west-2.amazonaws.com/images/default-profile-picture.jpg?cache=1473463677';
                         }
                       }
-                    else {
-                        profile_image = 'https://worldarts2015.s3-us-west-2.amazonaws.com/images/default-profile-picture.jpg?cache=1473463677';
+                      else {
+                          profile_image = 'https://worldarts2015.s3-us-west-2.amazonaws.com/images/default-profile-picture.jpg?cache=1473463677';
+                      }
                     }
-                }
-                else {
-                    profile_image = 'https://worldarts2015.s3-us-west-2.amazonaws.com/images/default-profile-picture.jpg?cache=1473463677';
-                }
-                if(err){
-                  console.log(err);
-                  callback(err,null);
-                }
-                else {
-                  callback(null,profile_image);
-                }
+                  else {
+                      profile_image = 'https://worldarts2015.s3-us-west-2.amazonaws.com/images/default-profile-picture.jpg?cache=1473463677';
+                  }
               }
-              });
-            })
-          .on('error', function(e) {
-            console.log(e);
-            // logger.info('get API(getUserProfileImage) - https://api.steemjs.com/get_accounts, ERROR :- ',e.message);
-            callback(e,null);
+              else {
+                  profile_image = 'https://worldarts2015.s3-us-west-2.amazonaws.com/images/default-profile-picture.jpg?cache=1473463677';
+              }
+              callback(null,profile_image);
+          }
         });
       };
 
       exports.getUserProfileImage_Chat = function(userName,time,type,room,members,img,callback){
           var profile_image = '';
           var user_info={};
-          http.get("https://api.steemjs.com/get_accounts?names[]=%5B%22"+userName+"%22%5D", function(res) {
-              var body = '';
-              res.on('data', function(data){
-                  body += data;
-              });
-              res.on('end', function(err,res) {
-                  var parsedBody = JSON.parse(body);
-                  if (typeof parsedBody[0] !== 'undefined') {
-                      if(parsedBody[0].json_metadata.length > 0){
-                          var profileData = JSON.parse(parsedBody[0].json_metadata);
-                          if(profileData.profile.profile_image !== undefined  && profileData.profile.profile_image.length > 0){
-                            profile_image = profileData.profile.profile_image;
-                          }
-                          else {
-                              profile_image = 'https://worldarts2015.s3-us-west-2.amazonaws.com/images/default-profile-picture.jpg?cache=1473463677';
-                          }
+          var name = [userName];
+          steem.api.getAccounts(name, function(err, result) {
+            if(err){
+              console.log("ERROR", err);
+              callback(err,null);
+            }
+            else{
+              if (typeof result[0] !== 'undefined') {
+                  if(result[0].json_metadata.length > 0){
+                      var profileData = JSON.parse(result[0].json_metadata);
+                      if(profileData.profile !== undefined) {
+                        if(profileData.profile.profile_image !== undefined  && profileData.profile.profile_image.length > 0){
+                          profile_image = profileData.profile.profile_image;
                         }
+                        else {
+                            profile_image = 'https://worldarts2015.s3-us-west-2.amazonaws.com/images/default-profile-picture.jpg?cache=1473463677';
+                        }
+                      }
                       else {
                           profile_image = 'https://worldarts2015.s3-us-west-2.amazonaws.com/images/default-profile-picture.jpg?cache=1473463677';
                       }
-                  }
+                    }
                   else {
                       profile_image = 'https://worldarts2015.s3-us-west-2.amazonaws.com/images/default-profile-picture.jpg?cache=1473463677';
                   }
-                  if(err){
-                    console.log(err);
-                    callback(err,null);
-                  }
-                  else {
-                    if(type == 'one'){
-                      var result = {
-                        username : userName,
-                        time : time,
-                        room : room,
-                        type : type,
-                        members : members,
-                        profile_image : profile_image
-                      }
-                    }
-                    else if(type == 'group'){
-                      var result = {
-                        username : userName,
-                        time : time,
-                        room : room,
-                        type : type,
-                        members : members,
-                        profile_image : img
-                      }
-                    }
-                    callback(null,result);
-                  }
-                });
-
-          })
-            .on('error', function(e) {
-              console.log(e);
-              // logger.info('get API(getUserProfileImage) - https://api.steemjs.com/get_accounts, ERROR :- ',e.message);
-              callback(e,null);
+              }
+              else {
+                  profile_image = 'https://worldarts2015.s3-us-west-2.amazonaws.com/images/default-profile-picture.jpg?cache=1473463677';
+              }
+              if(type == 'one'){
+                var result = {
+                  username : userName,
+                  time : time,
+                  room : room,
+                  type : type,
+                  members : members,
+                  profile_image : profile_image
+                }
+              }
+              else if(type == 'group'){
+                var result = {
+                  username : userName,
+                  time : time,
+                  room : room,
+                  type : type,
+                  members : members,
+                  profile_image : img
+                }
+              }
+              callback(null,result);
+            }
           });
         };
-
 
       exports.getUserProfileImage_ForApp = function(userName,permlink,value,callback){
           var profile_image = '';
           var user_info={};
-          http.get("https://api.steemjs.com/get_accounts?names[]=%5B%22"+userName+"%22%5D", function(res) {
-              var body = '';
-              res.on('data', function(data){
-                  body += data;
-              });
-              res.on('end', function(err,res) {
-                  var parsedBody = JSON.parse(body);
-                  if (typeof parsedBody[0] !== 'undefined') {
-                      if(parsedBody[0].json_metadata.length > 0){
-                          var profileData = JSON.parse(parsedBody[0].json_metadata);
-                          if(profileData.profile.profile_image !== undefined  && profileData.profile.profile_image.length > 0){
-                            profile_image = profileData.profile.profile_image;
-                          }
-                          else {
-                              profile_image = 'https://worldarts2015.s3-us-west-2.amazonaws.com/images/default-profile-picture.jpg?cache=1473463677';
-                          }
+          var name = [userName];
+          steem.api.getAccounts(name, function(err, result) {
+            if(err){
+              console.log("ERROR", err);
+              callback(err,null);
+            }
+            else{
+              if (typeof result[0] !== 'undefined') {
+                  if(result[0].json_metadata.length > 0){
+                      var profileData = JSON.parse(result[0].json_metadata);
+                      if(profileData.profile !== undefined){
+                        if(profileData.profile.profile_image !== undefined  && profileData.profile.profile_image.length > 0){
+                          profile_image = profileData.profile.profile_image;
                         }
+                        else {
+                            profile_image = 'https://worldarts2015.s3-us-west-2.amazonaws.com/images/default-profile-picture.jpg?cache=1473463677';
+                        }
+                      }
                       else {
                           profile_image = 'https://worldarts2015.s3-us-west-2.amazonaws.com/images/default-profile-picture.jpg?cache=1473463677';
                       }
-                  }
+                    }
                   else {
                       profile_image = 'https://worldarts2015.s3-us-west-2.amazonaws.com/images/default-profile-picture.jpg?cache=1473463677';
                   }
-                  if(err){
-                    console.log(err);
-                    callback(err,null);
-                  }
-                  else {
-                    var list = {
-                      profile_image : profile_image,
-                      author : userName,
-                      permlink : permlink,
-                      value : value,
-                    }
-                    callback(null,list);
-                  }
-                });
+              }
+              else {
+                  profile_image = 'https://worldarts2015.s3-us-west-2.amazonaws.com/images/default-profile-picture.jpg?cache=1473463677';
+              }
+              var list = {
+                profile_image : profile_image,
+                author : userName,
+                permlink : permlink,
+                value : value,
+              }
+                callback(null,list);
+            }
           })
-            .on('error', function(e) {
-              console.log(e);
-              callback(e,null);
-          });
         };
-
 
       exports.getUserProfileImage_ForApp123 = function(finalList,callback){
           var profile_image = '';
           var user_info={};
-          http.get("https://api.steemjs.com/get_accounts?names[]=%5B%22"+finalList.author+"%22%5D", function(res) {
-              var body = '';
-              res.on('data', function(data){
-                  body += data;
-              });
-              res.on('end', function(err,res) {
-                  var parsedBody = JSON.parse(body);
-                  if (typeof parsedBody[0] !== 'undefined') {
-                      if(parsedBody[0].json_metadata.length > 0){
-                          var profileData = JSON.parse(parsedBody[0].json_metadata);
-                          if(profileData.profile.profile_image !== undefined  && profileData.profile.profile_image.length > 0){
-                            profile_image = profileData.profile.profile_image;
-                          }
-                          else {
-                              profile_image = 'https://worldarts2015.s3-us-west-2.amazonaws.com/images/default-profile-picture.jpg?cache=1473463677';
-                          }
-                        }
-                      else {
-                          profile_image = 'https://worldarts2015.s3-us-west-2.amazonaws.com/images/default-profile-picture.jpg?cache=1473463677';
-                      }
-                  }
-                  else {
-                      profile_image = 'https://worldarts2015.s3-us-west-2.amazonaws.com/images/default-profile-picture.jpg?cache=1473463677';
-                  }
-                  if(err){
-                    console.log(err);
-                    callback(err,null);
-                  }
-                  else {
-                    if(finalList.status == false){
-                      finalList.weight = 0;
-                    }
-                    var list = {
-                      profile_image : profile_image,
-                      username : finalList.username,
-                      permlink : finalList.permlink,
-                      value : finalList.value,
-                      status : finalList.status,
-                      weight : finalList.weight,
-                      author : finalList.author
-                    }
-                    callback(null,list);
-                  }
-                });
-          })
-            .on('error', function(e) {
-              console.log(e);
-              callback(e,null);
-          });
-        };
-
-
-
-
-
-
-
-exports.getUserFollowingFollowersNo = function(userName,callback){
-    var userFollowingFollowersInfo={};
-    http.get("https://api.steemjs.com/get_follow_count?account="+userName, function(res) {
-        var body = '';
-        res.on('data', function(data){
-            body += data;
-        });
-        res.on('end', function(err) {
-          if(body!==undefined && body!==null && body!==''){
-            try{
-              var parsedBody = JSON.parse(body);
-            }
-            catch(e){
-              console.log(e);
-              var parsedBody = body;
-            }
-            if (typeof parsedBody !== 'undefined') {
-                userFollowingFollowersInfo = {
-                      following_count  : parsedBody.following_count,
-                      follower_count   : parsedBody.follower_count,
-                };
-            }
-            else {
-                userFollowingFollowersInfo = {
-                      following_count  : 0,
-                      follower_count   : 0
-              };
-            }
+          var name = [finalList.author];
+          steem.api.getAccounts(name, function(err, result) {
             if(err){
-              console.log(err);
+              console.log("ERROR", err);
               callback(err,null);
             }
             else{
-              callback(null,userFollowingFollowersInfo);
+              if (typeof result[0] !== 'undefined') {
+                  if(result[0].json_metadata.length > 0){
+                      var profileData = JSON.parse(result[0].json_metadata);
+                      if(profileData.profile !== undefined){
+                        if(profileData.profile.profile_image !== undefined  && profileData.profile.profile_image.length > 0){
+                          profile_image = profileData.profile.profile_image;
+                        }
+                        else {
+                            profile_image = 'https://worldarts2015.s3-us-west-2.amazonaws.com/images/default-profile-picture.jpg?cache=1473463677';
+                        }
+                      }
+                      else{
+                        profile_image = 'https://worldarts2015.s3-us-west-2.amazonaws.com/images/default-profile-picture.jpg?cache=1473463677';
+                      }
+                    }
+                  else {
+                      profile_image = 'https://worldarts2015.s3-us-west-2.amazonaws.com/images/default-profile-picture.jpg?cache=1473463677';
+                  }
+              }
+              else {
+                  profile_image = 'https://worldarts2015.s3-us-west-2.amazonaws.com/images/default-profile-picture.jpg?cache=1473463677';
+              }
+              if(finalList.status == false){
+                finalList.weight = 0;
+              }
+              var list = {
+                profile_image : profile_image,
+                username : finalList.username,
+                permlink : finalList.permlink,
+                value : finalList.value,
+                status : finalList.status,
+                weight : finalList.weight,
+                author : finalList.author
+              }
+              callback(null,list);
             }
-          }
+          });
+        };
 
-        });
-    })
-    .on('error', function(e) {
-      console.log(e);
-      logger.info('get API(getUserFollowingFollowersNo) - https://api.steemjs.com/get_follow_count');
-        callback(e,null);
+exports.getUserFollowingFollowersNo = function(userName,callback){
+    var userFollowingFollowersInfo={};
+    steem.api.getFollowCount(userName, function(err, result) {
+      if(err){
+        console.log(err);
+        logger.info('get API(getUserFollowingFollowersNo) - https://api.steemjs.com/get_follow_count');
+        callback(err,null);
+      }
+      else{
+        userFollowingFollowersInfo = {
+              following_count  : result.following_count,
+              follower_count   : result.follower_count,
+        };
+        callback(null,userFollowingFollowersInfo);
+      }
     });
-};
+  };
 
 exports.getUserPostData = function(userName,startLimit,endLimit,callback){
   var el = 100;
-      http.get("https://api.steemjs.com/get_discussions_by_blog?query=%7B%22tag%22%3A%22"+userName+"%22%2C%20%22limit%22%3A%20%22"+el+"%22%7D", function(res) {
-        var body = '';
-        res.on('data', function(data){
-            body += data;
-        });
-        res.on('end', function() {
-          if(body!==undefined && body!==null && body!==''){
-            try{
-              var parsedBody = JSON.parse(body);
-            }
-            catch(e){
-              console.log(e);
-              var parsedBody = body;
-            }
-            var finalData = [];
-            var obj={};
-            for (var i = 0 ; i < el ; i++){
-              if(parsedBody[i] !== undefined){
-                var result = JSON.parse(parsedBody[i].json_metadata);
-                if(result.app == filterText){
-                finalData.push(parsedBody[i]);
-                }
-              }
-              }
-            obj.parsedBody = finalData;
-            obj.startLimit = parseInt(startLimit);
-            obj.endLimit = parseInt(endLimit);
-            var userPostInfo =  getUserPostInfo_Feed(obj,function(err,userPostInfo){
-              if(err){
-                console.log(err);
-                callback(err,null);
-              }
-              callback(null,userPostInfo);
-            });
+  var query = {"tag":userName, "limit": "100"}
+  steem.api.getDiscussionsByBlog(query, function(err, result) {
+    if(err){
+      console.log(err);
+      callback(err,null);
+    }
+    else{
+      var finalData = [];
+      var obj={};
+      for (var i = 0 ; i < el ; i++){
+        if(result[i] !== undefined){
+          var rslt = JSON.parse(result[i].json_metadata);
+          if(rslt.app == filterText){
+          finalData.push(result[i]);
           }
-          else{
-          callback(null,'');
+        }
+        }
+        obj.parsedBody = finalData;
+        obj.startLimit = parseInt(startLimit);
+        obj.endLimit = parseInt(endLimit);
+        var userPostInfo =  getUserPostInfo_Feed(obj,function(err,userPostInfo){
+          if(err){
+            console.log(err);
+            callback(err,null);
           }
+          callback(null,userPostInfo);
         });
-    })
-    .on('error', function(e) {
-      console.log(e);
-        logger.info('get API(getUserPostData) - https://api.steemjs.com/get_discussions_by_blog, userName = ',userName);
-        callback(e,null);
-    });
-};
-
-// exports.getUserFeed = function(username,startLimit,endLimit,callback){
-//     var el = 100;
-//     http.get("https://api.steemjs.com/get_discussions_by_feed?query=%7B%22tag%22%3A%22"+username+"%22%2C%20%22limit%22%3A%20%22"+el+"%22%7D", function(res) {
-//         var body = '';
-//         res.on('data', function(data){
-//             body += data;
-//         });
-//         res.on('end', function() {
-//           if(body!==undefined && body!==null && body!==''){
-//               var parsedBody = JSON.parse(body);
-//               console.log("PB : ", parsedBody);
-//
-//               var obj={};
-//               obj.parsedBody = parsedBody;
-//               obj.startLimit = startLimit;
-//               obj.endLimit   = endLimit;
-//               var userPostInfo =  getUserPostInfo_Feed(obj,function(err,userPostInfo){
-//                 if(err){
-//                   console.log(err);
-//                       callback(err,null);
-//                   }
-//                       callback(null,userPostInfo);
-//                 });
-//               }
-//               else{
-//               callback(null,'');
-//               }
-//             });
-//     })
-//       .on('error', function(e) {
-//         console.log(e);
-//         logger.info('get API(getUserFeed) - https://api.steemjs.com/get_discussions_by_feed, username = ',username);
-//           callback(e,null);
-//     });
-// };
-
-
-// exports.newCreate = function(types,callback){
-//     steem.api.getDiscussionsByCreated(types, function(err, result) {
-//       if(err){
-//         console.log("Error", err);
-//         callback(err,null);
-//       }
-//       else{
-//         console.log("Result", result);
-//         callback(null,result);
-//       }
-//       });
-//     };
+      }
+  });
+  };
 
 exports.getUserTopicFeed = function(types,tags,startLimit,endLimit,callback){
         var Api;
         var el = 100;
+        var query = {"tag":tags, "limit": el};
         switch(types){
           case "New":
-           Api = "https://api.steemjs.com/get_discussions_by_created?query=%7B%22tag%22%3A%22"+tags+"%22%2C%20%22limit%22%3A%20%22"+el+"%22%7D";
-           break;
-          case "Hot":
-           Api = "https://api.steemjs.com/get_discussions_by_hot?query=%7B%22tag%22%3A%22"+tags+"%22%2C%20%22limit%22%3A%20%22"+el+"%22%7D";
-           break;
-          case "Trending":
-            Api = "https://api.steemjs.com/get_discussions_by_trending?query=%7B%22tag%22%3A%22"+tags+"%22%2C%20%22limit%22%3A%20%22"+el+"%22%7D";
-            break;
-          case "Promoted":
-            Api = "https://api.steemjs.com/get_discussions_by_promoted?query=%7B%22tag%22%3A%22"+tags+"%22%2C%20%22limit%22%3A%20%22"+el+"%22%7D";
-            break;
-        }
-        http.get(Api, function(res) {
-        var body = '';
-        res.on('data', function(data){
-            body += data;
-        });
-        res.on('end', function() {
-          if(body!==undefined && body!==null && body!==''){
-            var parsedBody = JSON.parse(body);
-            var finalData = [];
-            var obj={};
-            for (var i = 0 ; i < el ; i++){
-              if(parsedBody[i] !== undefined){
-                var result = JSON.parse(parsedBody[i].json_metadata);
-                if(result.app == filterText){
-                finalData.push(parsedBody[i]);
-                }
-              }
-              }
-            obj.parsedBody = finalData;
-            obj.startLimit = parseInt(startLimit);
-            obj.endLimit = parseInt(endLimit);
-            var userPostInfo =  getUserPostInfo_Feed(obj,function(err,userPostInfo){
-              if(err)
-              {
-                console.log(err);
-                callback(err,null);
-              }
-                callback(null,userPostInfo);
-            });
-          }
+          steem.api.getDiscussionsByCreated(query, function(err, result) {
+            if(err){
+              callback(err,null);
+            }
             else{
-            callback(null,'');
+              var finalData = [];
+              var obj={};
+              for (var i = 0 ; i < el ; i++){
+                if(result[i] !== undefined){
+                  var rslt = JSON.parse(result[i].json_metadata);
+                  if(rslt.app == filterText){
+                  finalData.push(result[i]);
+                  }
+                }
+                }
+              obj.parsedBody = finalData;
+              obj.startLimit = parseInt(startLimit);
+              obj.endLimit = parseInt(endLimit);
+              var userPostInfo =  getUserPostInfo_Feed(obj,function(err,userPostInfo){
+                if(err)
+                {
+                  console.log(err);
+                  callback(err,null);
+                }
+                  callback(null,userPostInfo);
+              });
             }
           });
-        })
-      .on('error', function(e) {
-        console.log(e);
-        logger.info('get API(getUserTopicFeed) - New, hot, promoted or trending, Data = types,tags',types,tags);
-          callback(e,null);
-    });
-};
+           break;
+          case "Hot":
+          steem.api.getDiscussionsByHot(query, function(err, result) {
+            if(err){
+              callback(err,null);
+            }
+            else{
+              var finalData = [];
+              var obj={};
+              for (var i = 0 ; i < el ; i++){
+                if(result[i] !== undefined){
+                  var rslt = JSON.parse(result[i].json_metadata);
+                  if(rslt.app == filterText){
+                  finalData.push(result[i]);
+                  }
+                }
+                }
+              obj.parsedBody = finalData;
+              obj.startLimit = parseInt(startLimit);
+              obj.endLimit = parseInt(endLimit);
+              var userPostInfo =  getUserPostInfo_Feed(obj,function(err,userPostInfo){
+                if(err)
+                {
+                  console.log(err);
+                  callback(err,null);
+                }
+                  callback(null,userPostInfo);
+              });
+            }
+          });
+           break;
+          case "Trending":
+          steem.api.getDiscussionsByTrending(query, function(err, result) {
+            if(err){
+              callback(err,null);
+            }
+            else{
+              var finalData = [];
+              var obj={};
+              for (var i = 0 ; i < el ; i++){
+                if(result[i] !== undefined){
+                  var rslt = JSON.parse(result[i].json_metadata);
+                  if(rslt.app == filterText){
+                  finalData.push(result[i]);
+                  }
+                }
+                }
+              obj.parsedBody = finalData;
+              obj.startLimit = parseInt(startLimit);
+              obj.endLimit = parseInt(endLimit);
+              var userPostInfo =  getUserPostInfo_Feed(obj,function(err,userPostInfo){
+                if(err)
+                {
+                  console.log(err);
+                  callback(err,null);
+                }
+                  callback(null,userPostInfo);
+              });
+            }
+          });
+            break;
+          case "Promoted":
+          http.get("https://api.steemjs.com/get_discussions_by_promoted?query=%7B%22tag%22%3A%22"+tags+"%22%2C%20%22limit%22%3A%20%22"+el+"%22%7D", function(res) {
+          var body = '';
+          res.on('data', function(data){
+              body += data;
+          });
+          res.on('end', function() {
+            if(body!==undefined && body!==null && body!==''){
+              var parsedBody = JSON.parse(body);
+              var finalData = [];
+              var obj={};
+              for (var i = 0 ; i < el ; i++){
+                if(parsedBody[i] !== undefined){
+                  var result = JSON.parse(parsedBody[i].json_metadata);
+                  if(result.app == filterText){
+                  finalData.push(parsedBody[i]);
+                  }
+                }
+                }
+              obj.parsedBody = finalData;
+              obj.startLimit = parseInt(startLimit);
+              obj.endLimit = parseInt(endLimit);
+              var userPostInfo =  getUserPostInfo_Feed(obj,function(err,userPostInfo){
+                if(err)
+                {
+                  console.log(err);
+                  callback(err,null);
+                }
+                  callback(null,userPostInfo);
+                });
+            }
+            });
+          })
+        break;
+        }
+      };
 
 exports.getUserReply = function(username,startLimit,endLimit,callback){
   var el = 100;
-    http.get("https://api.steemjs.com/get_replies_by_last_update?startAuthor="+username+"&limit="+el, function(res) {
-        var body = '';
-        res.on('data', function(data){
-            body += data;
-        });
-        res.on('end', function() {
-            var parsedBody = JSON.parse(body);
-            var finalData = [];
-            var obj={};
-            for (var i = 0 ; i < el ; i++){
-              if(parsedBody[i] !== undefined){
-                try{
-                  var result = JSON.parse(parsedBody[i].json_metadata);
-                }
-                catch(e){
-                  var result = parsedBody[i].json_metadata;
-                }
-                if(result.app == filterText){
-                finalData.push(parsedBody[i]);
-                }
-              }
-              }
-            obj.parsedBody = finalData;
-            obj.startLimit = parseInt(startLimit);
-            obj.endLimit = parseInt(endLimit);
-            var userPostInfo =  getUserPostInfo_Feed(obj,function(err,userPostInfo){
-              if(err){
-                console.log(err);
-                    callback(err,null);
-                }
-                    callback(null,userPostInfo);
-              });
-            });
-            })
-              .on('error', function(e) {
-                console.log(e);
-                // logger.info('get API(getUserReply) - https://api.steemjs.com/get_replies_by_last_update, ERROR :- ',e.message);
-                callback(e,null);
-    });
+  steem.api.getRepliesByLastUpdate(username, '', 100, function(err, result) {
+    if(err){
+          console.log(err);
+          callback(err,null);
+      }
+      else{
+        var finalData = [];
+        var obj={};
+        for (var i = 0 ; i < el ; i++){
+          if(result[i] !== undefined){
+            try{
+              var reslt = JSON.parse(result[i].json_metadata);
+            }
+            catch(e){
+              var reslt = result[i].json_metadata;
+            }
+            if(reslt.app == filterText){
+            finalData.push(result[i]);
+            }
+          }
+          }
+        obj.parsedBody = finalData;
+        obj.startLimit = parseInt(startLimit);
+        obj.endLimit = parseInt(endLimit);
+        var userPostInfo =  getUserPostInfo_Feed(obj,function(err,userPostInfo){
+          if(err){
+            console.log(err);
+                callback(err,null);
+            }
+                callback(null,userPostInfo);
+          });
+      }
+  });
 };
 
 exports.getUserCommentsOnPost = function(tag,username,permlink,callback){
     var comments_on_post={};
     var comments = [];
-    http.get("https://api.steemjs.com/get_state?path=%2F"+tag+"%2F%40"+username+"%2F"+permlink, function(res) {
-        var body = '';
-        res.on('data', function(data){
-            body += data;
-        });
-        res.on('end', function() {
-            var parsedBody = JSON.parse(body);
-
-            if (typeof parsedBody !== 'undefined'){
-              var obj = parsedBody.content;
-              var length = Object.keys(obj).length;
-                  for (var i = 0; i < length ; i++){
-                    var content = obj[Object.keys(obj)[i]];
-                    var text = JSON.parse(content.json_metadata);
-                    var result;
-                    if(text.app == filterText){
-                      if(content.permlink !== permlink){
-                      if(content.json_metadata !== ''){
-                          result = JSON.parse(content.json_metadata);
-                          }
-                      else{
-                          result = {tag:content.catagory};
-                          }
-                      var image =[];
-                      var postImage='';
-                      image = result.image;
-                      if(image !== undefined  && image.length > 0)
-                          {
-                            postImage = image[0];
-                          }
-                      else {
-                            postImage = '';
-                          }
-                          var createdPost = content.created;
-                          var month = createdPost.substr(5, 2);
-                          var year = createdPost.substr(0,4);
-                          var date = createdPost.substr(8,2);
-                          var mnth;
-                            switch(month) {
-                              case "01":
-                                 mnth =  "January"
-                                  break;
-                              case "02":
-                                 mnth =  "February"
-                                  break;
-                              case "03":
-                                 mnth =  "March"
-                                  break;
-                              case "04":
-                                 mnth =  "April"
-                                  break;
-                              case "05":
-                                 mnth =  "May"
-                                  break;
-                              case "06":
-                                 mnth =  "June"
-                                  break;
-                              case "07":
-                                 mnth =  "July"
-                                  break;
-                              case "08":
-                                 mnth =  "August"
-                                  break;
-                              case "09":
-                                 mnth =  "September"
-                                  break;
-                              case "10":
-                                 mnth =  "October"
-                                  break;
-                              case "11":
-                                 mnth =  "November"
-                                  break;
-                              case "12":
-                                 mnth =  "December"
-                                  break;
-                             }
-
-                          var dString = mnth +"-"+date+"-"+year;
-                          var d1 = new Date( (new Date(createdPost))*1 - 1000*3600*5 );   //for new server
-
-                          //var d1 = new Date(createdPost);      // working fine with all other servers
-                          var d2 = new Date();
-                          var timeDate;
-
-                          if(DateDiff.inDays(d1, d2) <= 30){
-                            var diff = DateDiff.inDays(d1, d2);
-                            if(diff != 0){
-                            timeDate = diff+ " "+"days"
-                            }
-                            else{
-                              var minDiff = DateDiff.inMinutes(d1, d2);
-                              if(minDiff <= 59){
-                                timeDate = minDiff + " "+"minutes"
-                              }
-                              else{
-                                timeDate = DateDiff.inHour(d1, d2) + " "+"hours"
-                              }
-                            }
-                          }
-                          else if(DateDiff.inMonths(d1, d2) <= 12 && DateDiff.inDays(d1, d2) >= 31){
-                            timeDate =DateDiff.inMonths(d1, d2) +  " "+"months";
-                          }
-                          else if(DateDiff.inMonths(d1, d2) > 12 && DateDiff.inDays(d1, d2) >= 31){
-                            timeDate =DateDiff.inYears(d1, d2) +  " "+"years";
-                          }
-
-                          var upvotes= content.pending_payout_value.replace(/SBD/g, "");
-                          upvotes = Math.round(upvotes * 100) / 100
-                          var commentPost = {
-                          profile_image : "https://worldarts2015.s3-us-west-2.amazonaws.com/images/default-profile-picture.jpg?cache=1473463677",
-                          author : content.author,
-                          permlink : content.permlink,
-                          parent_author : content.parent_author,
-                          parent_permlink : content.parent_permlink,
-                          created : content.created,
-                          body   : content.body,
-                          upvote :  upvotes,
-                          vote : content.net_votes,
-                          comments : content.children,
-                          tags : content.category,
-                          url : content.url,
-                          id : content.id,
-                          image : postImage,
-                          active_votes: content.active_votes,
-                          replies : content.replies,
-                          post_time:timeDate
-                        };
-                        comments.push(commentPost);
-
-                      }
-                    }
-
-                    }
-              comments_on_post.comments = comments;
-            }
-            else{
-            var  commentPost = {};
-                comments.push(commentPost);
-                comments_on_post.comments = comments;
-            }
-        callback(null,comments_on_post);
-        });
-    })
-    .on('error', function(e) {
-      console.log(e);
-        // logger.info('get API(getUserCommentsOnPost) - https://api.steemjs.com/get_state, ERROR :- ',e.message);
-        callback(e,null);
-    });
-};
-
-exports.getUserCommentsOnPost_App = function(tag,username,permlink,startLimit,endLimit,callback){
-    var comments_on_post={};
-    var comments = [];
-    var sub = endLimit-startLimit;
-    var length;
-    http.get("https://api.steemjs.com/get_state?path=%2F"+tag+"%2F%40"+username+"%2F"+permlink, function(res) {
-        var body = '';
-        res.on('data', function(data){
-            body += data;
-        });
-        res.on('end', function() {
-            var parsedBody = JSON.parse(body);
-            if (typeof parsedBody !== 'undefined'){
-              var obj = parsedBody.content;
-              length = (Object.keys(obj).length)-1;
-              if(sub > 0){
-                if(endLimit > length){
-                    endLimit = length;
-                }
-                for (var i = startLimit ; i <= endLimit ; i++){
-                  var content = obj[Object.keys(obj)[i]];
-                  var result;
+    var path = "/"+tag+"/@"+username+"/"+permlink;
+    steem.api.getState(path, function(err, results) {
+      if(err){
+        console.log("ERROR", err);
+        callback(err,null)
+      }
+      else{
+        if (typeof results !== 'undefined'){
+          var obj = results.content;
+          var length = Object.keys(obj).length;
+              for (var i = 0; i < length ; i++){
+                var content = obj[Object.keys(obj)[i]];
+                var text = JSON.parse(content.json_metadata);
+                var result;
+                if(text.app == filterText){
                   if(content.permlink !== permlink){
                   if(content.json_metadata !== ''){
                       result = JSON.parse(content.json_metadata);
@@ -1770,12 +1277,14 @@ exports.getUserCommentsOnPost_App = function(tag,username,permlink,startLimit,en
                              mnth =  "December"
                               break;
                          }
+
                       var dString = mnth +"-"+date+"-"+year;
                       var d1 = new Date( (new Date(createdPost))*1 - 1000*3600*5 );   //for new server
 
                       //var d1 = new Date(createdPost);      // working fine with all other servers
                       var d2 = new Date();
                       var timeDate;
+
                       if(DateDiff.inDays(d1, d2) <= 30){
                         var diff = DateDiff.inDays(d1, d2);
                         if(diff != 0){
@@ -1820,30 +1329,169 @@ exports.getUserCommentsOnPost_App = function(tag,username,permlink,startLimit,en
                     };
                     comments.push(commentPost);
                   }
-                  }
-                  comments_on_post.comments = comments;
-                  callback(null,comments_on_post);
-              }
-              else{
-                console.log("TEST MSG");
-              }
-            }
-            else{
-            var  commentPost = {};
-                comments.push(commentPost);
-                comments_on_post.comments = comments;
-                callback(null,comments_on_post);
-            }
-          });
-    })
-    .on('error', function(e) {
-      console.log(e);
-        callback(e,null);
+                }
+                }
+          comments_on_post.comments = comments;
+        }
+        else{
+        var  commentPost = {};
+            comments.push(commentPost);
+            comments_on_post.comments = comments;
+        }
+    callback(null,comments_on_post);
+      }
     });
 };
 
+exports.getUserCommentsOnPost_App = function(tag,username,permlink,startLimit,endLimit,callback){
+    var comments_on_post={};
+    var comments = [];
+    var sub = endLimit-startLimit;
+    var length;
+    var path = "/"+tag+"/@"+username+"/"+permlink;
+    steem.api.getState(path, function(err, results) {
+      if(err){
+        console.log("ERROR", err);
+        callback(err,null)
+      }
+      else{
+        if (typeof results !== 'undefined'){
+          var obj = results.content;
+          length = (Object.keys(obj).length)-1;
+          if(sub > 0){
+            if(endLimit > length){
+                endLimit = length;
+            }
+            for (var i = startLimit ; i <= endLimit ; i++){
+              var content = obj[Object.keys(obj)[i]];
+              var result;
+              if(content.permlink !== permlink){
+              if(content.json_metadata !== ''){
+                  result = JSON.parse(content.json_metadata);
+                  }
+              else{
+                  result = {tag:content.catagory};
+                  }
+              var image =[];
+              var postImage='';
+              image = result.image;
+              if(image !== undefined  && image.length > 0)
+                  {
+                    postImage = image[0];
+                  }
+              else {
+                    postImage = '';
+                  }
+                  var createdPost = content.created;
+                  var month = createdPost.substr(5, 2);
+                  var year = createdPost.substr(0,4);
+                  var date = createdPost.substr(8,2);
+                  var mnth;
+                    switch(month) {
+                      case "01":
+                         mnth =  "January"
+                          break;
+                      case "02":
+                         mnth =  "February"
+                          break;
+                      case "03":
+                         mnth =  "March"
+                          break;
+                      case "04":
+                         mnth =  "April"
+                          break;
+                      case "05":
+                         mnth =  "May"
+                          break;
+                      case "06":
+                         mnth =  "June"
+                          break;
+                      case "07":
+                         mnth =  "July"
+                          break;
+                      case "08":
+                         mnth =  "August"
+                          break;
+                      case "09":
+                         mnth =  "September"
+                          break;
+                      case "10":
+                         mnth =  "October"
+                          break;
+                      case "11":
+                         mnth =  "November"
+                          break;
+                      case "12":
+                         mnth =  "December"
+                          break;
+                     }
+                  var dString = mnth +"-"+date+"-"+year;
+                  var d1 = new Date( (new Date(createdPost))*1 - 1000*3600*5 );   //for new server
 
-
+                  //var d1 = new Date(createdPost);      // working fine with all other servers
+                  var d2 = new Date();
+                  var timeDate;
+                  if(DateDiff.inDays(d1, d2) <= 30){
+                    var diff = DateDiff.inDays(d1, d2);
+                    if(diff != 0){
+                    timeDate = diff+ " "+"days"
+                    }
+                    else{
+                      var minDiff = DateDiff.inMinutes(d1, d2);
+                      if(minDiff <= 59){
+                        timeDate = minDiff + " "+"minutes"
+                      }
+                      else{
+                        timeDate = DateDiff.inHour(d1, d2) + " "+"hours"
+                      }
+                    }
+                  }
+                  else if(DateDiff.inMonths(d1, d2) <= 12 && DateDiff.inDays(d1, d2) >= 31){
+                    timeDate =DateDiff.inMonths(d1, d2) +  " "+"months";
+                  }
+                  else if(DateDiff.inMonths(d1, d2) > 12 && DateDiff.inDays(d1, d2) >= 31){
+                    timeDate =DateDiff.inYears(d1, d2) +  " "+"years";
+                  }
+                  var upvotes= content.pending_payout_value.replace(/SBD/g, "");
+                  upvotes = Math.round(upvotes * 100) / 100
+                  var commentPost = {
+                  profile_image : "https://worldarts2015.s3-us-west-2.amazonaws.com/images/default-profile-picture.jpg?cache=1473463677",
+                  author : content.author,
+                  permlink : content.permlink,
+                  parent_author : content.parent_author,
+                  parent_permlink : content.parent_permlink,
+                  created : content.created,
+                  body   : content.body,
+                  upvote :  upvotes,
+                  vote : content.net_votes,
+                  comments : content.children,
+                  tags : content.category,
+                  url : content.url,
+                  id : content.id,
+                  image : postImage,
+                  active_votes: content.active_votes,
+                  replies : content.replies,
+                  post_time:timeDate
+                };
+                comments.push(commentPost);
+              }
+              }
+              comments_on_post.comments = comments;
+              callback(null,comments_on_post);
+          }
+          else{
+            console.log("TEST MSG");
+          }
+        }
+        else{
+        var  commentPost = {};
+            comments.push(commentPost);
+            comments_on_post.comments = comments;
+            callback(null,comments_on_post);
+        }
+      }
+    })
+  };
 
 exports.getCommentList = function(mainObj,subObj, callback){
   var finalList = {};
@@ -1894,7 +1542,6 @@ exports.getCommentList = function(mainObj,subObj, callback){
     }
   }
   callback(null,finalArray);
-    // console.log("finalArray",finalArray);
 }
 
 exports.getTestUserCommentsOnPost = function(parent, parentPermlink,callback){
@@ -1970,11 +1617,9 @@ exports.getTestUserCommentsOnPost = function(parent, parentPermlink,callback){
 
                       var dString = mnth +"-"+date+"-"+year;
                       var d1 = new Date( (new Date(createdPost))*1 - 1000*3600*5 );   //for new server
-
                       //var d1 = new Date(createdPost);      // working fine with all other servers
                       var d2 = new Date();
                       var timeDate;
-
                       if(DateDiff.inDays(d1, d2) <= 30){
                         var diff = DateDiff.inDays(d1, d2);
                         if(diff != 0){
@@ -2028,267 +1673,181 @@ exports.getTestUserCommentsOnPost = function(parent, parentPermlink,callback){
           })
           }
 
-          // exports.getTestUserCommentsOnPost = function(parent, parentPermlink,callback){
-          //     var comments_on_post={};
-          //     var comments = [];
-          //     steem.api.getContentReplies(parent, parentPermlink, function(err, res){
-          //       var length = Object.keys(res).length;
-          //                 for (i=0;i<length;i++){
-          //                   var content = res[Object.keys(res)[i]];
-          //                   var result;
-          //                   if(content.json_metadata !== ''){
-          //                       result = JSON.parse(content.json_metadata);
-          //                       }
-          //                   else{
-          //                       result = {tag:content.catagory};
-          //                       }
-          //                   var image =[];
-          //                   var postImage='';
-          //                   image = result.image;
-          //                   if(image !== undefined  && image.length > 0)
-          //                       {
-          //                         postImage = image[0];
-          //                       }
-          //                   else {
-          //                         postImage = '';
-          //                       }
-          //                   commentPost = {
-          //                     profile_image : "https://worldarts2015.s3-us-west-2.amazonaws.com/images/default-profile-picture.jpg?cache=1473463677",
-          //                     author : content.author,
-          //                     permlink : content.permlink,
-          //                     parent_author : content.parent_author,
-          //                     parent_permlink : content.parent_permlink,
-          //                     created : content.created,
-          //                     body   : content.body,
-          //                     upvote :  content.pending_payout_value,
-          //                     vote : content.net_votes,
-          //                     comments : content.children,
-          //                     tags : content.category,
-          //                     url : content.url,
-          //                     id : content.id,
-          //                     image : postImage,
-          //                     active_votes: content.active_votes,
-          //                     replies : content.replies
-          //                     }
-          //                     comments.push(commentPost);
-          //                   }
-          //             comments_on_post.comments = comments;
-          //             callback(null,comments_on_post);
-          //           })
-          //           }
-
-
-
 exports.getUserPostContent = function(tag,username,permlink,callback){
     var comments_on_post={};
     var comments = [];
-    http.get("https://api.steemjs.com/get_state?path=%2F"+tag+"%2F%40"+username+"%2F"+permlink, function(res) {
-        var body = '';
-        res.on('data', function(data){
-            body += data;
-        });
-        res.on('end', function() {
-            var parsedBody = JSON.parse(body);
-            if (typeof parsedBody !== 'undefined'){
-              var obj = parsedBody.content;
-              var length = Object.keys(obj).length;
-                  for (var i = 0; i < length ; i++){
-                    var content = obj[Object.keys(obj)[i]];
-                    var result;
-                    var text = JSON.parse(content.json_metadata);
-              // if(text.app == filterText || text.app == filterText1){
-              if(text.app == filterText){
-                    if(content.permlink === permlink){
-                    if(content.json_metadata !== ''){
-                        result = JSON.parse(content.json_metadata);
-                        }
-                    else{
-                        result = {tag:content.catagory};
-                        }
-                    var image =[];
-                    var postImage='';
-                    image = result.image;
-                    allTags = result.tags;
-                    if(image !== undefined  && image.length > 0)
-                        {
-                          postImage = image[0];
-                        }
-                    else {
-                          postImage = '';
-                        }
-                        var createdPost = content.created;
-                        var month = createdPost.substr(5, 2);
-                        var year = createdPost.substr(0,4);
-                        var date = createdPost.substr(8,2);
-                        var mnth;
-                          switch(month) {
-                            case "01":
-                               mnth =  "January"
-                                break;
-                            case "02":
-                               mnth =  "February"
-                                break;
-                            case "03":
-                               mnth =  "March"
-                                break;
-                            case "04":
-                               mnth =  "April"
-                                break;
-                            case "05":
-                               mnth =  "May"
-                                break;
-                            case "06":
-                               mnth =  "June"
-                                break;
-                            case "07":
-                               mnth =  "July"
-                                break;
-                            case "08":
-                               mnth =  "August"
-                                break;
-                            case "09":
-                               mnth =  "September"
-                                break;
-                            case "10":
-                               mnth =  "October"
-                                break;
-                            case "11":
-                               mnth =  "November"
-                                break;
-                            case "12":
-                               mnth =  "December"
-                                break;
-                           }
-
-                        var dString = mnth +"-"+date+"-"+year;
-                        var d1 = new Date( (new Date(createdPost))*1 - 1000*3600*5 );   //for new server
-
-                        //var d1 = new Date(createdPost);      // working fine with all other servers
-                        var d2 = new Date();
-                        var timeDate;
-                        if(DateDiff.inDays(d1, d2) <= 30){
-                          var diff = DateDiff.inDays(d1, d2);
-                          if(diff != 0){
-                          timeDate = diff+ " "+"days"
-                          }
-                          else{
-                            var minDiff = DateDiff.inMinutes(d1, d2);
-                            if(minDiff <= 59){
-                              timeDate = minDiff + " "+"minutes"
-                            }
-
-                            else{
-                              timeDate = DateDiff.inHour(d1, d2) + " "+"hours"
-                            }
-                          }
-                        }
-                        else if(DateDiff.inMonths(d1, d2) <= 12 && DateDiff.inDays(d1, d2) >= 31){
-                          timeDate =DateDiff.inMonths(d1, d2) +  " "+"months";
-                        }
-                        else if(DateDiff.inMonths(d1, d2) > 12 && DateDiff.inDays(d1, d2) >= 31){
-                          timeDate =DateDiff.inYears(d1, d2) +  " "+"years";
-                        }
-                        var t1 = md.render( content.body);
-                        var htmlBody = t1.replace(/\n/g, "<br />").replace(/&quot;/g,"'").replace(/&lt;/g,"<").replace(/&gt;/g,">").replace('<a href= \"(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png)\">(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png)</a>', '<img src = "(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png)">');
-                        var upvotes1= content.total_payout_value.replace(/SBD/g, "");
-                        var upvotes2= content.curator_payout_value.replace(/SBD/g, "");
-                        var upvotes3= content.pending_payout_value.replace(/SBD/g, "");
-                        var upvotes = (+(upvotes1)+(+(upvotes2))+(+(upvotes3)));
-                        upvotes = Math.round(upvotes * 100) / 100;
-                        var commentPost = {
-                        profile_image : "https://worldarts2015.s3-us-west-2.amazonaws.com/images/default-profile-picture.jpg?cache=1473463677",
-                        author : content.author,
-                        permlink : content.permlink,
-                        parent_author : content.parent_author,
-                        parent_permlink : content.parent_permlink,
-                        created : content.created,
-                        body   : htmlBody,
-                        upvote :  upvotes,
-                        vote : content.net_votes,
-                        comments : content.children,
-                        tags : content.category,
-                        url : content.url,
-                        id : content.id,
-                        allTags:allTags,
-                        image : postImage,
-                        active_votes: content.active_votes,
-                        replies : content.replies,
-                        post_time:timeDate,
-                        title:content.title
-                      };
-                      comments.push(commentPost);
+    var path = "/"+tag+"/@"+username+"/"+permlink;
+    steem.api.getState(path, function(err, results) {
+      if(err){
+        console.log("ERROR", err);
+        callback(err,null);
+      }
+      else{
+          var obj = results.content;
+          var length = Object.keys(obj).length;
+              for (var i = 0; i < length ; i++){
+                var content = obj[Object.keys(obj)[i]];
+                var result;
+                var text = JSON.parse(content.json_metadata);
+            if(text.app == filterText){
+                if(content.permlink === permlink){
+                if(content.json_metadata !== ''){
+                    result = JSON.parse(content.json_metadata);
                     }
+                else{
+                    result = {tag:content.catagory};
                     }
-              comments_on_post.comments = comments;
-            }
-            }
-            else{
-            var  commentPost = {
-                author : '',
-                permlink : '',
-                parent_author : '',
-                parent_permlink : '',
-                created : '',
-                body   : '',
-                upvote :  '',
-                vote : '',
-                comments : '',
-                tags : '',
-                url : '',
-                id : '',
-                image : '',
-                active_votes: '',
-                replies : ''
-                };
-                comments.push(commentPost);
-                comments_on_post.comments = comments;
-            }
+                var image =[];
+                var postImage='';
+                image = result.image;
+                allTags = result.tags;
+                if(image !== undefined  && image.length > 0)
+                    {
+                      postImage = image[0];
+                    }
+                else {
+                      postImage = '';
+                    }
+                    var createdPost = content.created;
+                    var month = createdPost.substr(5, 2);
+                    var year = createdPost.substr(0,4);
+                    var date = createdPost.substr(8,2);
+                    var mnth;
+                      switch(month) {
+                        case "01":
+                           mnth =  "January"
+                            break;
+                        case "02":
+                           mnth =  "February"
+                            break;
+                        case "03":
+                           mnth =  "March"
+                            break;
+                        case "04":
+                           mnth =  "April"
+                            break;
+                        case "05":
+                           mnth =  "May"
+                            break;
+                        case "06":
+                           mnth =  "June"
+                            break;
+                        case "07":
+                           mnth =  "July"
+                            break;
+                        case "08":
+                           mnth =  "August"
+                            break;
+                        case "09":
+                           mnth =  "September"
+                            break;
+                        case "10":
+                           mnth =  "October"
+                            break;
+                        case "11":
+                           mnth =  "November"
+                            break;
+                        case "12":
+                           mnth =  "December"
+                            break;
+                       }
+
+                    var dString = mnth +"-"+date+"-"+year;
+                    var d1 = new Date( (new Date(createdPost))*1 - 1000*3600*5 );   //for new server
+
+                    //var d1 = new Date(createdPost);      // working fine with all other servers
+                    var d2 = new Date();
+                    var timeDate;
+                    if(DateDiff.inDays(d1, d2) <= 30){
+                      var diff = DateDiff.inDays(d1, d2);
+                      if(diff != 0){
+                      timeDate = diff+ " "+"days"
+                      }
+                      else{
+                        var minDiff = DateDiff.inMinutes(d1, d2);
+                        if(minDiff <= 59){
+                          timeDate = minDiff + " "+"minutes"
+                        }
+
+                        else{
+                          timeDate = DateDiff.inHour(d1, d2) + " "+"hours"
+                        }
+                      }
+                    }
+                    else if(DateDiff.inMonths(d1, d2) <= 12 && DateDiff.inDays(d1, d2) >= 31){
+                      timeDate =DateDiff.inMonths(d1, d2) +  " "+"months";
+                    }
+                    else if(DateDiff.inMonths(d1, d2) > 12 && DateDiff.inDays(d1, d2) >= 31){
+                      timeDate =DateDiff.inYears(d1, d2) +  " "+"years";
+                    }
+                    var t1 = md.render( content.body);
+                    var htmlBody = t1.replace(/\n/g, "<br />").replace(/&quot;/g,"'").replace(/&lt;/g,"<").replace(/&gt;/g,">").replace('<a href= \"(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png)\">(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png)</a>', '<img src = "(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png)">');
+                    var upvotes1= content.total_payout_value.replace(/SBD/g, "");
+                    var upvotes2= content.curator_payout_value.replace(/SBD/g, "");
+                    var upvotes3= content.pending_payout_value.replace(/SBD/g, "");
+                    var upvotes = (+(upvotes1)+(+(upvotes2))+(+(upvotes3)));
+                    upvotes = Math.round(upvotes * 100) / 100;
+                    var commentPost = {
+                    profile_image : "https://worldarts2015.s3-us-west-2.amazonaws.com/images/default-profile-picture.jpg?cache=1473463677",
+                    author : content.author,
+                    permlink : content.permlink,
+                    parent_author : content.parent_author,
+                    parent_permlink : content.parent_permlink,
+                    created : content.created,
+                    body   : htmlBody,
+                    upvote :  upvotes,
+                    vote : content.net_votes,
+                    comments : content.children,
+                    tags : content.category,
+                    url : content.url,
+                    id : content.id,
+                    allTags:allTags,
+                    image : postImage,
+                    active_votes: content.active_votes,
+                    replies : content.replies,
+                    post_time:timeDate,
+                    title:content.title
+                  };
+                  comments.push(commentPost);
+                }
+                }
+          comments_on_post.comments = comments;
+        }
         callback(null,comments_on_post);
-        });
-    })
-    .on('error', function(e) {
-      console.log(e);
-        logger.info('get API(getUserPostContent) - https://api.steemjs.com/get_state, Input data - tag,username,permlink = ',tag,username,permlink);
-        callback(e,null);
+      }
     });
 };
 
-
 exports.getUserComments = function(username,startLimit,endLimit,callback){
     var el = 100;
-    http.get("https://api.steemjs.com/get_discussions_by_comments?query=%7B%22start_author%22%3A%22"+username+"%22%2C%22limit%22%3A%22"+el+"%22%7D", function(res) {
-        var body = '';
-        res.on('data', function(data){
-            body += data;
-        });
-        res.on('end', function() {
-            var parsedBody = JSON.parse(body);
-            var finalData = [];
-            var obj={};
-            for (var i = 0 ; i < el ; i++){
-              if(parsedBody[i] !== undefined){
-                var result = JSON.parse(parsedBody[i].json_metadata);
-                if(result.app == filterText){
-                finalData.push(parsedBody[i]);
-                }
-              }
-              }
-            obj.parsedBody = finalData;
-            obj.startLimit = parseInt(startLimit);
-            obj.endLimit = parseInt(endLimit);
-            var userPostInfo =  getUserPostInfo_Feed(obj,function(err,userPostInfo){
-              if(err){
+    var query = {"start_author":username,"limit":"100"};
+    steem.api.getDiscussionsByComments(query, function(err, result) {
+      if(err){
+            console.log(err);
+            callback(err,null);
+        }
+      else{
+        var finalData = [];
+        var obj={};
+        for (var i = 0 ; i < el ; i++){
+          if(result[i] !== undefined){
+            var rslt = JSON.parse(result[i].json_metadata);
+            if(rslt.app == filterText){
+            finalData.push(result[i]);
+            }
+          }
+          }
+        obj.parsedBody = finalData;
+        obj.startLimit = parseInt(startLimit);
+        obj.endLimit = parseInt(endLimit);
+        var userPostInfo =  getUserPostInfo_Feed(obj,function(err,userPostInfo){
+          if(err){
                 console.log(err);
-                    callback(err,null);
-                }
-                    callback(null,userPostInfo);
-              });
-            });
-          })
-        .on('error', function(e) {
-          console.log(e);
-        // logger.info('get API(getUserComments) - https://api.steemjs.com/get_discussions_by_comments, ERROR :- ',e.message);
-        callback(e,null);
+                callback(err,null);
+            }
+                callback(null,userPostInfo);
+          });
+      }
     });
   };
 
@@ -2336,49 +1895,38 @@ exports.getUserComments = function(username,startLimit,endLimit,callback){
     }
 }
 
-
 exports.getUserFeed = function(username,startLimit,endLimit,callback){
     var el = 100;
-    http.get("https://api.steemjs.com/get_discussions_by_feed?query=%7B%22tag%22%3A%22"+username+"%22%2C%20%22limit%22%3A%20%22"+el+"%22%7D", function(res) {
-        var body = '';
-        res.on('data', function(data){
-            body += data;
-        });
-        res.on('end', function() {
-          if(body!==undefined && body!==null && body!==''){
-              var parsedBody = JSON.parse(body);
-              var finalData = [];
-              var obj={};
-              for (var i = 0 ; i < el ; i++){
-                if(parsedBody[i] !== undefined){
-                  var result = JSON.parse(parsedBody[i].json_metadata);
-                  if(result.app == filterText){
-                  finalData.push(parsedBody[i]);
-                  }
-                }
-                  }
-              obj.parsedBody = finalData;
-              obj.startLimit = parseInt(startLimit);
-              obj.endLimit   = parseInt(endLimit);
-              var userPostInfo =  getUserPostInfo_Feed(obj,function(err,userPostInfo){
-                if(err){
-                  console.log(err);
-                      callback(err,null);
-                  }
-                      callback(null,userPostInfo);
-                });
-              }
-              else{
-              callback(null,'');
-              }
-            });
-    })
-      .on('error', function(e) {
-        console.log(e);
-        logger.info('get API(getUserFeed) - https://api.steemjs.com/get_discussions_by_feed, username = ',username);
-          callback(e,null);
+    var query = {"tag":username, "limit": "100"};
+    steem.api.getDiscussionsByFeed(query, function(err, result) {
+          if(err){
+            console.log(err);
+            callback(err,null);
+        }
+      else{
+        var finalData = [];
+        var obj={};
+        for (var i = 0 ; i < el ; i++){
+          if(result[i] !== undefined){
+            var rslt = JSON.parse(result[i].json_metadata);
+            if(rslt.app == filterText){
+            finalData.push(result[i]);
+            }
+          }
+            }
+        obj.parsedBody = finalData;
+        obj.startLimit = parseInt(startLimit);
+        obj.endLimit   = parseInt(endLimit);
+        var userPostInfo =  getUserPostInfo_Feed(obj,function(err,userPostInfo){
+          if(err){
+            console.log(err);
+                callback(err,null);
+            }
+                callback(null,userPostInfo);
+          });
+      }
     });
-};
+  };
 
 
 function getUserPostInfo_Feed(obj,callback){
@@ -2466,7 +2014,6 @@ function getUserPostInfo_Feed(obj,callback){
                      }
                   var dString = mnth +"-"+date+"-"+year;
                   var d1 = new Date( (new Date(createdPost))*1 - 1000*3600*5 );   //for new server
-
                   //var d1 = new Date(createdPost);      // working fine with all other servers
                   var d2 = new Date();
 
@@ -2547,12 +2094,10 @@ function getUserPostInfo(obj,callback){
       try{
         if(startLimit < rep.length){
         for(var i = startLimit;i < rep.length;i++){
-
           var image =[];
           var postImage='';
           var result ;
           result = JSON.parse(rep[i].json_metadata);
-          // if(result.app == filterText || result.app == filterText1){
           if(result.app == filterText){
               result = JSON.parse(rep[i].json_metadata);
               image = result.image;
@@ -2709,7 +2254,12 @@ function getAuthorInfo(objUserPostInfo){
                 var parsedBody = JSON.parse(body);
                 if(parsedBody[0].json_metadata.length > 0){
                     var profileData = JSON.parse(parsedBody[0].json_metadata);
-                    profile_image = profileData.profile.profile_image;
+                    if(profileData.profile !== undefined){
+                      profile_image = profileData.profile.profile_image;
+                    }
+                    else {
+                        profile_image = 'https://cdn2.iconfinder.com/data/icons/social-flat-buttons-3/512/anonymous-512.png';
+                    }
                 }
                 else {
                     profile_image = 'https://cdn2.iconfinder.com/data/icons/social-flat-buttons-3/512/anonymous-512.png';
@@ -2725,27 +2275,26 @@ function getAuthorInfo(objUserPostInfo){
 
 exports.getWalletDetails = function(userName,callback){
       var wallet_details={};
-    http.get("https://api.steemjs.com/get_state?path=%2F%40"+userName+"%2Ftransfers", function(res) {
-        var body = '';
-        res.on('data', function(data){
-            body += data;
-        });
-        res.on('end', function() {
+      var path = "/@"+userName+"/transfers";
+      steem.api.getState(path, function(err, result) {
+        if(err){
+          callback(err,null);
+        }
+        else{
           try{
-            var parsedBody = JSON.parse(body);
-              if (typeof parsedBody !== 'undefined') {
-              var name =   parsedBody['accounts'][userName].name;
-              var steem1 = parsedBody['accounts'][userName].balance.replace('STEEM', ' ').trim();
-              var savings = parsedBody['accounts'][userName].savings_balance.replace('STEEM', ' ').trim();
-              var savingsSbd = parsedBody['accounts'][userName].savings_sbd_balance.replace('SBD', ' ').trim();
-              var steemDollars1 = parsedBody['accounts'][userName].sbd_balance.replace("SBD", " ").trim();
-              var base = parsedBody['feed_price'].base.replace("SBD", " ").trim();
-              var vestingShare = parsedBody['accounts'][userName].vesting_shares.replace("VESTS", " ").trim();
-              var totalVestingShare = parsedBody['props'].total_vesting_shares.replace("VESTS", " ").trim();
-              var reward_sbd_balance = parsedBody['accounts'][userName].reward_sbd_balance.replace("SBD", " ").trim();
-              var reward_vesting_steem = parsedBody['accounts'][userName].reward_vesting_steem;
-              var totalVestingFundSteem = parsedBody['props'].total_vesting_fund_steem.replace('STEEM', ' ').trim();
-              var reward_vesting_steem = parsedBody['accounts'][userName].reward_vesting_steem.replace('STEEM', ' ').trim();
+              if (typeof result !== 'undefined') {
+              var name =   result['accounts'][userName].name;
+              var steem1 = result['accounts'][userName].balance.replace('STEEM', ' ').trim();
+              var savings = result['accounts'][userName].savings_balance.replace('STEEM', ' ').trim();
+              var savingsSbd = result['accounts'][userName].savings_sbd_balance.replace('SBD', ' ').trim();
+              var steemDollars1 = result['accounts'][userName].sbd_balance.replace("SBD", " ").trim();
+              var base = result['feed_price'].base.replace("SBD", " ").trim();
+              var vestingShare = result['accounts'][userName].vesting_shares.replace("VESTS", " ").trim();
+              var totalVestingShare = result['props'].total_vesting_shares.replace("VESTS", " ").trim();
+              var reward_sbd_balance = result['accounts'][userName].reward_sbd_balance.replace("SBD", " ").trim();
+              var reward_vesting_steem = result['accounts'][userName].reward_vesting_steem;
+              var totalVestingFundSteem = result['props'].total_vesting_fund_steem.replace('STEEM', ' ').trim();
+              var reward_vesting_steem = result['accounts'][userName].reward_vesting_steem.replace('STEEM', ' ').trim();
               var steemPower1 = (totalVestingFundSteem)*(((vestingShare)/(totalVestingShare)));
               var pro = (base * steemPower1);
               var estimateAccValue1 = (parseFloat(pro) + parseFloat(steemDollars1));
@@ -2775,168 +2324,128 @@ exports.getWalletDetails = function(userName,callback){
           }
             catch(e){
               console.log(e);
-              // logger.info('get API(getWalletDetails) - https://api.steemjs.com/get_state, ERROR :- ',e.message);
               callback(e.message,null);
             }
-        });
-    })
-    .on('error', function(e) {
-      console.log(e);
-    // logger.info('get API(getWalletDetails) - https://api.steemjs.com/get_state, ERROR :- ',e.message);
-        callback(e,null);
-    });
-};
+        }
+      });
+  };
 
 exports.getWalletHistory = function(userName,callback){
       var trx_history={};
       var  trx = {};
       var userWallethistory = [];
-      http.get("https://api.steemjs.com/get_state?path=%2F%40"+userName+"%2Ftransfers", function(res) {
-      var body = '';
-      res.on('data', function(data){
-          body += data;
-      });
-      res.on('end', function() {
-        try{
-          var parsedBody = JSON.parse(body);
-            if (typeof parsedBody !== 'undefined') {
-            var history = parsedBody['accounts'][userName].transfer_history;
-            for (var i=0;i <history.length;i++){
-              if(history[i][1].op[0] == 'transfer'||history[i][1].op[0] == 'cancel_transfer_from_savings'||history[i][1].op[0] == 'withdraw_vesting'||history[i][1].op[0] == 'claim_reward_balance'||history[i][1].op[0] == 'transfer_to_savings'||history[i][1].op[0] == 'transfer_from_savings'||history[i][1].op[0] == 'transfer_to_vesting'){
-                if(history[i][1].op[0] == 'withdraw_vesting'){
-                  if(history[i][1].op[1].vesting_shares != "0.000000 VESTS"){
-                    history[i][1].op[1] = 'Start Power Down of '+ history[i][1].op[1].vesting_shares;
-                    history[i][1].op[0] = 'Start Power Down';
-                  }
-                  else{
-                    history[i][1].op[0] = 'Stop Power Down';
-                    history[i][1].op[1] = 'Stop Power Down';
-                  }
+      var path = "/@"+userName+"/transfers";
+      steem.api.getState(path, function(err, result) {
+        if(err){
+          callback(err,null);
+        }
+        else{
+          if (typeof result !== 'undefined') {
+          var history = result['accounts'][userName].transfer_history;
+          for (var i=0;i <history.length;i++){
+            if(history[i][1].op[0] == 'transfer'||history[i][1].op[0] == 'cancel_transfer_from_savings'||history[i][1].op[0] == 'withdraw_vesting'||history[i][1].op[0] == 'claim_reward_balance'||history[i][1].op[0] == 'transfer_to_savings'||history[i][1].op[0] == 'transfer_from_savings'||history[i][1].op[0] == 'transfer_to_vesting'){
+              if(history[i][1].op[0] == 'withdraw_vesting'){
+                if(history[i][1].op[1].vesting_shares != "0.000000 VESTS"){
+                  history[i][1].op[1] = 'Start Power Down of '+ history[i][1].op[1].vesting_shares;
+                  history[i][1].op[0] = 'Start Power Down';
                 }
-                else if(history[i][1].op[0] == 'transfer_to_vesting'){
-                  history[i][1].op[0] = 'Power Up';
-                  history[i][1].op[1] = "Transfer " + history[i][1].op[1].amount+" POWER to " + history[i][1].op[1].to;
+                else{
+                  history[i][1].op[0] = 'Stop Power Down';
+                  history[i][1].op[1] = 'Stop Power Down';
                 }
-                else if(history[i][1].op[0] == 'cancel_transfer_from_savings'){
-                  history[i][1].op[0] = 'Transfer to savings cancelled';
-                  history[i][1].op[1] = "Cancel transfer from savings (request " +history[i][1].op[1].request_id+")";
-                }
+              }
+              else if(history[i][1].op[0] == 'transfer_to_vesting'){
+                history[i][1].op[0] = 'Power Up';
+                history[i][1].op[1] = "Transfer " + history[i][1].op[1].amount+" POWER to " + history[i][1].op[1].to;
+              }
+              else if(history[i][1].op[0] == 'cancel_transfer_from_savings'){
+                history[i][1].op[0] = 'Transfer to savings cancelled';
+                history[i][1].op[1] = "Cancel transfer from savings (request " +history[i][1].op[1].request_id+")";
+              }
 
-                else if(history[i][1].op[0] == 'transfer'){
-                  history[i][1].op[0] = 'Transfer';
-                  history[i][1].op[1] = "Transfer " + history[i][1].op[1].amount+" to " + history[i][1].op[1].to;
+              else if(history[i][1].op[0] == 'transfer'){
+                history[i][1].op[0] = 'Transfer';
+                history[i][1].op[1] = "Transfer " + history[i][1].op[1].amount+" to " + history[i][1].op[1].to;
+              }
+              else if(history[i][1].op[0] == 'transfer_to_savings'){
+                history[i][1].op[0] = 'Transfer to savings';
+                history[i][1].op[1] = "Transfer to savings " + history[i][1].op[1].amount+" to " + history[i][1].op[1].to;
+              }
+              else if(history[i][1].op[0] == 'transfer_from_savings'){
+                history[i][1].op[0] = 'Transfer from savings';
+                history[i][1].op[1] = "Transfer from savings " + history[i][1].op[1].amount+" to " + history[i][1].op[1].to +"(request "+history[i][1].op[1].request_id+")";
+              }
+              else if(history[i][1].op[0] == 'claim_reward_balance'){
+                history[i][1].op[0] = 'Claim rewards';
+                history[i][1].op[1] = "Claim rewards " + history[i][1].op[1].reward_sbd+" and " + history[i][1].op[1].reward_vests;
+              }
+              var d1 = new Date(history[i][1].timestamp);
+              var d2 = new Date();
+              var timeDate;
+              if(DateDiff.inDays(d1, d2) <= 30){
+                var diff = DateDiff.inDays(d1, d2);
+                if(diff != 0){
+                timeDate = diff+ " "+"days"
                 }
-                else if(history[i][1].op[0] == 'transfer_to_savings'){
-                  history[i][1].op[0] = 'Transfer to savings';
-                  history[i][1].op[1] = "Transfer to savings " + history[i][1].op[1].amount+" to " + history[i][1].op[1].to;
-                }
-                else if(history[i][1].op[0] == 'transfer_from_savings'){
-                  history[i][1].op[0] = 'Transfer from savings';
-                  history[i][1].op[1] = "Transfer from savings " + history[i][1].op[1].amount+" to " + history[i][1].op[1].to +"(request "+history[i][1].op[1].request_id+")";
-                }
-                else if(history[i][1].op[0] == 'claim_reward_balance'){
-                  history[i][1].op[0] = 'Claim rewards';
-                  history[i][1].op[1] = "Claim rewards " + history[i][1].op[1].reward_sbd+" and " + history[i][1].op[1].reward_vests;
-                }
-                var d1 = new Date(history[i][1].timestamp);
-                var d2 = new Date();
-                var timeDate;
-                if(DateDiff.inDays(d1, d2) <= 30){
-                  var diff = DateDiff.inDays(d1, d2);
-                  if(diff != 0){
-                  timeDate = diff+ " "+"days"
+                else{
+                  var minDiff = DateDiff.inMinutes(d1, d2);
+                  if(minDiff <= 59){
+                    timeDate = minDiff + " "+"minutes"
                   }
                   else{
-                    var minDiff = DateDiff.inMinutes(d1, d2);
-                    if(minDiff <= 59){
-                      timeDate = minDiff + " "+"minutes"
-                    }
-                    else{
-                      timeDate = DateDiff.inHour(d1, d2) + " "+"hours"
-                    }
+                    timeDate = DateDiff.inHour(d1, d2) + " "+"hours"
                   }
                 }
-                else if(DateDiff.inMonths(d1, d2) <= 12 && DateDiff.inDays(d1, d2) >= 31){
-                  timeDate =DateDiff.inMonths(d1, d2) +  " "+"months";
-                }
-                else if(DateDiff.inMonths(d1, d2) > 12 && DateDiff.inDays(d1, d2) >= 31){
-                  timeDate =DateDiff.inYears(d1, d2) +  " "+"years";
-                }
-              trx = {
-                  time : timeDate+ " ago",
-                  action : history[i][1].op[0],
-                  data : history[i][1].op[1]
-                };
-                userWallethistory.push(trx);
-                  }
-                trx_history.userWallethistory = userWallethistory;
-                }
               }
-              else{
-              var  trx = {};
-                userWallethistory.push(trx);
-                trx_history.userWallethistory = userWallethistory;
+              else if(DateDiff.inMonths(d1, d2) <= 12 && DateDiff.inDays(d1, d2) >= 31){
+                timeDate =DateDiff.inMonths(d1, d2) +  " "+"months";
               }
-          callback(null,trx_history);
+              else if(DateDiff.inMonths(d1, d2) > 12 && DateDiff.inDays(d1, d2) >= 31){
+                timeDate =DateDiff.inYears(d1, d2) +  " "+"years";
+              }
+            trx = {
+                time : timeDate+ " ago",
+                action : history[i][1].op[0],
+                data : history[i][1].op[1]
+              };
+              userWallethistory.push(trx);
+                }
+              trx_history.userWallethistory = userWallethistory;
+              }
+            }
+            else{
+            var  trx = {};
+              userWallethistory.push(trx);
+              trx_history.userWallethistory = userWallethistory;
+            }
+        callback(null,trx_history);
         }
-        catch(e){
-          console.log(e);
-          // logger.info('get API(Wallet) - https://api.steemjs.com/get_state, ERROR :- ',e.message);
-          callback(e.message,null);
-        }
-        });
-      })
-        .on('error', function(e) {
-          console.log(e);
-          // logger.info('get API(Wallet) - https://api.steemjs.com/get_state, ERROR :- ',e.message);
-          callback(e,null);
-        });
+      });
       };
+
 
 exports.getUserFollowingList = function(username,startLimit,endLimit,callback){
   var following_list={};
   var userFollowing = [];
-  http.get("https://api.steemjs.com/get_following?follower="+username+"&followType=blog&limit="+endLimit, function(res) {
-  var body = '';
-  res.on('data', function(data){
-      body += data;
-  });
-  res.on('end', function() {
-    try{
-if(body!==undefined && body!==null && body!==''){
-  var parsedBody = JSON.parse(body);
-  if (typeof parsedBody !== 'undefined' &&  (startLimit < parsedBody.length)) {
-        for(var i=startLimit;i<parsedBody.length;i++){
-      var    followingList = {
-            follower : parsedBody[i].follower,
-            following : parsedBody[i].following
-          };
-          userFollowing.push(followingList);
-        }
-        following_list.userFollowing = userFollowing;
-      }
+  steem.api.getFollowing(username, '', 'blog', endLimit, function(err, result) {
+    if(err){
+      console.log("ERROR", err);
+      callback(err,null);
+    }
     else{
-          var followingList = {
-            follower  : 0,
-            following : 0
-          };
-        }
-    callback(null,following_list);
-}
-
-    }
-    catch(e){
-      console.log(e);
-      // logger.info('get API - https://api.steemjs.com/get_following, ERROR :- ',e.message);
-      callback(e.message,null);
-    }
-    });
-  })
-    .on('error', function(e) {
-      console.log(e);
-      // logger.info('get API - https://api.steemjs.com/get_following, ERROR :- ',e.message);
-      callback(e,null);
-    });
+      if (typeof result !== 'undefined' &&  (startLimit < result.length)) {
+            for(var i=startLimit;i<result.length;i++){
+          var    followingList = {
+                follower : result[i].follower,
+                following : result[i].following
+              };
+              userFollowing.push(followingList);
+            }
+            following_list.userFollowing = userFollowing;
+          }
+        callback(null,following_list);
+      }
+  });
 };
 
 exports.getUserFollowerList = function(username,startLimit,endLimit,callback){
@@ -2966,23 +2475,20 @@ exports.getUserFollowerList = function(username,startLimit,endLimit,callback){
   });
 };
 
-
 exports.getFollowingListFourParms = function(username,currentUser,startLimit,endLimit,callback){
   var following_list={};
   var userFollowing = [];
-  http.get("https://api.steemjs.com/get_following?follower="+username+"&startFollowing="+currentUser+"&followType=blog&limit="+endLimit, function(res) {
-  var body = '';
-  res.on('data', function(data){
-      body += data;
-  });
-  res.on('end', function() {
-    try{
-      var parsedBody = JSON.parse(body);
-      if (typeof parsedBody !== 'undefined' &&  (startLimit < parsedBody.length)) {
-            for(var i=startLimit;i<parsedBody.length;i++){
+  steem.api.getFollowing(username, currentUser, 'blog', endLimit, function(err, result) {
+    if(err){
+      console.log("ERROR", err);
+      callback(err,null);
+    }
+    else{
+      if (typeof result !== 'undefined' &&  (startLimit < result.length)) {
+            for(var i=startLimit;i<result.length;i++){
           var    followingList = {
-                follower : parsedBody[i].follower,
-                following : parsedBody[i].following
+                follower : result[i].follower,
+                following : result[i].following
               };
               userFollowing.push(followingList);
             }
@@ -2996,70 +2502,41 @@ exports.getFollowingListFourParms = function(username,currentUser,startLimit,end
             }
         callback(null,following_list);
     }
-    catch(e){
-      console.log(e);
-      // logger.info('get API - https://api.steemjs.com/get_following, ERROR :- ',e.message);
-      callback(e.message,null);
-    }
-    });
-  })
-    .on('error', function(e) {
-      console.log(e);
-      // logger.info('get API - https://api.steemjs.com/get_following, ERROR :- ',e.message);
-      callback(e,null);
-    });
+  });
 };
-
 
 exports.getCompareFollowingList = function(username,currentUser,callback){
   var following_list={};
   var userFollowing = [];
   var status = 'follow';
-  http.get("https://api.steemjs.com/get_following?follower="+username+"&startFollowing="+currentUser+"&followType=blog&limit="+1, function(res) {
-  var body = '';
-  res.on('data', function(data){
-      body += data;
-  });
-  res.on('end', function() {
-    try{
-      var parsedBody = JSON.parse(body);
-      if (typeof parsedBody[0] !== 'undefined' && parsedBody[0] !== '') {
-        if(currentUser == parsedBody[0].following){
+  steem.api.getFollowing(username, currentUser, 'blog', 1, function(err, result) {
+    if(err){
+      console.log("ERROR", err);
+      callback(err,null);
+    }
+    else{
+      if (typeof result[0] !== 'undefined' && result[0] !== '') {
+        if(currentUser == result[0].following){
           status = 'unfollow';
         }
           }
         callback(null,status);
     }
-    catch(e){
-      console.log(e);
-      // logger.info('get API - https://api.steemjs.com/get_following, ERROR :- ',e.message);
-      callback(e.message,null);
-    }
-    });
-  })
-    .on('error', function(e) {
-      console.log(e);
-      // logger.info('get API - https://api.steemjs.com/get_following, ERROR :- ',e.message);
-      callback(e,null);
-    });
+  });
 };
-
 
 exports.getCompareFollowingList123 = function(list,callback){
   var following_list={};
   var userFollowing = [];
   var status;
-  http.get("https://api.steemjs.com/get_following?follower="+list.username+"&startFollowing="+list.author+"&followType=blog&limit="+1, function(res) {
-  var body = '';
-  res.on('data', function(data){
-      body += data;
-  });
-  res.on('end', function() {
-    try{
-      var parsedBody = JSON.parse(body);
-      if (typeof parsedBody[0] !== 'undefined' && parsedBody[0] !== '') {
-        if(list.author == parsedBody[0].following){
-
+  steem.api.getFollowing(list.username, list.author, 'blog', 1, function(err, result) {
+    if(err){
+      console.log("ERROR", err);
+      callback(err,null);
+    }
+    else{
+      if (typeof result[0] !== 'undefined' && result[0] !== '') {
+        if(list.author == result[0].following){
           var list1 = {
             imgUrl : list.imgUrl,
             author : list.author,
@@ -3068,189 +2545,81 @@ exports.getCompareFollowingList123 = function(list,callback){
             status : 'unfollow'
           }
         }
+        else{
+          var list1 = {
+            imgUrl : list.imgUrl,
+            author : list.author,
+            value : list.value,
+            username : list.username,
+            status : 'follow'
+          }
+        }
         callback(null,list1);
           }
-          else{
-            var list1 = {
-              imgUrl : list.imgUrl,
-              author : list.author,
-              value : list.value,
-              username : list.username,
-              status : 'follow'
-            }
-          }
     }
-    catch(e){
-      console.log(e);
-      // logger.info('get API - https://api.steemjs.com/get_following, ERROR :- ',e.message);
-      callback(e.message,null);
-    }
-    });
-  })
-    .on('error', function(e) {
-      console.log(e);
-      // logger.info('get API - https://api.steemjs.com/get_following, ERROR :- ',e.message);
-      callback(e,null);
-    });
+  });
 };
-
 
 exports.getCompareFollowerList = function(username,currentUser,callback){
   var following_list={};
   var userFollowing = [];
   var status = 'Not_A_Follower';
-  http.get("https://api.steemjs.com/get_followers?following="+username+"&startFollower="+currentUser+"&followType=blog&limit="+1, function(res) {
-  var body = '';
-  res.on('data', function(data){
-      body += data;
-  });
-  res.on('end', function() {
-    try{
-      var parsedBody = JSON.parse(body);
-      console.log("parsedBody",parsedBody);
-      if (typeof parsedBody[0] !== 'undefined' && parsedBody[0] !== '') {
-        if(currentUser == parsedBody[0].follower){
+  steem.api.getFollowers(username, currentUser, 'blog', 1, function(err, result) {
+    if(err){
+      console.log("ERROR", err);
+      callback(err,null);
+    }
+    else{
+      if (typeof result[0] !== 'undefined' && result[0] !== '') {
+        if(currentUser == result[0].follower){
           status = 'Follower';
         }
           }
         callback(null,status);
     }
-    catch(e){
-      console.log(e);
-      // logger.info('get API - https://api.steemjs.com/get_following, ERROR :- ',e.message);
-      callback(e.message,null);
-    }
-    });
-  })
-    .on('error', function(e) {
-      console.log(e);
-      // logger.info('get API - https://api.steemjs.com/get_following, ERROR :- ',e.message);
-      callback(e,null);
-    });
+  });
 };
-
-// exports.getUserFollowerList = function(username,startLimit,endLimit,callback){
-//   var follower_list={};
-//   var userFollowers = [];
-//   http.get("https://api.steemjs.com/get_followers?following="+username+"&followType=blog&limit="+endLimit, function(res) {
-//   var body = '';
-//   res.on('data', function(data){
-//       body += data;
-//   });
-//   res.on('end', function() {
-//     try{
-//       var parsedBody = JSON.parse(body);
-//       if (typeof parsedBody !== 'undefined' &&  (startLimit < parsedBody.length)) {
-//           for(var i = startLimit; i< parsedBody.length;i++){
-//         var    followerList = {
-//               follower : parsedBody[i].follower,
-//               following : parsedBody[i].following
-//             };
-//             userFollowers.push(followerList);
-//           }
-//           follower_list.userFollowers = userFollowers;
-//         }
-//       else{
-//         var followerList = {
-//               follower  : 0,
-//               following : 0
-//           };
-//       }
-//       callback(null,follower_list);
-//     }
-//       catch(e){
-//         console.log(e);
-//         // logger.info('get API - https://api.steemjs.com/get_followers, ERROR :- ',e.message);
-//         callback(e.message, null);
-//       }
-//     });
-//   })
-//     .on('error', function(e) {
-//       console.log('Got error: ' + e.message);
-//       callback(e,null);
-//     });
-// };
-
 
 exports.getRezapList = function(username,callback){
   var follower_list={};
   var list = [];
-  http.get("https://api.steemjs.com/get_discussions_by_blog?query=%7B%22tag%22%3A%22"+username+"%22%2C%20%22limit%22%3A%20%22100%22%7D", function(res) {
-  var body = '';
-  res.on('data', function(data){
-      body += data;
-  });
-  res.on('end', function() {
-      var parsedBody = JSON.parse(body);
-      if (typeof parsedBody !== 'undefined') {
-      for (var i = 0; i<parsedBody.length; i++){
+  var query = {"tag":username,"limit":100};
+  steem.api.getDiscussionsByBlog(query, function(err, result) {
+    if(err){
+      console.log("ERROR", err);
+      callback(err,null);
+    }
+    else{
+      if (typeof result !== 'undefined') {
+      for (var i = 0; i<result.length; i++){
         var rezapList ={
-          permlink : parsedBody[i].permlink
+          permlink : result[i].permlink
         }
     list.push(rezapList);
-}
-callback(null,list);
   }
-    })
-  })
-}
-
-      //     for(var i = startLimit; i< parsedBody.length;i++){
-      //   var    followerList = {
-      //         follower : parsedBody[i].follower,
-      //         following : parsedBody[i].following
-      //       };
-      //       userFollowers.push(followerList);
-      //     }
-      //     follower_list.userFollowers = userFollowers;
-      //   }
-      // else{
-      //   var    followerList = {
-      //         follower  : 0,
-      //         following : 0
-      //     };
-      // }
-      // callback(null,follower_list);
-
-
-// exports.postVote = function(data){
-//     steem.broadcast.vote(data.password, data.voter, data.author, data.permlink, data.weight,function(err, result){
-//     console.log(err, result);
-//     });
-// };
-
-// exports.postVote = function(data,callback){
-//   var token = data.token;
-//    var decode = jwt.verify(token, secretKey);
-//
-//   steem.broadcast.vote(decode.password, decode.userName, data.author, data.permlink, parseInt(data.weight),function(err, result){
-//     if(err){
-//       callback(err,null);
-//     }
-//     console.log(err, result);
-//     callback(null,result)
-//     });
-// };
+    callback(null,list);
+  }
+    }
+  });
+  }
 
 
 exports.checkVote = function(author,permlink,username,callback){
   var voterList = [];
   var list = [];
   var percent;
-  http.get("https://api.steemjs.com/get_active_votes?author="+author+"&permlink="+permlink, function(res){
-  var body = '';
-  res.on('data', function(data){
-      body += data;
-  });
-  res.on('end', function() {
-    try{
-      var parsedBody = JSON.parse(body);
-      if (typeof parsedBody !== 'undefined') {
-        for (var i=0; i<parsedBody.length; i++){
-          voterList.push(parsedBody[i].voter);
+  steem.api.getActiveVotes(author, permlink, function(err, result) {
+    if(err){
+      logger.info('post API - https://api.steemjs.com/get_active_votes, ','data(author,permlink,username) :- ',author,permlink,username,', ERROR :- ',e.message);
+      callback(err, null);
+    }
+    else{
+      if (typeof result !== 'undefined') {
+        for (var i=0; i<result.length; i++){
+          voterList.push(result[i].voter);
           var keepGoing = false;
-          if(parsedBody[i].voter == username){
-            percent = parsedBody[i].percent;
+          if(result[i].voter == username){
+            percent = result[i].percent;
           }
           if(voterList.find(fl =>fl == username))
           {
@@ -3264,75 +2633,48 @@ exports.checkVote = function(author,permlink,username,callback){
         }
         list.push(voteList);
       }
-        callback(null,list)
+        callback(null,list);
     }
-      catch(e){
-        logger.info('post API - https://api.steemjs.com/get_active_votes, ','data(author,permlink,username) :- ',author,permlink,username,', ERROR :- ',e.message);
-        callback(e.message, null);
-      }
-    });
-  })
-    .on('error', function(e) {
-      logger.info('post API - https://api.steemjs.com/get_active_votes, ','data(author,permlink,username) :- ',author,permlink,username,', ERROR :- ',e.message);
-      callback(e,null);
-    });
+  });
 };
-
-
 
 exports.checkVoteTest = function(author,permlink,username,value,callback){
   var voterList = [];
   var list = [];
   var percent;
-  http.get("https://api.steemjs.com/get_active_votes?author="+author+"&permlink="+permlink, function(res){
-  var body = '';
-  res.on('data', function(data){
-      body += data;
-  });
-  res.on('end', function() {
-    try{
-      var parsedBody = JSON.parse(body);
-      if (typeof parsedBody !== 'undefined') {
-        for (var i=0; i<parsedBody.length; i++){
-          voterList.push(parsedBody[i].voter);
-          var keepGoing = false;
-          if(parsedBody[i].voter == username){
-            percent = parsedBody[i].percent;
-          }
-          if(voterList.find(fl =>fl == username))
-          {
-            keepGoing = true;
-          }
-          var test = keepGoing;
+  steem.api.getActiveVotes(author, permlink, function(err, result) {
+    if(err){
+      logger.info('post API - https://api.steemjs.com/get_active_votes, ','data(author,permlink,username) :- ',author,permlink,username,', ERROR :- ',e.message);
+      callback(err, null);
+    }
+    else{
+      for (var i=0; i<result.length; i++){
+        voterList.push(result[i].voter);
+        var keepGoing = false;
+        if(result[i].voter == username){
+          percent = result[i].percent;
         }
-        var voteList = {
-          status : test,
-          percent : percent,
-          author : author,
-          permlink : permlink,
-          username :  username,
-          value : value
+        if(voterList.find(fl =>fl == username))
+        {
+          keepGoing = true;
         }
-        list.push(voteList);
+        var test = keepGoing;
       }
+      var voteList = {
+        status : test,
+        percent : percent,
+        author : author,
+        permlink : permlink,
+        username :  username,
+        value : value
+      }
+      list.push(voteList);
       callback(null,list);
     }
-      catch(e){
-        logger.info('post API - https://api.steemjs.com/get_active_votes, ','data(author,permlink,username) :- ',author,permlink,username,', ERROR :- ',e.message);
-        callback(e.message, null);
-      }
-    });
-  })
-    .on('error', function(e) {
-      logger.info('post API - https://api.steemjs.com/get_active_votes, ','data(author,permlink,username) :- ',author,permlink,username,', ERROR :- ',e.message);
-      callback(e,null);
-    });
+  });
 };
 
-
-
 exports.postVote = function(data,callback){
-  // console.log("In main : ",data);
   var token = data.token;
   var decode = jwt.verify(token, secretKey);
       steem.broadcast.vote(decode.password, decode.userName, data.author, data.permlink, data.weight,function(err, result){
@@ -3366,7 +2708,6 @@ if(err){
   }
 }
 else{
-  // console.log("result",result);
   callback(null,result);
 }
 });
@@ -3381,8 +2722,7 @@ if(draftData.draftId !=='' && draftData.draftId !==undefined && draftData.draftI
       }, function(err, draftPostVal) {
         if (err) {
           logger.info('post API - draftPost, ','draftData :- ',draftData,', ERROR :- ',err.Message);
-          // console.log('Got error: ' + err.Message);
-        }
+          }
         if(draftPostVal !== undefined && draftPostVal !== null && draftPostVal !=='')
         {
             db.draftPost.remove({
@@ -3391,7 +2731,6 @@ if(draftData.draftId !=='' && draftData.draftId !==undefined && draftData.draftI
             }, function(err) {
               if (err) {
                 logger.info('post API - draftPost, ','draftData :- ',draftData,', ERROR :- ',err.Message);
-              // console.log('Got error: ' + err.Message);
               }
             });
         }
@@ -3434,7 +2773,6 @@ if(draftData.draftId !=='' && draftData.draftId !==undefined && draftData.draftI
     }
 
     exports.deleteDraftOnPost = function(draftData,callback){
-      // console.log("draftData.draftId",draftData.draftId);
       db.draftPost.findOne({
             "_id":ObjectId(draftData.draftId)
           }, function(err, draftPostVal) {
@@ -3466,15 +2804,11 @@ if(draftData.draftId !=='' && draftData.draftId !==undefined && draftData.draftI
           userName : userName
         }, function(err, draftPostVal) {
           if (err) {
-            // logger.info('get API - getDraftPost, ','userName :- ',userName,', ERROR :- ',err);
-            callback(err,null);
+              callback(err,null);
           }
       callback(null,draftPostVal);
     });
   }
-
-
-//working method 31 Oct 17
 
 exports.postCommentBlog = function(data,callback){
   var op = [];
@@ -3483,6 +2817,7 @@ exports.postCommentBlog = function(data,callback){
    var decode = jwt.verify(token, secretKey);
    steem.broadcast.comment(decode.password, data.parentAuthor, data.parentPermlink, decode.userName, data.permlink, data.title, data.body, data.jsonMetadata,function(err, result) {
     if(err){
+      //console.log("ERROR1 : ", err);
       if(err.payload.error.data.message == 'Assert Exception'){
           err.payload.error.data.message = 'You may only post once every 5 minutes.';
           callback('You may only post once every 5 minutes.',null);
@@ -3497,6 +2832,7 @@ exports.postCommentBlog = function(data,callback){
           permlink = result123+"-"+data.permlink;
           steem.broadcast.comment(decode.password, data.parentAuthor, data.parentPermlink, decode.userName, permlink, data.title, data.body, data.jsonMetadata,function(err3, result3) {
             if(err3){
+              //console.log("ERROR2 : ", err3);
               if(err3.payload.error.data.message == 'Assert Exception'){
                 err3.payload.error.data.message = 'You may only post once every 5 minutes.';
                 callback('You may only post once every 5 minutes.',null);
@@ -3524,7 +2860,6 @@ exports.postCommentBlog = function(data,callback){
           })
         }
         else{
-          console.log("ERROR : ",err);
           callback(err.payload.error.data.message,null);
           err.payload.error.data.message = "Something went wrong!! Please try after some time.."
           logger.info('post API - steem.broadcast.comment, ','Data :- ',data,', ERROR :- ',err.payload.error.data.message);
@@ -3534,7 +2869,6 @@ exports.postCommentBlog = function(data,callback){
         op.push(result);
         steem.broadcast.commentOptions(decode.password, decode.userName, data.permlink, "1000000.000 SBD", 10000, true, true, [[0, { 'beneficiaries': [{ 'account':'zappl', 'weight':1500 }] }]], function(err1, result1) {
         if(err1){
-          console.log("ERROR1 : ", err1);
           logger.info('post API - steem.broadcast.comment, ','Data :- ',data,', ERROR2 :- ',err1.payload.error.data.message);
           callback(err1.payload.error.data.message,null);
         }
@@ -3547,7 +2881,6 @@ exports.postCommentBlog = function(data,callback){
       }
     })
   };
-
 
 exports.postDeleteCommentBlog = function(data,callback){
   var token = data.token;
@@ -3671,46 +3004,30 @@ apnProvider.send(note, deviceToken).then( (result) => {
 });
 }
 
-
-
-
-
-
-
 exports.getPublicKeys = function(userName,callback){
     var user_keys={};
-    http.get("https://api.steemjs.com/get_accounts?names[]=%5B%22"+userName+"%22%5D", function(res) {
-        var body = '';
-        res.on('data', function(data){
-            body += data;
-        });
-        res.on('end', function(err,res) {
-          if(err){
-            console.log(err);
-            callback(err,null);
-          }
-          else{
-            var parsedBody = JSON.parse(body);
-            if (typeof parsedBody[0] !== 'undefined'){
-                  user_keys = {
-                       publicPostingKey      : parsedBody[0].posting.key_auths[0][0],
-                       publicActiveKey       : parsedBody[0].active.key_auths[0][0],
-                       publicOwnerKey        : parsedBody[0].owner.key_auths[0][0],
-                       publicMemoKey         : parsedBody[0].memo_key
-                     }
-                   }
-            else {
-                user_keys = {};
+    var name = [userName];
+     steem.api.getAccounts(name, function(err, result) {
+       if(err){
+         console.log("ERROR", err);
+         logger.info('get API(getUserInfo) - https://api.steemjs.com/get_accounts, userName = ',userName);
+         callback(err,null);
+       }
+       else{
+         if (typeof result[0] !== 'undefined'){
+               user_keys = {
+                    publicPostingKey      : result[0].posting.key_auths[0][0],
+                    publicActiveKey       : result[0].active.key_auths[0][0],
+                    publicOwnerKey        : result[0].owner.key_auths[0][0],
+                    publicMemoKey         : result[0].memo_key
+                  }
                 }
-            callback(null,user_keys);
-          }
-        });
-    })
-      .on('error', function(e) {
-        console.log(e);
-        logger.info('get API(getPublicKeys) - https://api.steemjs.com/get_accounts, userName = ',userName);
-        callback(e,null);
-    });
+         else {
+             user_keys = {};
+             }
+         callback(null,user_keys);
+       }
+     });
   };
 
 
@@ -3764,7 +3081,6 @@ exports.getPublicKeys = function(userName,callback){
     var decode = jwt.verify(token, secretKey);
     var userName = decode.userName;
     var name = userName.split(',');
-    console.log("name",name);
     steem.api.getAccounts(name, function(err, res) {
       var vesting = res[0].vesting_shares;
       steem.broadcast.withdrawVesting(data.activeWif, userName, vesting, function(err, result) {

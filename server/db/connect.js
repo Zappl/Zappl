@@ -1,5 +1,5 @@
 var mongojs = require('mongojs');
-var connectionURL ='yourserver.net/zappl' ;
+var connectionURL ='yoursite.com/zappl' ;
 var dbs = [
   'accessTokens',
   'votingWeight',

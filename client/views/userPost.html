@@ -1,11 +1,9 @@
 <div id="body" class="width" ng-controller="homeCtrl as hc" ng-init="hc.getUserPostContent();hc.getCommentList()" style="margin-top: 105px;">
 <aside class="one_column" >
-
           <div class="col-md-12 div_sec top_sec">
             <div class="col-md-1 col-sm-1 col-xs-1" style="padding:10px 0px 0px 0px;"  ui-sref="Profile({user : hc.getPostContent.author})">
                <img ng-src="{{hc.postImage12}}" class="img-responsive img-rounded hei_view" style="width:45px;height:45px"/>
             </div>
-
                  <div class="col-md-11 col-sm-11 col-xs-11" style="padding:2px 12px 14px 10px">
                       <h4 style="text-transform:capitalize;margin-bottom:0px">{{hc.getPostContent.author}}</h4> <span style="color:#92a1ad">@{{hc.getPostContent.author}}</span>
                  </div>  <br>
@@ -15,12 +13,8 @@
               <div ng-bind-html="body"></div>
               </center>
                <br>
-               <div style="float:left" ng-repeat="p in hc.getPostContent.allTags">
-              <a ui-sref="FeedTagInfo({tagChild : p})" ><p class="caption">#{{p}}&nbsp;&nbsp;</p></a>
-             </div>
                  <br>
           </div>
-
               <div class="col-md-12 col-sm-12 col-xs-12 div_sec1 text-left" style="padding:5px 15px;border:none;border-bottom:1px solid #e1e8ed">
                 <a ng-click="hc.postVote123(hc.getPostContent.author,hc.getPostContent.permlink,hc.getPostContent.isVote)"><img ng-if="hc.getPostContent.isVote == false" style="cursor:pointer" src="images/z12.png" /><img ng-if="hc.getPostContent.isVote == true" style="cursor:pointer" src="images/z143.png" /></a><span style="color:#717f88;font-size:13px">${{hc.getPostContent.upvote}}</span> &nbsp;&nbsp;
                 <img src="images/z12.png" /> <span style="color:#717f88;font-size:13px">{{hc.getPostContent.vote}}</span>&nbsp;
@@ -43,8 +37,6 @@
                </div>
                </span>
             </div>
-
-
             <div class="col-md-12 col-sm-12 col-xs-12" ng-repeat="c in hc.withComments" style="background-color:#fff;border-bottom:1px solid #e1e8ed;padding:5px 0px 10px 15px">
             <div class="col-md-1 col-sm-1 col-xs-1" style="padding:10px 0px 0px 0px;"  ui-sref="Profile({user : c.author})">
                <img ng-src="{{c.profileImage}}" class="img-responsive img-rounded hei_view" style="width:45px;height:45px"/>
@@ -74,20 +66,14 @@
             </span>
             </div>
             </div>
-
             <div class="col-md-12 col-sm-12 col-xs-12" ng-repeat="c1 in hc.withoutComments" style="background-color:#fff;border-bottom:1px solid #e1e8ed;padding:5px 0px 10px 15px">
-            <!-- <div class="col-md-1 col-sm-1 col-xs-2" style="padding:10px 0px 0px 0px;width: 30px;height: 30px;">
-            <img src="{{c1.profileImage}}" />
-            </div> -->
             <div class="col-md-1 col-sm-1 col-xs-1" style="padding:10px 0px 0px 0px;"  ui-sref="Profile({user : c1.author})">
                <img ng-src="{{c1.profileImage}}" class="img-responsive img-rounded hei_view" style="width:45px;height:45px"/>
             </div>
             <div class="col-md-11 col-sm-11 col-xs-10" style="padding:10px 12px 3px 10px">
             <h4 style="display:inline;text-transform:capitalize">{{c1.author}}</h4> <span style="color:#92a1ad">@{{c1.author}}</span>
             <p style="color:#292f33;margin: 0 0 0px;line-height:19px;padding:10px 12px 3px 10px;overflow:hidden;word-break:break-all;white-space:normal;">{{c1.postWithoutCommentBody}}</p>
-            <!-- <a ui-sref="FeedTagInfo({tagChild : c1.tags})" ><span style="color:#0072bb;"># {{c1.tags}}</span></a>  <br /> -->
             <a ng-click="hc.postVote_withoutComments(c1.author,c1.permlink,$index)"><img ng-if="c1.isVote == false" style="cursor:pointer" src="images/z12.png" /><img ng-if="c1.isVote == true" style="cursor:pointer" src="images/z143.png" /></a><span style="color:#717f88;font-size:13px">${{c1.upvote}}</span> &nbsp;
-            <!-- <a ng-click="hc.postVote(c1.author,c1.permlink)"><img style="cursor:pointer" src="images/z12.png" /></a><span style="color:#717f88;font-size:13px">${{c1.upvote}}</span> &nbsp;&nbsp; -->
             <img src="images/z12.png" /> <span style="color:#717f88;font-size:13px">{{c1.net_votes}}</span>&nbsp;
             <span style="color:#717f88">.</span>&nbsp;
             <span style="color:#717f88;font-size:13px">Comment({{c1.comments}})</span>&nbsp;
@@ -110,6 +96,48 @@
             </div>
           </div>
 
+    <button class="btn btn-sm font-bold"
+            socialshare
+            socialshare-provider="facebook"
+            socialshare-type="sharer"
+            socialshare-url="{{hc.absoluteUrl}}"
+            socialshare-trigger="click">
+        <i class="fa fa-facebook"></i>
+    </button>
+
+
+    <button class="btn btn-sm font-bold"
+            socialshare
+            socialshare-provider="twitter"
+            socialshare-type="sharer"
+            socialshare-url="{{hc.absoluteUrl}}"
+            socialshare-popup-height="300"
+            socialshare-popup-width="400"
+            socialshare-trigger="click">
+        <i class="fa fa-twitter"></i>
+    </button>
+
+    <button class="btn btn-sm font-bold"
+            socialshare
+            socialshare-provider="google"
+            socialshare-type="sharer"
+            socialshare-url="{{hc.absoluteUrl}}"
+            socialshare-popup-height="300"
+            socialshare-popup-width="400"
+            socialshare-trigger="click">
+        <i class="fa fa-google"></i>
+    </button>
+
+    <button class="btn btn-sm font-bold"
+            socialshare
+            socialshare-provider="reddit"
+            socialshare-type="sharer"
+            socialshare-url="{{hc.absoluteUrl}}"
+            socialshare-popup-height="300"
+            socialshare-popup-width="400"
+            socialshare-trigger="click">
+        <i class="fa fa-reddit"></i>
+    </button>
 </aside>
     <div class="clear"></div>
     </div>
