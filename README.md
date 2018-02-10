@@ -1,4 +1,4 @@
-# Zappl Is OpenSource Under Mit Lincense
+# Zappl Is OpenSource Under MIT License
 
 The main zappl software will be made opensource.
 
