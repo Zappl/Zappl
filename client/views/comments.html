@@ -21,7 +21,7 @@
         <!-- <a ng-click="hc.postVote(n.author,n.permlink,$index)"><img style="cursor:pointer" src="images/z12.png" /></a> <span style="color:#717f88;font-size:13px">${{n.upvote}}</span> &nbsp;&nbsp; -->
         <a ng-click="cc.postVote(n.author,n.permlink,$index)"><img ng-if="n.isVote == false" style="cursor:pointer" src="images/z12.png" /><img ng-if="n.isVote == true" style="cursor:pointer" src="images/z143.png" /></a>&nbsp;<span style="color:#717f88;font-size:13px">${{n.upvote}}</span> &nbsp;&nbsp;
         <span style="color:#717f88">.</span>&nbsp;
-        <img src="images/z12.png" /> <span style="color:#717f88;font-size:13px">{{n.net_votes}}</span>&nbsp;&nbsp;
+        <i class="fas fa-chevron-up"></i> <span style="color:#717f88;font-size:13px">{{n.net_votes}}</span>&nbsp;&nbsp;
         <span style="color:#717f88">.</span>&nbsp;
         <span style="color:#717f88;font-size:13px">Comment({{n.comments}}) </span>&nbsp;
         <!-- <span class="disp" style="color:#717f88;font-size:13px" ng-if="n.post_time != '1 minutes'">{{n.post_time}} ago</span>

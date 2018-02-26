@@ -34,38 +34,38 @@ ZapplApp.controller('scrollCtrl', function($scope, $rootScope,$stateParams,$wind
           if(!bottomFlag){
             switch ($window.location.pathname) {
                  case '/New/':
-                    rep = LoginService.getFeedInfo('New',i,i+10)
+                    rep = LoginService.getFeedInfo(sc.username,'New',i,i+10)
                     break;
                  case '/Hot/':
-                    rep = LoginService.getFeedInfo('Hot',i,i+10)
+                    rep = LoginService.getFeedInfo(sc.username,'Hot',i,i+10)
                    break;
                  case '/Trending/' :
-                     rep = LoginService.getFeedInfo('Trending',i,i+10)
+                     rep = LoginService.getFeedInfo(sc.username,'Trending',i,i+10)
                      break;
                   case '/Promoted/':
-                    rep = LoginService.getFeedInfo('Promoted',i,i+10)
+                    rep = LoginService.getFeedInfo(sc.username,'Promoted',i,i+10)
                     break;
                   case '/Home':
-                    rep = LoginService.getUserFeed(sc.username,i,i+10);
+                    rep = LoginService.getUserFeed(sc.username,sc.username,i,i+10);
                     break;
                   case '/creategroup':
                       rep =   LoginService.getImage_follower(sc.username,i+8,i+18);
                       break;
 
                   case '/@'+$stateParams.user:
-                  rep =   LoginService.getUserPost($stateParams.user,i,i+7);
+                  rep =   LoginService.getUserPost(sc.username,$stateParams.user,i,i+7);
                   break;
                   case '/@'+$stateParams.user+'/Blog':
-                    rep =   LoginService.getUserPost($stateParams.user,i,i+7);
+                    rep =   LoginService.getUserPost(sc.username,$stateParams.user,i,i+7);
                     break;
                   case '/@'+$stateParams.user+'/Reply':
-                    rep =   LoginService.getUserReply($stateParams.user,i,i+7);
+                    rep =   LoginService.getUserReply(sc.username,$stateParams.user,i,i+7);
                     break;
                   case '/'+$rootScope.feedValue+'/'+$rootScope.tagValue:
-                     rep = LoginService.getFeedTagInfo($rootScope.feedValue,$rootScope.tagValue,i,i+10);
+                     rep = LoginService.getFeedTagInfo(sc.username,$rootScope.feedValue,$rootScope.tagValue,i,i+10);
                     break;
                   case '/Comments':
-                    rep =   LoginService.getAllCommentOfUser(sc.username,i,i+7);
+                    rep =   LoginService.getAllCommentOfUser(sc.username,sc.username,i,i+7);
                     break;
                   case '/Followings':
                     rep =   LoginService.getUserFollowingList(sc.username,i,i+10);

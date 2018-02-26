@@ -101,7 +101,7 @@ body.article-editor h1, h2{color:black;padding-top:10px;}
 <span ng-if="hc.loginToken != undefined">
 <nav class="navbar navheight navbar-fixed-top" style=border-radius:0px>
 <div class=container>
-<div class="navbar-header pad_left">
+<div class="navbar-header">
 <button type=button class=navbar-toggle data-toggle=collapse data-target="#myNavbar" style=margin-top:15px>
 <span class=icon-bar style="background-color:#fff"></span>
 <span class=icon-bar style="background-color:#fff"></span>
@@ -150,7 +150,7 @@ body.article-editor h1, h2{color:black;padding-top:10px;}
 <span ng-if="hc.loginToken == undefined">
 <nav class="navbar navbar-fixed-top" style="border-radius:0px;overflow-y:hidden;box-shadow:none;height:auto !important;    margin-bottom: 0px;">
 <div class=container>
-<div class="navbar-header pad_left">
+<div class="navbar-header">
 <button type=button class=navbar-toggle data-toggle=collapse data-target="#myNavbar" style=margin-top:15px>
 <span class=icon-bar style="background-color:#fff"></span>
 <span class=icon-bar style="background-color:#fff"></span>
@@ -303,11 +303,11 @@ Will be turned when more users start posting!
 <div ng-if="hc.loginToken != undefined" class="col-md-12 col-sm-12 col-xs-12 second_sec" style="background-color:#fff;border:2px solid #e1e8ed;border-radius:5px;padding-bottom:10px ">
 <h5 style="color:#66757f;font-size:18px;font-weight:600">Who to follow</h5>
 <div class=col-md-12 style=padding:0px ng-repeat="n in whoFollowList | limitTo:5">
-<div class="col-md-6 col-sm-6 col-xs-6 side_pad" style="padding: 15px 0px;">
+<div class="col-md-8 col-sm-8 col-xs-8 side_pad" style="padding: 15px 0px;">
 <h5 style="display:inline;color:#333333;font-weight:600;cursor:pointer;overflow:hidden;word-break:break-all;white-space:normal;" ui-sref="Profile({user : n})">{{n}}</h5>
 </div>
-<div class="col-md-4 col-sm-4 col-xs-4 side_pad">
-<input type=image src="1/images/followus.png" ng-click="hc.postFollow(n)" style="border:none !important">
+<div style="float: right" class="col-md-4 col-sm-4 col-xs-4 side_pad">
+<button type="button" ng-click="hc.postFollow(n)" class="btn btn-follow">+</button>
 </div>
 <div class="col-md-12 col-sm-12 col-xs-12 text-center" style="background-color:#fff;margin-top: 5px;border:2px solid  #e1e8ed;border-top:0px;border-radius:0px 0px 5px 5px"></div>
 </div>

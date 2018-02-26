@@ -30,9 +30,9 @@ app.post('/api/getToken',index);
 app.get('/api/validateUser/:userName',index);
 app.post('/api/generateToken',index);
 app.post('/api/getAccessToken',index);
-app.get('/api/getUserInfo/:userName',index);
+app.get('/api/getUserInfo/:loginUser/:userName',index);
 app.get('/api/getUserProfileImage/:userName',index);
-app.get('/api/getUserPostData/:userName/:startLimit/:endLimit',index);
+app.get('/api/getUserPostData/:loginUser/:userName/:startLimit/:endLimit',index);
 app.get('/api/getLogin',index);
 app.post('/api/logout',index);
 app.get('/api/getWalletDetails/:username',index);
@@ -42,12 +42,12 @@ app.get('/api/getCompareFollowingList/:userName/:currentUser',index);
 app.get('/api/getCompareFollowerList/:userName/:currentUser',index);
 app.get('/api/getFollowingListFourParms/:userName/:currentUser/:startLimit/:endLimit',index);
 app.get('/api/getFollowerList/:userName/:startLimit/:endLimit',index);
-app.get('/api/getUserFeed/:userName/:startLimit/:endLimit',index);
-app.get('/api/getFeedInfo/:type/:startLimit/:endLimit',index);
-app.get('/api/getFeedTagInfo/:type/:tag/:startLimit/:endLimit',index);
-app.get('/api/getComments/:userName/:startLimit/:endLimit',index);
-app.get('/api/getReplies/:userName/:startLimit/:endLimit',index);
-app.get('/api/getUserCommentsOnPost/:tag/:username/:permlink',index);
+app.get('/api/getUserFeed/:loginUser/:userName/:startLimit/:endLimit',index);
+app.get('/api/getFeedInfo/:loginUser/:type/:startLimit/:endLimit',index);
+app.get('/api/getFeedTagInfo/:loginUser/:type/:tag/:startLimit/:endLimit',index);
+app.get('/api/getComments/:loginUser/:userName/:startLimit/:endLimit',index);
+app.get('/api/getReplies/:loginUser/:userName/:startLimit/:endLimit',index);
+app.get('/api/getUserCommentsOnPost/:loginUser/:tag/:username/:permlink',index);
 app.get('/api/getUserPostContent/:tag/:username/:permlink',index);
 app.get('/api/getTagTopicList', index);
 app.get('/api/getTagTopicLists', index);      //new api
@@ -61,19 +61,19 @@ app.get('/api/setCustomSettings/:vote/:comment/:follow/:mention/:reblog/:votingW
 
 // specially for app side
 app.get('/api/getUserImgVote/:author/:permlink/:username',index);
-app.get('/api/getVoteInfo/:userName/:startLimit/:endLimit',index);
-app.get('/api/getImageInfo/:userName/:startLimit/:endLimit',index);
-app.get('/api/getImageInfo_userfeed/:userName/:startLimit/:endLimit',index);
-app.get('/api/getVoteInfo_userfeed/:userName/:startLimit/:endLimit',index);
-app.get('/api/getImageInfo_feedinfo/:type/:startLimit/:endLimit',index);
-app.get('/api/getVoteInfo_feedinfo/:userName/:type/:startLimit/:endLimit',index);
-app.get('/api/getImageInfo_feedtaginfo/:type/:tag/:startLimit/:endLimit',index);
-app.get('/api/getVoteInfo_feedtaginfo/:userName/:type/:tag/:startLimit/:endLimit',index);
+app.get('/api/getVoteInfo/:loginUser/:userName/:startLimit/:endLimit',index);
+app.get('/api/getImageInfo/:loginUser/:userName/:startLimit/:endLimit',index);
+app.get('/api/getImageInfo_userfeed/:loginUser/:userName/:startLimit/:endLimit',index);
+app.get('/api/getVoteInfo_userfeed/:loginUser/:userName/:startLimit/:endLimit',index);
+app.get('/api/getImageInfo_feedinfo/:loginUser/:type/:startLimit/:endLimit',index);
+app.get('/api/getVoteInfo_feedinfo/:loginUser/:userName/:type/:startLimit/:endLimit',index);
+app.get('/api/getImageInfo_feedtaginfo/:loginUser/:type/:tag/:startLimit/:endLimit',index);
+app.get('/api/getVoteInfo_feedtaginfo/:loginUser/:userName/:type/:tag/:startLimit/:endLimit',index);
 app.get('/api/getImage_following/:userName/:startLimit/:endLimit',index);
 app.get('/api/getImage_follower/:userName/:startLimit/:endLimit',index);
-app.get('/api/getImage_comments/:userName/:startLimit/:endLimit',index);
-app.get('/api/getVote_comments/:userName/:startLimit/:endLimit',index);
-app.get('/api/getUserCommentsOnPosts/:tag/:username/:permlink/:startLimit/:endLimit',index);
+app.get('/api/getImage_comments/:loginUser/:userName/:startLimit/:endLimit',index);
+app.get('/api/getVote_comments/:loginUser/:userName/:startLimit/:endLimit',index);
+app.get('/api/getUserCommentsOnPosts/:loginUser/:tag/:username/:permlink/:startLimit/:endLimit',index);
 // specially for app side
 
 app.post('/api/setChat',index);
@@ -81,8 +81,8 @@ app.get('/api/getChat/:room',index);
 app.post('/api/setRoomHistory',index);
 app.post('/api/setRoomList',index);
 app.get('/api/getChatList/:username',index);
-app.get('/api/getTestUserCommentsOnPost/:parent/:parentPermlink', index);
-app.get('/api/getCommentList/:tag/:username/:permlink', index);
+app.get('/api/getTestUserCommentsOnPost/:loginUser/:parent/:parentPermlink', index);
+app.get('/api/getCommentList/:loginUser/:tag/:username/:permlink', index);
 app.get('/api/getPassword',index);
 app.get('/api/getPublicKeys/:username',index);
 app.get('/api/getRezapList/:username',index);
@@ -107,6 +107,10 @@ app.post('/api/postPowerDown', index);
 app.post('/api/postWithdrawSteem', index);
 app.post('/api/postCancelTransferFromSavings', index);
 app.post('/api/getPostDataVoteImg', index);
+
+//reportAbuse
+app.post('/api/reportAbuse', index);
+
 
 app.all("/*", function(req, res, next) {
    res.render('layout.html');

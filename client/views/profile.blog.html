@@ -20,7 +20,7 @@
                </a> <br />
                  <a ng-click="hc.postVote_Profile(n.author,n.permlink,$index)"><img ng-if="n.isVote == false" style="cursor:pointer" src="images/z12.png" /><img ng-if="n.isVote == true" style="cursor:pointer" src="images/z143.png" /></a><span style="color:#717f88;font-size:13px">${{n.upvote}}</span> &nbsp;
                  <span style="color:#717f88">.</span>&nbsp;
-                 <img src="images/z12.png" /> <span style="color:#717f88;font-size:13px">{{n.net_votes}}</span>&nbsp;
+                 <i class="fas fa-chevron-up"></i> <span style="color:#717f88;font-size:13px">{{n.net_votes}}</span>&nbsp;
                  <span style="color:#717f88">.</span>&nbsp;
                  <a ui-sref="UserPost({tag : n.tags,username: n.author, permlink: n.permlink})"><span style="color:#717f88;font-size:13px">Comment({{n.comments}})</span></a>&nbsp;
                  <span ng-if="hc.userInfo.userInfo.name != hc.username"><span style="color:#717f88">.</span>&nbsp;
@@ -52,7 +52,7 @@
                </a> <br />
                  <a ng-click="hc.postVote_Profile(n.author,n.permlink,$index)"><img ng-if="n.isVote == false" style="cursor:pointer" src="images/z12.png" /><img ng-if="n.isVote == true" style="cursor:pointer" src="images/z143.png" /></a><span style="color:#717f88;font-size:13px">${{n.upvote}}</span> &nbsp;
                  <span style="color:#717f88">.</span>&nbsp;
-                 <img src="images/z12.png" /> <span style="color:#717f88;font-size:13px">{{n.net_votes}}</span>&nbsp;
+                 <i class="fas fa-chevron-up"></i> <span style="color:#717f88;font-size:13px">{{n.net_votes}}</span>&nbsp;
                  <span style="color:#717f88">.</span>&nbsp;
                  <a ui-sref="UserPost({tag : n.tags,username: n.author, permlink: n.permlink})"><span style="color:#717f88;font-size:13px">Comment({{n.comments}})</span></a>&nbsp;
                  <span ng-if="hc.userInfo.userInfo.name != hc.username"><span style="color:#717f88">.</span>&nbsp;
@@ -89,7 +89,7 @@
                </span>
                  <a ng-click="hc.postVote_Profile(n.author,n.permlink,$index)"><img ng-if="n.isVote == false" style="cursor:pointer" src="images/z12.png" /><img ng-if="n.isVote == true" style="cursor:pointer" src="images/z143.png" /></a><span style="color:#717f88;font-size:13px">${{n.upvote}}</span> &nbsp;
                  <span style="color:#717f88">.</span>&nbsp;
-                 <img src="images/z12.png" /> <span style="color:#717f88;font-size:13px">{{n.net_votes}}</span>&nbsp;
+                 <i class="fas fa-chevron-up"></i> <span style="color:#717f88;font-size:13px">{{n.net_votes}}</span>&nbsp;
                  <span style="color:#717f88">.</span>&nbsp;
                  <a ui-sref="UserPost({tag : n.tags,username: n.author, permlink: n.permlink})"><span style="color:#717f88;font-size:13px">Comment({{n.comments}})</span></a>&nbsp;
                  <span ng-if="hc.userInfo.userInfo.name != hc.username"><span style="color:#717f88">.</span>&nbsp;
@@ -130,7 +130,7 @@
                   </span>
 
                   <span ng-show="n.i === true && n.y === false && n.v === false">
-                    <img ng-src={{n.image1}} class="img-responsive" width="100%" height="auto">
+                    <img ng-src={{n.image1}} class="img-responsive img-rounded" style="width: 100%; max-height:506px; top: -196px;">
                     <!-- <img src={{n.image1}} class="img-responsive"/> -->
                   </span>
 
@@ -144,7 +144,7 @@
                   <img ng-if="n.isVote == true" style="cursor:pointer" src="images/z143.png" />
                 </a><span style="color:#717f88;font-size:13px">${{n.upvote}}</span> &nbsp;
                 <span style="color:#717f88">.</span>&nbsp;
-                <img src="images/z12.png" /> <span style="color:#717f88;font-size:13px">{{n.net_votes}}</span>&nbsp;
+                <i class="fas fa-chevron-up"></i> <span style="color:#717f88;font-size:13px">{{n.net_votes}}</span>&nbsp;
                 <span style="color:#717f88">.</span>&nbsp;
                 <a ui-sref="UserPost({tag : n.tags,username: n.author, permlink: n.permlink})"><span style="color:#717f88;font-size:13px">Comment({{n.comments}})</span></a>&nbsp;
                 <!-- <span style="color:#717f88">.</span>&nbsp;
@@ -187,7 +187,7 @@
                     </span>
 
                     <span ng-show="n.i === true && n.y === false && n.v === false">
-                      <img ng-src={{n.image1}} class="img-responsive" width="100%" height="auto">
+                      <img ng-src={{n.image1}} class="img-responsive img-rounded" style="width: 100%; max-height:506px; top: -196px;">
                       <!-- <img src={{n.image1}} class="img-responsive"/> -->
                     </span>
 
@@ -198,7 +198,7 @@
                   </a>
                   <span style="color:#717f88;font-size:13px">${{n.upvote}}</span> &nbsp;
                   <span style="color:#717f88">.</span>&nbsp;
-                  <img src="images/z12.png" /> <span style="color:#717f88;font-size:13px">{{n.net_votes}}</span>&nbsp;
+                  <i class="fas fa-chevron-up"></i> <span style="color:#717f88;font-size:13px">{{n.net_votes}}</span>&nbsp;
                   <span style="color:#717f88">.</span>&nbsp;
                   <a ui-sref="UserPost({tag : n.tags,username: n.author, permlink: n.permlink})"><span style="color:#717f88;font-size:13px">Comment({{n.comments}})</span></a>&nbsp;
                   <span ng-show="n.net_votes == 0 && n.author == hc.username && n.comments == 0 && n.postTime == true">
@@ -236,13 +236,13 @@
                       </span>
 
                       <span ng-show="n.i === true && n.y === false && n.v === false">
-                        <img ng-src={{n.image1}} class="img-responsive" width="100%" height="auto">
+                        <img ng-src={{n.image1}} class="img-responsive img-rounded" style="width: 100%; max-height:506px; top: -196px;">
                       </span>
 
                     </a> <br />
                     <a ng-click="hc.postVote_Home(n.author,n.permlink,$index)"><img ng-if="n.isVote == false" style="cursor:pointer" src="images/z12.png" /><img ng-if="n.isVote == true" style="cursor:pointer" src="images/z143.png" /></a><span style="color:#717f88;font-size:13px">${{n.upvote}}</span> &nbsp;
                     <span style="color:#717f88">.</span>&nbsp;
-                    <img src="images/z12.png" /> <span style="color:#717f88;font-size:13px">{{n.net_votes}}</span>&nbsp;
+                    <i class="fas fa-chevron-up"></i> <span style="color:#717f88;font-size:13px">{{n.net_votes}}</span>&nbsp;
                     <span style="color:#717f88">.</span>&nbsp;
                     <a ui-sref="UserPost({tag : n.tags,username: n.author, permlink: n.permlink})"><span style="color:#717f88;font-size:13px">Comment({{n.comments}})</span></a>&nbsp;
                     <span ng-show="n.net_votes == 0 && n.author == hc.username && n.comments == 0 && n.postTime == true">
@@ -283,7 +283,7 @@
              </span>
                <a id='img' ng-click="hc.postVote_Profile(n.author,n.permlink,$index)"><img  style="cursor:pointer" src="images/z12.png" /></a><span style="color:#717f88;font-size:13px">${{n.upvote}}</span> &nbsp;
                <span style="color:#717f88">.</span>&nbsp;
-               <img src="images/z12.png" /> <span style="color:#717f88;font-size:13px">{{n.net_votes}}</span>&nbsp;
+               <i class="fas fa-chevron-up"></i> <span style="color:#717f88;font-size:13px">{{n.net_votes}}</span>&nbsp;
                <span style="color:#717f88">.</span>&nbsp;
                <a ui-sref="UserPost({tag : n.tags,username: n.author, permlink: n.permlink})"><span style="color:#717f88;font-size:13px">Comment({{n.comments}})</span></a>&nbsp;
                <span ng-if="hc.userInfo.userInfo.name != hc.username"><span style="color:#717f88">.</span>&nbsp;

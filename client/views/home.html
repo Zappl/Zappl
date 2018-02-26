@@ -20,7 +20,7 @@
                     <iframe width="100%" height="300" ng-src="{{n.image1}}" frameborder="0" allowfullscreen></iframe>
                     </span>
                   <span ng-show="n.i === true && n.y === false && n.v === false">
-                    <img ng-src={{n.image1}} class="img-responsive" width="100%" height="auto">
+                    <img ng-src={{n.image1}} class="img-responsive img-rounded" style="width: 100%; max-height:506px; top: -196px;">
                     </span>
                 </a> <br />
             </span>
@@ -32,7 +32,7 @@
                   <img ng-if="n.isVote == true" style="cursor:pointer" src="images/z143.png" />
                 </a><span style="color:#717f88;font-size:13px">${{n.upvote}}</span> &nbsp;
                 <span style="color:#717f88">.</span>&nbsp;
-                <img src="images/z12.png" /> <span style="color:#717f88;font-size:13px">{{n.net_votes}}</span>&nbsp;
+                <i class="fas fa-chevron-up"></i> <span style="color:#717f88;font-size:13px">{{n.net_votes}}</span>&nbsp;
                 <span style="color:#717f88">.</span>&nbsp;
                 <a ui-sref="UserPost({tag : n.tags,username: n.author, permlink: n.permlink})"><span style="color:#717f88;font-size:13px">Comment({{n.comments}})</span></a>&nbsp;
                 <span ng-if="n.author != fi.username"><span style="color:#717f88">.</span>&nbsp;

@@ -8,8 +8,8 @@ this.setRoomList=function(data)
 {var responce=$http.post("/api/setRoomList",data);return responce;}
 this.getCompareFollowerList=function(username,currentUser)
 {var responce=$http.get("/api/getCompareFollowerList/"+username+"/"+currentUser);return responce;}
-this.getUserPost=function(username,startLimit,endLimit)
-{var responce=$http.get("/api/getUserPostData/"+username+"/"+startLimit+"/"+endLimit);return responce;}
+this.getUserPost=function(loginUser,username,startLimit,endLimit)
+{var responce=$http.get("/api/getUserPostData/"+loginUser+"/"+username+"/"+startLimit+"/"+endLimit);return responce;}
 this.getImage_follower=function(username,startLimit,endLimit)
 {var responce=$http.get("/api/getImage_follower/"+username+"/"+startLimit+"/"+endLimit);return responce;}
 this.getTagTopicLists=function()
@@ -33,21 +33,18 @@ return response;}
 this.getTagTopicDetails=function(tag)
 {var response=$http({method:"Get",url:"https://api.steemjs.com/get_discussions_by_created?query=%7B%22tag%22%3A%22"+tag+"%22%2C%20%22limit%22%3A%20%2210%22%7D"})
 return response;}
-// this.getTagTopicList=function(afterTag,limit)
-// {var response=$http({method:"Get",url:"https://api.steemjs.com/get_trending_tags?afterTag="+afterTag+"&limit="+limit})
-// return response;}
 this.validateUser=function(userName)
 {var response=$http.get("/api/validateUser/"+userName);return response;}
-this.getUserInfo=function(username)
-{var response=$http.get("/api/getUserInfo/"+username);return response;}
+this.getUserInfo=function(loginUser,username)
+{var response=$http.get("/api/getUserInfo/"+loginUser+"/"+username);return response;}
 this.getVotes=function(author,permlink,username)
 {var responce=$http.get("/api/getVotes/"+author+"/"+permlink+"/"+username);return responce;}
-this.getUserFeed=function(username,startLimit,endLimit)
-{var response=$http.get("/api/getUserFeed/"+username+"/"+startLimit+"/"+endLimit);return response;}
-this.getFeedInfo=function(feedOption,startLimit,endLimit)
-{var response=$http.get("/api/getFeedInfo/"+feedOption+"/"+startLimit+"/"+endLimit);return response;}
-this.getFeedTagInfo=function(feedOption,tag,startLimit,endLimit)
-{var response=$http.get("/api/getFeedTagInfo/"+feedOption+"/"+tag+"/"+startLimit+"/"+endLimit);return response;}
+this.getUserFeed=function(loginUser,username,startLimit,endLimit)
+{var response=$http.get("/api/getUserFeed/"+loginUser+"/"+username+"/"+startLimit+"/"+endLimit);return response;}
+this.getFeedInfo=function(loginUser,feedOption,startLimit,endLimit)
+{var response=$http.get("/api/getFeedInfo/"+loginUser+"/"+feedOption+"/"+startLimit+"/"+endLimit);return response;}
+this.getFeedTagInfo=function(loginUser,feedOption,tag,startLimit,endLimit)
+{var response=$http.get("/api/getFeedTagInfo/"+loginUser+"/"+feedOption+"/"+tag+"/"+startLimit+"/"+endLimit);return response;}
 this.getUserFollowingList=function(username,startLimit,endLimit)
 {var response=$http.get("/api/getFollowingList/"+username+"/"+startLimit+"/"+endLimit);return response;}
 this.getCompareFollowingList=function(username,currentUser)
@@ -58,15 +55,15 @@ this.getUserFollowingCount=function(username)
 {var response=$http.get("/api/getUserFollowingCount/"+username);return response;}
 this.getUserFollowerList=function(username,startLimit,endLimit)
 {var response=$http.get("/api/getFollowerList/"+username+"/"+startLimit+"/"+endLimit);return response;}
-this.getAllCommentOfUser=function(username,startLimit,endLimit)
-{var response=$http.get("/api/getComments/"+username+"/"+startLimit+"/"+endLimit);return response;}
-this.getUserCommentsOnPost=function(tag,username,permlink){var response=$http.get("/api/getUserCommentsOnPost/"+tag+"/"+username+"/"+permlink);return response;}
-this.getCommentList=function(tag,username,permlink){var response=$http.get("/api/getCommentList/"+tag+"/"+username+"/"+permlink);return response;}
+this.getAllCommentOfUser=function(loginUser,username,startLimit,endLimit)
+{var response=$http.get("/api/getComments/"+loginUser+"/"+username+"/"+startLimit+"/"+endLimit);return response;}
+this.getUserCommentsOnPost=function(loginUser,tag,username,permlink){var response=$http.get("/api/getUserCommentsOnPost/"+loginUser+"/"+tag+"/"+username+"/"+permlink);return response;}
+this.getCommentList=function(loginUser,tag,username,permlink){var response=$http.get("/api/getCommentList/"+loginUser+"/"+tag+"/"+username+"/"+permlink);return response;}
 this.getUserPostContent=function(tag,username,permlink){var response=$http.get("/api/getUserPostContent/"+tag+"/"+username+"/"+permlink);return response;}
-this.getTestUserCommentsOnPost=function(parent,parentPermlink){var response=$http.get("/api/getTestUserCommentsOnPost/"+parent+"/"+parentPermlink);return response;}
+this.getTestUserCommentsOnPost=function(loginUser,parent,parentPermlink){var response=$http.get("/api/getTestUserCommentsOnPost/"+loginUser+"/"+parent+"/"+parentPermlink);return response;}
 this.getWalletDetails=function(username){var response=$http.get("/api/getWalletDetails/"+username);return response;}
-this.getUserReply=function(username,startLimit,endLimit)
-{var response=$http.get("/api/getReplies/"+username+"/"+startLimit+"/"+endLimit);return response;}
+this.getUserReply=function(loginUser,username,startLimit,endLimit)
+{var response=$http.get("/api/getReplies/"+loginUser+"/"+username+"/"+startLimit+"/"+endLimit);return response;}
 this.getRezapList=function(username)
 {var response=$http.get("/api/getRezapList/"+username);return response;}
 this.getNewPassword=function()

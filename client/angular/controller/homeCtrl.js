@@ -71,7 +71,7 @@ ZapplApp.controller("homeCtrl", function ($http, $scope, $rootScope, $stateParam
         else {
             username = username;
         }
-        var rep = LoginService.getUserInfo(username);
+        var rep = LoginService.getUserInfo(hc.username,username);
         rep.then(function (data) {
             hc.userInfo = data.data.data;
             var profilename = '/@' + hc.testCurrentUser;
@@ -140,7 +140,7 @@ ZapplApp.controller("homeCtrl", function ($http, $scope, $rootScope, $stateParam
         })
     }
     hc.getUserInfoHome = function () {
-        var rep = LoginService.getUserInfo(hc.username);
+        var rep = LoginService.getUserInfo(hc.username,hc.username);
         rep.then(function (data) {
             hc.userInfo = data.data.data;
             var newObj = data.data.data.userPostInfo.userPostInfo;
@@ -215,7 +215,7 @@ ZapplApp.controller("homeCtrl", function ($http, $scope, $rootScope, $stateParam
     };
     $scope.getUserInfoHome_test = function () {
         if ($window.location.pathname == '/Home') {
-            var rep = LoginService.getUserInfo(hc.username);
+            var rep = LoginService.getUserInfo(hc.username,hc.username);
             rep.then(function (data) {
                 hc.userInfo = data.data.data;
                 var newObj = data.data.data.userPostInfo.userPostInfo;
@@ -655,7 +655,7 @@ ZapplApp.controller("homeCtrl", function ($http, $scope, $rootScope, $stateParam
     }
     hc.getCommentList = function () {
         var arr = [];
-        var rep = LoginService.getCommentList(hc.postTag, hc.postUser, hc.postPermlink);
+        var rep = LoginService.getCommentList(hc.username,hc.postTag, hc.postUser, hc.postPermlink);
         rep.then(function (data) {
             var newObj1 = data.data.data.withoutComments;
             if (newObj1 != undefined) {
@@ -842,7 +842,7 @@ ZapplApp.controller("homeCtrl", function ($http, $scope, $rootScope, $stateParam
         $scope.userInfo = n;
         $scope.$sce = $sce;
         $scope.bindHTML = $sce.trustAsHtml($scope.userInfo.body);
-        var rep = LoginService.getTestUserCommentsOnPost($scope.userInfo.author, $scope.userInfo.permlink);
+        var rep = LoginService.getTestUserCommentsOnPost(hc.username,$scope.userInfo.author, $scope.userInfo.permlink);
         rep.then(function (data) {
             hc.getTestCommentsOnPost = data.data.data.commentsOnPost.comments;
         }, function (err) {
@@ -850,7 +850,7 @@ ZapplApp.controller("homeCtrl", function ($http, $scope, $rootScope, $stateParam
         })
     };
     hc.getUserPostData = function (startLimit, endLimit) {
-        var rep = LoginService.getUserPost(hc.username, startLimit, endLimit);
+        var rep = LoginService.getUserPost(hc.username,hc.username, startLimit, endLimit);
         rep.then(function (data) {
             var newObj = data.data.data.userInfo.userPostInfo;
             newObj.foreach(function (obj) {
@@ -1269,8 +1269,8 @@ ZapplApp.controller("homeCtrl", function ($http, $scope, $rootScope, $stateParam
         var albumBucketName = 'zapplweb/postImage';
         var bucketRegion = 'us-west-1';
         AWS.config.update({
-            accessKeyId: "your key",
-            secretAccessKey: "your key",
+            accessKeyId: "Your Key",
+            secretAccessKey: "Your Key",
             region: bucketRegion
         });
         var s3 = new AWS.S3({apiVersion: '2006-03-01', params: {Bucket: albumBucketName}});
@@ -1353,8 +1353,8 @@ ZapplApp.controller("homeCtrl", function ($http, $scope, $rootScope, $stateParam
         var bucketRegion = 'us-west-1';
         var isMedia = '';
         AWS.config.update({
-            accessKeyId: "your key",
-            secretAccessKey: "your key",
+            accessKeyId: "Your Key",
+            secretAccessKey: "Your Key",
             region: bucketRegion
         });
         var s3 = new AWS.S3({apiVersion: '2006-03-01', params: {Bucket: albumBucketName}});

@@ -863,12 +863,13 @@ router.get('/api/validateUser/:userName',function(req,res){
     });
 });
 
-router.get('/api/getUserInfo/:userName',function(req,res){
+router.get('/api/getUserInfo/:loginUser/:userName',function(req,res){
 
     var apiReponse={};
 
     var finalRes = {};
     var userName = req.params.userName;
+    var loginUser=req.params.loginUser;
     var errorText='';
     var startLimit=0;
     var endLimit=7;
@@ -886,7 +887,7 @@ router.get('/api/getUserInfo/:userName',function(req,res){
           console.log(err2);
         }
         finalRes.userFollowingFollowersInfo = responce2;
-    apiController.getUserPostData(userName,startLimit,endLimit,function(err3,responce3){
+    apiController.getUserPostData(loginUser,userName,startLimit,endLimit,function(err3,responce3){
         if(err3){
           errorText = err3;
           console.log(err3);
@@ -1025,14 +1026,15 @@ router.get('/api/getUserProfileImage/:userName',function(req,res){
         res.status(200).json(apiReponse);
    });
 });
-router.get('/api/getUserPostData/:userName/:startLimit/:endLimit',function(req,res){
+router.get('/api/getUserPostData/:loginUser/:userName/:startLimit/:endLimit',function(req,res){
     var apiReponse={};
     var errorText='';
     var finalRes = {};
     var userName = req.params.userName;
+    var loginUser = req.params.loginUser;
     var startLimit = req.params.startLimit || 0;
     var endLimit = req.params.endLimit || 10;
-    apiController.getUserPostData(userName,startLimit,endLimit,function(err,responce){
+    apiController.getUserPostData(loginUser,userName,startLimit,endLimit,function(err,responce){
         if(err){
           errorText = err;
           console.log(err);
@@ -1243,14 +1245,15 @@ router.get('/api/setCustomSettings/:vote/:comment/:follow/:mention/:reblog/:voti
   });
 });
 
-router.get('/api/getUserCommentsOnPost/:tag/:username/:permlink',function(req,res){
+router.get('/api/getUserCommentsOnPost/:loginUser/:tag/:username/:permlink',function(req,res){
     var apiReponse={};
     var errorText='';
     var finalRes = {};
     var tag = req.params.tag;
     var username = req.params.username;
+    var loginUser = req.params.loginUser;
     var permlink = req.params.permlink;
-    apiController.getUserCommentsOnPost(tag,username,permlink,function(err,responce){
+    apiController.getUserCommentsOnPost(loginUser,tag,username,permlink,function(err,responce){
         if(err){
             errorText = res.status(500).json(err);
             console.log(err);
@@ -1272,18 +1275,19 @@ router.get('/api/getUserCommentsOnPost/:tag/:username/:permlink',function(req,re
     });
 });
 
-router.get('/api/getUserCommentsOnPosts/:tag/:username/:permlink/:startLimit/:endLimit',function(req,res){
+router.get('/api/getUserCommentsOnPosts/:loginUser/:tag/:username/:permlink/:startLimit/:endLimit',function(req,res){
     var apiReponse={};
     var errorText='';
     var finalRes = {};
     var tag = req.params.tag;
+    var loginUser = req.params.loginUser;
     var username = req.params.username;
     var permlink = req.params.permlink;
     var startLimit = req.params.startLimit;
     var endLimit = req.params.endLimit;
     startLimit = parseInt(startLimit);
     endLimit = parseInt(endLimit);
-    apiController.getUserCommentsOnPost_App(tag,username,permlink,startLimit,endLimit,function(err,responce){
+    apiController.getUserCommentsOnPost_App(loginUser,tag,username,permlink,startLimit,endLimit,function(err,responce){
         if(err){
           apiReponse.error = 1;
           apiReponse.success = 0;
@@ -1304,13 +1308,14 @@ router.get('/api/getUserCommentsOnPosts/:tag/:username/:permlink/:startLimit/:en
     });
 });
 
-router.get('/api/getTestUserCommentsOnPost/:parent/:parentPermlink',function(req,res,next){
+router.get('/api/getTestUserCommentsOnPost/:loginUser/:parent/:parentPermlink',function(req,res,next){
     var apiReponse={};
     var errorText='';
     var finalRes = {};
     var parent = req.params.parent;
+    var loginUser = req.params.loginUser;
     var parentPermlink = req.params.parentPermlink;
-    apiController.getTestUserCommentsOnPost(parent, parentPermlink,function(err,responce){
+    apiController.getTestUserCommentsOnPost(loginUser,parent, parentPermlink,function(err,responce){
         if(err){
             errorText = res.status(500).json(err);
             console.log(err);
@@ -1332,22 +1337,23 @@ router.get('/api/getTestUserCommentsOnPost/:parent/:parentPermlink',function(req
     });
 })
 
-router.get('/api/getCommentList/:tag/:username/:permlink',function(req,res,next){
+router.get('/api/getCommentList/:loginUser/:tag/:username/:permlink',function(req,res,next){
   var errorText='';
   var apiReponse = {};
   var mainObj = {};
   var subObj = {};
   var finalRes = {}
   var tag = req.params.tag;
+  var loginUser = req.params.loginUser;
   var username = req.params.username;
   var permlink = req.params.permlink;
-  apiController.getTestUserCommentsOnPost(username,permlink,function(err,response){
+  apiController.getTestUserCommentsOnPost(loginUser,username,permlink,function(err,response){
     if(err){
       errorText = err;
     }
     else{
       mainObj = response;
-      apiController.getUserCommentsOnPost(tag,username,permlink,function(err1,response1){
+      apiController.getUserCommentsOnPost(loginUser,tag,username,permlink,function(err1,response1){
         if(err1){
           errorText = err1;
         }
@@ -1407,14 +1413,15 @@ router.get('/api/getUserPostContent/:tag/:username/:permlink',function(req,res){
     });
 });
 
-router.get('/api/getUserFeed/:userName/:startLimit/:endLimit',function(req,res){
+router.get('/api/getUserFeed/:loginUser/:userName/:startLimit/:endLimit',function(req,res){
     var apiReponse={};
     var errorText='';
     var username = req.params.userName;
+    var loginUser = req.params.loginUser;
     var startLimit = req.params.startLimit || 0;
     var endLimit = req.params.endLimit || 7;
     var finalRes = {};
-    apiController.getUserFeed(username,startLimit,endLimit,function(err,responce){
+    apiController.getUserFeed(loginUser,username,startLimit,endLimit,function(err,responce){
         if(err){
             errorText = err;
             console.log(err);
@@ -1436,15 +1443,16 @@ router.get('/api/getUserFeed/:userName/:startLimit/:endLimit',function(req,res){
     });
 });
 
-router.get('/api/getFeedTagInfo/:type/:tag/:startLimit/:endLimit',function(req,res){
+router.get('/api/getFeedTagInfo/:loginUser/:type/:tag/:startLimit/:endLimit',function(req,res){
     var apiReponse={};
     var errorText='';
     var tags = req.params.tag;
     var types = req.params.type;
+    var loginUser = req.params.loginUser;
     var startLimit = req.params.startLimit || 0;
     var endLimit = req.params.endLimit || 7;
     var finalRes = {};
-    apiController.getUserTopicFeed(types,tags,startLimit,endLimit,function(err,responce){
+    apiController.getUserTopicFeed(loginUser,types,tags,startLimit,endLimit,function(err,responce){
         if(err){
             errorText = err;
             console.log(err);
@@ -1466,15 +1474,16 @@ router.get('/api/getFeedTagInfo/:type/:tag/:startLimit/:endLimit',function(req,r
         });
     });
 
-router.get('/api/getFeedInfo/:type/:startLimit/:endLimit',function(req,res){
+router.get('/api/getFeedInfo/:loginUser/:type/:startLimit/:endLimit',function(req,res){
     var apiReponse = {};
     var errorText = '';
     var tags = '';
     var types = req.params.type;
+    var loginUser = req.params.loginUser;
     var startLimit = req.params.startLimit || 0;
     var endLimit = req.params.endLimit || 10;
     var finalRes = {};
-    apiController.getUserTopicFeed(types,tags,startLimit,endLimit,function(err,responce){
+    apiController.getUserTopicFeed(loginUser,types,tags,startLimit,endLimit,function(err,responce){
         if(err){
             errorText = err;
             console.log(err);
@@ -1681,14 +1690,15 @@ router.get('/api/getWalletDetails/:username',function(req,res){
                   });
 
 
-          router.get('/api/getComments/:userName/:startLimit/:endLimit',function(req,res){
+          router.get('/api/getComments/:loginUser/:userName/:startLimit/:endLimit',function(req,res){
               var apiReponse={};
               var errorText='';
               var username = req.params.userName;
+              var loginUser = req.params.loginUser;
               var startLimit = req.params.startLimit || 0;
               var endLimit = req.params.endLimit || 10;
               var finalRes = {};
-              apiController.getUserComments(username,startLimit,endLimit,function(err,responce){
+              apiController.getUserComments(loginUser,username,startLimit,endLimit,function(err,responce){
                 if(err){
                       errorText = err;
                       console.log(err);
@@ -1712,14 +1722,15 @@ router.get('/api/getWalletDetails/:username',function(req,res){
 
 
 
-          router.get('/api/getReplies/:userName/:startLimit/:endLimit',function(req,res){
+          router.get('/api/getReplies/:loginUser/:userName/:startLimit/:endLimit',function(req,res){
               var apiReponse={};
               var errorText='';
               var username = req.params.userName;
+              var loginUser = req.params.loginUser;
               var startLimit = req.params.startLimit || 0;
               var endLimit = req.params.endLimit || 10;
               var finalRes = {};
-              apiController.getUserReply(username,startLimit,endLimit,function(err,responce){
+              apiController.getUserReply(loginUser,username,startLimit,endLimit,function(err,responce){
                   if(err){
                       errorText = err;
                   }
@@ -2825,17 +2836,18 @@ router.get('/api/getUserImgVote/:author/:permlink/:username',function(req,res,ne
 })
 
 
-router.get('/api/getImageInfo/:userName/:startLimit/:endLimit',function(req,res){
+router.get('/api/getImageInfo/:loginUser/:userName/:startLimit/:endLimit',function(req,res){
     var apiReponse={};
     var finalRes = {};
     var userName = req.params.userName;
     var errorText='';
     var startLimit=req.params.startLimit;
     var endLimit=req.params.endLimit;
+    var loginUser = req.params.loginUser;
     var list = {};
     var userPostInfo123 = [];
     var final_userPostInfo123 = [];
-    apiController.getUserPostData(userName,startLimit,endLimit,function(err,responce){
+    apiController.getUserPostData(loginUser,userName,startLimit,endLimit,function(err,responce){
         if(err){
           errorText = err;
           console.log(err);
@@ -2888,17 +2900,18 @@ router.get('/api/getImageInfo/:userName/:startLimit/:endLimit',function(req,res)
         });
       });
 
-router.get('/api/getImageInfo_userfeed/:userName/:startLimit/:endLimit',function(req,res){
+router.get('/api/getImageInfo_userfeed/:loginUser/:userName/:startLimit/:endLimit',function(req,res){
     var apiReponse={};
     var finalRes = {};
     var userName = req.params.userName;
+    var loginUser = req.params.loginUser;
     var errorText='';
     var startLimit=req.params.startLimit;
     var endLimit=req.params.endLimit;
     var list = {};
     var userPostInfo123 = [];
     var final_userPostInfo123 = [];
-    apiController.getUserFeed(userName,startLimit,endLimit,function(err,responce){
+    apiController.getUserFeed(loginUser,userName,startLimit,endLimit,function(err,responce){
         if(err){
           errorText = err;
           console.log(err);
@@ -2951,10 +2964,11 @@ router.get('/api/getImageInfo_userfeed/:userName/:startLimit/:endLimit',function
         });
       });
 
-router.get('/api/getImageInfo_feedinfo/:type/:startLimit/:endLimit',function(req,res){
+router.get('/api/getImageInfo_feedinfo/:loginUser/:type/:startLimit/:endLimit',function(req,res){
   var apiReponse={};
   var finalRes = {};
   var type = req.params.type;
+  var loginUser = req.params.loginUser;
   var tags = '';
   var errorText='';
   var startLimit=req.params.startLimit;
@@ -2962,7 +2976,7 @@ router.get('/api/getImageInfo_feedinfo/:type/:startLimit/:endLimit',function(req
   var list = {};
   var userPostInfo123 = [];
   var final_userPostInfo123 = [];
-  apiController.getUserTopicFeed(type,tags,startLimit,endLimit,function(err,responce){
+  apiController.getUserTopicFeed(loginUser,type,tags,startLimit,endLimit,function(err,responce){
       if(err){
         errorText = err;
         console.log(err);
@@ -3015,18 +3029,19 @@ router.get('/api/getImageInfo_feedinfo/:type/:startLimit/:endLimit',function(req
       });
     });
 
-router.get('/api/getImageInfo_feedtaginfo/:type/:tag/:startLimit/:endLimit',function(req,res){
+router.get('/api/getImageInfo_feedtaginfo/:loginUser/:type/:tag/:startLimit/:endLimit',function(req,res){
   var apiReponse={};
   var finalRes = {};
   var type = req.params.type;
   var tags = req.params.tag;
+  var loginUser = req.params.loginUser;
   var errorText='';
   var startLimit=req.params.startLimit;
   var endLimit=req.params.endLimit;
   var list = {};
   var userPostInfo123 = [];
   var final_userPostInfo123 = [];
-  apiController.getUserTopicFeed(type,tags,startLimit,endLimit,function(err,responce){
+  apiController.getUserTopicFeed(loginUser,type,tags,startLimit,endLimit,function(err,responce){
       if(err){
         errorText = err;
         console.log(err);
@@ -3340,17 +3355,18 @@ router.get('/api/getImage_following/:userName/:startLimit/:endLimit',function(re
 //         });
 //       });
 
-router.get('/api/getImage_comments/:userName/:startLimit/:endLimit',function(req,res){
+router.get('/api/getImage_comments/:loginUser/:userName/:startLimit/:endLimit',function(req,res){
     var apiReponse={};
     var finalRes = {};
     var userName = req.params.userName;
+    var loginUser = req.params.loginUser;
     var errorText='';
     var startLimit=req.params.startLimit;
     var endLimit=req.params.endLimit;
     var list = {};
     var userPostInfo123 = [];
     var final_userPostInfo123 = [];
-    apiController.getUserComments(userName,startLimit,endLimit,function(err,responce){
+    apiController.getUserComments(loginUser,userName,startLimit,endLimit,function(err,responce){
         if(err){
           errorText = err;
           console.log(err);
@@ -3404,17 +3420,18 @@ router.get('/api/getImage_comments/:userName/:startLimit/:endLimit',function(req
       });
 
 
-router.get('/api/getVoteInfo/:userName/:startLimit/:endLimit',function(req,res){
+router.get('/api/getVoteInfo/:loginUser/:userName/:startLimit/:endLimit',function(req,res){
     var apiReponse={};
     var finalRes = {};
     var userName = req.params.userName;
     var errorText='';
     var startLimit=req.params.startLimit;
     var endLimit=req.params.endLimit;
+    var loginUser=req.params.loginUser;
     var list = {};
     var userPostInfo123 = [];
     var final_userPostInfo123 = [];
-    apiController.getUserPostData(userName,startLimit,endLimit,function(err,responce){
+    apiController.getUserPostData(loginUser,userName,startLimit,endLimit,function(err,responce){
         if(err){
           errorText = err;
           console.log(err);
@@ -3585,10 +3602,11 @@ router.get('/api/getVoteInfo/:userName/:startLimit/:endLimit',function(req,res){
 //       });
 
 
-router.get('/api/getVoteInfo_userfeed/:userName/:startLimit/:endLimit',function(req,res){
+router.get('/api/getVoteInfo_userfeed/:loginUser/:userName/:startLimit/:endLimit',function(req,res){
     var apiReponse={};
     var finalRes = {};
     var userName = req.params.userName;
+    var loginUser = req.params.loginUser;
     var errorText='';
     var startLimit=req.params.startLimit;
     var endLimit=req.params.endLimit;
@@ -3596,7 +3614,7 @@ router.get('/api/getVoteInfo_userfeed/:userName/:startLimit/:endLimit',function(
     var userPostInfo123 = [];
 
     var final_userPostInfo123 = [];
-    apiController.getUserFeed(userName,startLimit,endLimit,function(err,responce){
+    apiController.getUserFeed(loginUser,userName,startLimit,endLimit,function(err,responce){
         if(err){
           errorText = err;
           console.log(err);
@@ -3649,11 +3667,12 @@ router.get('/api/getVoteInfo_userfeed/:userName/:startLimit/:endLimit',function(
       });
 
 
-router.get('/api/getVoteInfo_feedinfo/:userName/:type/:startLimit/:endLimit',function(req,res){
+router.get('/api/getVoteInfo_feedinfo/:loginUser/:userName/:type/:startLimit/:endLimit',function(req,res){
     var apiReponse={};
     var finalRes = {};
     var type = req.params.type;
     var userName = req.params.userName;
+    var loginUser = req.params.loginUser;
     var tags = '';
     var errorText='';
     var startLimit=req.params.startLimit;
@@ -3662,7 +3681,7 @@ router.get('/api/getVoteInfo_feedinfo/:userName/:type/:startLimit/:endLimit',fun
     var userPostInfo123 = [];
 
     var final_userPostInfo123 = [];
-    apiController.getUserTopicFeed(type,tags,startLimit,endLimit,function(err,responce){
+    apiController.getUserTopicFeed(loginUser,type,tags,startLimit,endLimit,function(err,responce){
         if(err){
           errorText = err;
           console.log(err);
@@ -3715,12 +3734,13 @@ router.get('/api/getVoteInfo_feedinfo/:userName/:type/:startLimit/:endLimit',fun
       });
 
 
-router.get('/api/getVoteInfo_feedtaginfo/:userName/:type/:tag/:startLimit/:endLimit',function(req,res){
+router.get('/api/getVoteInfo_feedtaginfo/:loginUser/:userName/:type/:tag/:startLimit/:endLimit',function(req,res){
     var apiReponse={};
     var finalRes = {};
     var type = req.params.type;
     var tags = req.params.tag;
     var userName = req.params.userName;
+    var loginUser = req.params.loginUser;
     var tags = '';
     var errorText='';
     var startLimit=req.params.startLimit;
@@ -3728,7 +3748,7 @@ router.get('/api/getVoteInfo_feedtaginfo/:userName/:type/:tag/:startLimit/:endLi
     var list = {};
     var userPostInfo123 = [];
     var final_userPostInfo123 = [];
-    apiController.getUserTopicFeed(type,req.params.tag,startLimit,endLimit,function(err,responce){
+    apiController.getUserTopicFeed(loginUser,type,req.params.tag,startLimit,endLimit,function(err,responce){
         if(err){
           errorText = err;
           console.log(err);
@@ -3779,17 +3799,18 @@ router.get('/api/getVoteInfo_feedtaginfo/:userName/:type/:tag/:startLimit/:endLi
         });
       });
 
-router.get('/api/getVote_comments/:userName/:startLimit/:endLimit',function(req,res){
+router.get('/api/getVote_comments/:loginUser/:userName/:startLimit/:endLimit',function(req,res){
     var apiReponse={};
     var finalRes = {};
     var userName = req.params.userName;
+    var loginUser = req.params.loginUser;
     var errorText='';
     var startLimit=req.params.startLimit;
     var endLimit=req.params.endLimit;
     var list = {};
     var userPostInfo123 = [];
     var final_userPostInfo123 = [];
-    apiController.getUserComments(userName,startLimit,endLimit,function(err,responce){
+    apiController.getUserComments(loginUser,userName,startLimit,endLimit,function(err,responce){
         if(err){
           errorText = err;
           console.log(err);
@@ -4024,6 +4045,41 @@ router.post('/api/getPostDataVoteImg',function(req,res){
 
 router.get('/Home',function(req,res){
   res.render('layout.html');
+});
+
+//reportAbuse
+//
+router.post('/api/reportAbuse',function(req,res){
+  var apiReponse={};
+  var errorText='';
+  var data = {
+    reportedBy : req.body.reportedBy,
+    reportedOn : req.body.reportedOn,
+    contentAuthor : req.body.contentAuthor,
+    contentDetail : req.body.contentDetail,
+    abuseReason : req.body.abuseReason,
+    status : "Pending",
+    reportedOn : new Date()
+   }
+  //  console.log(data);
+  apiController.reqReportAbuse(data,function(err){
+      if(err){
+          errorText = res.status(500).json(err);
+          console.log(err);
+      }
+      if(errorText ==='')
+          {
+            apiReponse.error = 0;
+            apiReponse.success = 1;
+            apiReponse.Message = 'Successful';
+          }
+      else {
+            apiReponse.error = 1;
+            apiReponse.success = 0;
+            apiReponse.Message = errorText;
+          }
+      res.status(200).json(apiReponse);
+  });
 });
 
 module.exports = router;

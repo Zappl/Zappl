@@ -9,7 +9,8 @@ var dbs = [
   'chatData',
   'deviceTokenDetails',
   'chatRoomHistory',
-  'roomList'
+  'roomList',
+  'contentReportDetails'
   ];
 
 var db;

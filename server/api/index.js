@@ -997,7 +997,7 @@ exports.getUserFollowingFollowersNo = function(userName,callback){
     });
   };
 
-exports.getUserPostData = function(userName,startLimit,endLimit,callback){
+exports.getUserPostData = function(loginUser,userName,startLimit,endLimit,callback){
   var el = 100;
   var query = {"tag":userName, "limit": "100"}
   steem.api.getDiscussionsByBlog(query, function(err, result) {
@@ -1019,18 +1019,21 @@ exports.getUserPostData = function(userName,startLimit,endLimit,callback){
         obj.parsedBody = finalData;
         obj.startLimit = parseInt(startLimit);
         obj.endLimit = parseInt(endLimit);
+        obj.loginUser = loginUser;
+
         var userPostInfo =  getUserPostInfo_Feed(obj,function(err,userPostInfo){
           if(err){
             console.log(err);
             callback(err,null);
           }
+          //setTimeout(function(){ callback(null,userPostInfo); }, 3000);
           callback(null,userPostInfo);
         });
       }
   });
   };
 
-exports.getUserTopicFeed = function(types,tags,startLimit,endLimit,callback){
+exports.getUserTopicFeed = function(loginUser,types,tags,startLimit,endLimit,callback){
         var Api;
         var el = 100;
         var query = {"tag":tags, "limit": el};
@@ -1054,6 +1057,7 @@ exports.getUserTopicFeed = function(types,tags,startLimit,endLimit,callback){
               obj.parsedBody = finalData;
               obj.startLimit = parseInt(startLimit);
               obj.endLimit = parseInt(endLimit);
+              obj.loginUser = loginUser;
               var userPostInfo =  getUserPostInfo_Feed(obj,function(err,userPostInfo){
                 if(err)
                 {
@@ -1084,6 +1088,7 @@ exports.getUserTopicFeed = function(types,tags,startLimit,endLimit,callback){
               obj.parsedBody = finalData;
               obj.startLimit = parseInt(startLimit);
               obj.endLimit = parseInt(endLimit);
+              obj.loginUser = loginUser;
               var userPostInfo =  getUserPostInfo_Feed(obj,function(err,userPostInfo){
                 if(err)
                 {
@@ -1114,6 +1119,7 @@ exports.getUserTopicFeed = function(types,tags,startLimit,endLimit,callback){
               obj.parsedBody = finalData;
               obj.startLimit = parseInt(startLimit);
               obj.endLimit = parseInt(endLimit);
+              obj.loginUser = loginUser;
               var userPostInfo =  getUserPostInfo_Feed(obj,function(err,userPostInfo){
                 if(err)
                 {
@@ -1147,6 +1153,7 @@ exports.getUserTopicFeed = function(types,tags,startLimit,endLimit,callback){
               obj.parsedBody = finalData;
               obj.startLimit = parseInt(startLimit);
               obj.endLimit = parseInt(endLimit);
+              obj.loginUser = loginUser;
               var userPostInfo =  getUserPostInfo_Feed(obj,function(err,userPostInfo){
                 if(err)
                 {
@@ -1162,7 +1169,7 @@ exports.getUserTopicFeed = function(types,tags,startLimit,endLimit,callback){
         }
       };
 
-exports.getUserReply = function(username,startLimit,endLimit,callback){
+exports.getUserReply = function(loginUser,username,startLimit,endLimit,callback){
   var el = 100;
   steem.api.getRepliesByLastUpdate(username, '', 100, function(err, result) {
     if(err){
@@ -1188,6 +1195,7 @@ exports.getUserReply = function(username,startLimit,endLimit,callback){
         obj.parsedBody = finalData;
         obj.startLimit = parseInt(startLimit);
         obj.endLimit = parseInt(endLimit);
+        obj.loginUser = loginUser;
         var userPostInfo =  getUserPostInfo_Feed(obj,function(err,userPostInfo){
           if(err){
             console.log(err);
@@ -1199,299 +1207,685 @@ exports.getUserReply = function(username,startLimit,endLimit,callback){
   });
 };
 
-exports.getUserCommentsOnPost = function(tag,username,permlink,callback){
-    var comments_on_post={};
-    var comments = [];
-    var path = "/"+tag+"/@"+username+"/"+permlink;
-    steem.api.getState(path, function(err, results) {
-      if(err){
-        console.log("ERROR", err);
-        callback(err,null)
-      }
-      else{
-        if (typeof results !== 'undefined'){
-          var obj = results.content;
-          var length = Object.keys(obj).length;
-              for (var i = 0; i < length ; i++){
-                var content = obj[Object.keys(obj)[i]];
-                var text = JSON.parse(content.json_metadata);
-                var result;
-                if(text.app == filterText){
-                  if(content.permlink !== permlink){
-                  if(content.json_metadata !== ''){
-                      result = JSON.parse(content.json_metadata);
-                      }
-                  else{
-                      result = {tag:content.catagory};
-                      }
-                  var image =[];
-                  var postImage='';
-                  image = result.image;
-                  if(image !== undefined  && image.length > 0)
-                      {
-                        postImage = image[0];
-                      }
-                  else {
-                        postImage = '';
-                      }
-                      var createdPost = content.created;
-                      var month = createdPost.substr(5, 2);
-                      var year = createdPost.substr(0,4);
-                      var date = createdPost.substr(8,2);
-                      var mnth;
-                        switch(month) {
-                          case "01":
-                             mnth =  "January"
-                              break;
-                          case "02":
-                             mnth =  "February"
-                              break;
-                          case "03":
-                             mnth =  "March"
-                              break;
-                          case "04":
-                             mnth =  "April"
-                              break;
-                          case "05":
-                             mnth =  "May"
-                              break;
-                          case "06":
-                             mnth =  "June"
-                              break;
-                          case "07":
-                             mnth =  "July"
-                              break;
-                          case "08":
-                             mnth =  "August"
-                              break;
-                          case "09":
-                             mnth =  "September"
-                              break;
-                          case "10":
-                             mnth =  "October"
-                              break;
-                          case "11":
-                             mnth =  "November"
-                              break;
-                          case "12":
-                             mnth =  "December"
-                              break;
-                         }
 
-                      var dString = mnth +"-"+date+"-"+year;
-                      var d1 = new Date( (new Date(createdPost))*1 - 1000*3600*5 );   //for new server
 
-                      //var d1 = new Date(createdPost);      // working fine with all other servers
-                      var d2 = new Date();
-                      var timeDate;
-
-                      if(DateDiff.inDays(d1, d2) <= 30){
-                        var diff = DateDiff.inDays(d1, d2);
-                        if(diff != 0){
-                        timeDate = diff+ " "+"days"
-                        }
-                        else{
-                          var minDiff = DateDiff.inMinutes(d1, d2);
-                          if(minDiff <= 59){
-                            timeDate = minDiff + " "+"minutes"
+             exports.getUserCommentsOnPost = function(loginUser,tag,username,permlink,callback){
+                 var comments_on_post={};
+                 var comments = [];
+                 var path = "/"+tag+"/@"+username+"/"+permlink;
+                 var pan = 0;
+                 var arr = [];
+                       db.contentReportDetails.find({
+                          reportedBy : loginUser
+                          }, function(err, valueInfo) {
+                          if (err) {
+                            console.log(err);
                           }
                           else{
-                            timeDate = DateDiff.inHour(d1, d2) + " "+"hours"
-                          }
-                        }
-                      }
-                      else if(DateDiff.inMonths(d1, d2) <= 12 && DateDiff.inDays(d1, d2) >= 31){
-                        timeDate =DateDiff.inMonths(d1, d2) +  " "+"months";
-                      }
-                      else if(DateDiff.inMonths(d1, d2) > 12 && DateDiff.inDays(d1, d2) >= 31){
-                        timeDate =DateDiff.inYears(d1, d2) +  " "+"years";
-                      }
-                      var upvotes= content.pending_payout_value.replace(/SBD/g, "");
-                      upvotes = Math.round(upvotes * 100) / 100
-                      var commentPost = {
-                      profile_image : "https://worldarts2015.s3-us-west-2.amazonaws.com/images/default-profile-picture.jpg?cache=1473463677",
-                      author : content.author,
-                      permlink : content.permlink,
-                      parent_author : content.parent_author,
-                      parent_permlink : content.parent_permlink,
-                      created : content.created,
-                      body   : content.body,
-                      upvote :  upvotes,
-                      vote : content.net_votes,
-                      comments : content.children,
-                      tags : content.category,
-                      url : content.url,
-                      id : content.id,
-                      image : postImage,
-                      active_votes: content.active_votes,
-                      replies : content.replies,
-                      post_time:timeDate
-                    };
-                    comments.push(commentPost);
-                  }
-                }
-                }
-          comments_on_post.comments = comments;
-        }
-        else{
-        var  commentPost = {};
-            comments.push(commentPost);
-            comments_on_post.comments = comments;
-        }
-    callback(null,comments_on_post);
-      }
-    });
-};
+                            if(valueInfo.length>0){
+                              for (var j=0; j< valueInfo.length; j++){
+                                  arr.push(valueInfo[j].contentDetail);
+                                }
+                            }
 
-exports.getUserCommentsOnPost_App = function(tag,username,permlink,startLimit,endLimit,callback){
+
+                              db.contentReportDetails.find({
+                                 status : 'Accepted'
+                               }, function(err1, valueInfo1) {
+                                 if (err1) {
+                                   console.log(err);
+                                 }
+                                 else{
+                                   if(valueInfo1.length > 0){
+                                     for (var j=0; j< valueInfo1.length; j++){
+                                       pan = pan +1;
+                                       arr.push(valueInfo1[j].contentDetail);
+                                       }
+                                   }
+                                   else{
+                                     pan == valueInfo1.length;
+                                   }
+                                   if(pan == valueInfo1.length){
+
+                                     steem.api.getState(path, function(err, results) {
+                                       if(err){
+                                         console.log("ERROR", err);
+                                         callback(err,null)
+                                       }
+                                       else{
+                                         if (typeof results !== 'undefined'){
+                                           var obj = results.content;
+                                           var length = Object.keys(obj).length;
+                                               for (var i = 0; i < length ; i++){
+                                                 var content = obj[Object.keys(obj)[i]];
+                                                 var text = JSON.parse(content.json_metadata);
+                                                 var result;
+                                                 var report = arr.find(a => a.toLowerCase() == content.permlink);
+                                                 if(text.app == filterText && report == undefined){
+                                                   if(content.permlink !== permlink){
+                                                   if(content.json_metadata !== ''){
+                                                       result = JSON.parse(content.json_metadata);
+                                                       }
+                                                   else{
+                                                       result = {tag:content.catagory};
+                                                       }
+                                                   var image =[];
+                                                   var postImage='';
+                                                   image = result.image;
+                                                   if(image !== undefined  && image.length > 0)
+                                                       {
+                                                         postImage = image[0];
+                                                       }
+                                                   else {
+                                                         postImage = '';
+                                                       }
+                                                       var createdPost = content.created;
+                                                       var month = createdPost.substr(5, 2);
+                                                       var year = createdPost.substr(0,4);
+                                                       var date = createdPost.substr(8,2);
+                                                       var mnth;
+                                                         switch(month) {
+                                                           case "01":
+                                                              mnth =  "January"
+                                                               break;
+                                                           case "02":
+                                                              mnth =  "February"
+                                                               break;
+                                                           case "03":
+                                                              mnth =  "March"
+                                                               break;
+                                                           case "04":
+                                                              mnth =  "April"
+                                                               break;
+                                                           case "05":
+                                                              mnth =  "May"
+                                                               break;
+                                                           case "06":
+                                                              mnth =  "June"
+                                                               break;
+                                                           case "07":
+                                                              mnth =  "July"
+                                                               break;
+                                                           case "08":
+                                                              mnth =  "August"
+                                                               break;
+                                                           case "09":
+                                                              mnth =  "September"
+                                                               break;
+                                                           case "10":
+                                                              mnth =  "October"
+                                                               break;
+                                                           case "11":
+                                                              mnth =  "November"
+                                                               break;
+                                                           case "12":
+                                                              mnth =  "December"
+                                                               break;
+                                                          }
+
+                                                       var dString = mnth +"-"+date+"-"+year;
+                                                       var d1 = new Date( (new Date(createdPost))*1 - 1000*3600*5 );   //for new server
+
+                                                       //var d1 = new Date(createdPost);      // working fine with all other servers
+                                                       var d2 = new Date();
+                                                       var timeDate;
+
+                                                       if(DateDiff.inDays(d1, d2) <= 30){
+                                                         var diff = DateDiff.inDays(d1, d2);
+                                                         if(diff != 0){
+                                                         timeDate = diff+ " "+"days"
+                                                         }
+                                                         else{
+                                                           var minDiff = DateDiff.inMinutes(d1, d2);
+                                                           if(minDiff <= 59){
+                                                             timeDate = minDiff + " "+"minutes"
+                                                           }
+                                                           else{
+                                                             timeDate = DateDiff.inHour(d1, d2) + " "+"hours"
+                                                           }
+                                                         }
+                                                       }
+                                                       else if(DateDiff.inMonths(d1, d2) <= 12 && DateDiff.inDays(d1, d2) >= 31){
+                                                         timeDate =DateDiff.inMonths(d1, d2) +  " "+"months";
+                                                       }
+                                                       else if(DateDiff.inMonths(d1, d2) > 12 && DateDiff.inDays(d1, d2) >= 31){
+                                                         timeDate =DateDiff.inYears(d1, d2) +  " "+"years";
+                                                       }
+                                                       var upvotes= content.pending_payout_value.replace(/SBD/g, "");
+                                                       upvotes = Math.round(upvotes * 100) / 100
+                                                       var commentPost = {
+                                                       profile_image : "https://worldarts2015.s3-us-west-2.amazonaws.com/images/default-profile-picture.jpg?cache=1473463677",
+                                                       author : content.author,
+                                                       permlink : content.permlink,
+                                                       parent_author : content.parent_author,
+                                                       parent_permlink : content.parent_permlink,
+                                                       created : content.created,
+                                                       body   : content.body,
+                                                       upvote :  upvotes,
+                                                       vote : content.net_votes,
+                                                       comments : content.children,
+                                                       tags : content.category,
+                                                       url : content.url,
+                                                       id : content.id,
+                                                       image : postImage,
+                                                       active_votes: content.active_votes,
+                                                       replies : content.replies,
+                                                       post_time:timeDate
+                                                     };
+                                                     comments.push(commentPost);
+                                                   }
+                                                 }
+                                                 }
+                                           comments_on_post.comments = comments;
+                                         }
+                                         else{
+                                         var  commentPost = {};
+                                             comments.push(commentPost);
+                                             comments_on_post.comments = comments;
+                                         }
+                                     callback(null,comments_on_post);
+                                       }
+                                     });
+                                   }
+
+                                 }
+                               });
+
+
+
+                          }
+                        });
+
+
+             };
+
+// exports.getUserCommentsOnPost = function(loginUser,tag,username,permlink,callback){
+//     var comments_on_post={};
+//     var comments = [];
+//     var path = "/"+tag+"/@"+username+"/"+permlink;
+//
+//     steem.api.getState(path, function(err, results) {
+//       if(err){
+//         console.log("ERROR", err);
+//         callback(err,null)
+//       }
+//       else{
+//         if (typeof results !== 'undefined'){
+//           var obj = results.content;
+//           var length = Object.keys(obj).length;
+//               for (var i = 0; i < length ; i++){
+//                 var content = obj[Object.keys(obj)[i]];
+//                 var text = JSON.parse(content.json_metadata);
+//                 var result;
+//                 if(text.app == filterText){
+//                   if(content.permlink !== permlink){
+//                   if(content.json_metadata !== ''){
+//                       result = JSON.parse(content.json_metadata);
+//                       }
+//                   else{
+//                       result = {tag:content.catagory};
+//                       }
+//                   var image =[];
+//                   var postImage='';
+//                   image = result.image;
+//                   if(image !== undefined  && image.length > 0)
+//                       {
+//                         postImage = image[0];
+//                       }
+//                   else {
+//                         postImage = '';
+//                       }
+//                       var createdPost = content.created;
+//                       var month = createdPost.substr(5, 2);
+//                       var year = createdPost.substr(0,4);
+//                       var date = createdPost.substr(8,2);
+//                       var mnth;
+//                         switch(month) {
+//                           case "01":
+//                              mnth =  "January"
+//                               break;
+//                           case "02":
+//                              mnth =  "February"
+//                               break;
+//                           case "03":
+//                              mnth =  "March"
+//                               break;
+//                           case "04":
+//                              mnth =  "April"
+//                               break;
+//                           case "05":
+//                              mnth =  "May"
+//                               break;
+//                           case "06":
+//                              mnth =  "June"
+//                               break;
+//                           case "07":
+//                              mnth =  "July"
+//                               break;
+//                           case "08":
+//                              mnth =  "August"
+//                               break;
+//                           case "09":
+//                              mnth =  "September"
+//                               break;
+//                           case "10":
+//                              mnth =  "October"
+//                               break;
+//                           case "11":
+//                              mnth =  "November"
+//                               break;
+//                           case "12":
+//                              mnth =  "December"
+//                               break;
+//                          }
+//
+//                       var dString = mnth +"-"+date+"-"+year;
+//                       var d1 = new Date( (new Date(createdPost))*1 - 1000*3600*5 );   //for new server
+//
+//                       //var d1 = new Date(createdPost);      // working fine with all other servers
+//                       var d2 = new Date();
+//                       var timeDate;
+//
+//                       if(DateDiff.inDays(d1, d2) <= 30){
+//                         var diff = DateDiff.inDays(d1, d2);
+//                         if(diff != 0){
+//                         timeDate = diff+ " "+"days"
+//                         }
+//                         else{
+//                           var minDiff = DateDiff.inMinutes(d1, d2);
+//                           if(minDiff <= 59){
+//                             timeDate = minDiff + " "+"minutes"
+//                           }
+//                           else{
+//                             timeDate = DateDiff.inHour(d1, d2) + " "+"hours"
+//                           }
+//                         }
+//                       }
+//                       else if(DateDiff.inMonths(d1, d2) <= 12 && DateDiff.inDays(d1, d2) >= 31){
+//                         timeDate =DateDiff.inMonths(d1, d2) +  " "+"months";
+//                       }
+//                       else if(DateDiff.inMonths(d1, d2) > 12 && DateDiff.inDays(d1, d2) >= 31){
+//                         timeDate =DateDiff.inYears(d1, d2) +  " "+"years";
+//                       }
+//                       var upvotes= content.pending_payout_value.replace(/SBD/g, "");
+//                       upvotes = Math.round(upvotes * 100) / 100
+//                       var commentPost = {
+//                       profile_image : "https://worldarts2015.s3-us-west-2.amazonaws.com/images/default-profile-picture.jpg?cache=1473463677",
+//                       author : content.author,
+//                       permlink : content.permlink,
+//                       parent_author : content.parent_author,
+//                       parent_permlink : content.parent_permlink,
+//                       created : content.created,
+//                       body   : content.body,
+//                       upvote :  upvotes,
+//                       vote : content.net_votes,
+//                       comments : content.children,
+//                       tags : content.category,
+//                       url : content.url,
+//                       id : content.id,
+//                       image : postImage,
+//                       active_votes: content.active_votes,
+//                       replies : content.replies,
+//                       post_time:timeDate
+//                     };
+//                     comments.push(commentPost);
+//                   }
+//                 }
+//                 }
+//           comments_on_post.comments = comments;
+//         }
+//         else{
+//         var  commentPost = {};
+//             comments.push(commentPost);
+//             comments_on_post.comments = comments;
+//         }
+//     callback(null,comments_on_post);
+//       }
+//     });
+// };
+
+exports.getUserCommentsOnPost_App = function(loginUser,tag,username,permlink,startLimit,endLimit,callback){
     var comments_on_post={};
     var comments = [];
     var sub = endLimit-startLimit;
     var length;
     var path = "/"+tag+"/@"+username+"/"+permlink;
-    steem.api.getState(path, function(err, results) {
-      if(err){
-        console.log("ERROR", err);
-        callback(err,null)
-      }
-      else{
-        if (typeof results !== 'undefined'){
-          var obj = results.content;
-          length = (Object.keys(obj).length)-1;
-          if(sub > 0){
-            if(endLimit > length){
-                endLimit = length;
-            }
-            for (var i = startLimit ; i <= endLimit ; i++){
-              var content = obj[Object.keys(obj)[i]];
-              var result;
-              if(content.permlink !== permlink){
-              if(content.json_metadata !== ''){
-                  result = JSON.parse(content.json_metadata);
+    var pan = 0;
+    var arr = [];
+          db.contentReportDetails.find({
+             reportedBy : loginUser
+             }, function(err, valueInfo) {
+             if (err) {
+               console.log(err);
+             }
+             else{
+               if(valueInfo.length > 0){
+                 for (var j=0; j< valueInfo.length; j++){
+                      arr.push(valueInfo[j].contentDetail);
                   }
-              else{
-                  result = {tag:content.catagory};
-                  }
-              var image =[];
-              var postImage='';
-              image = result.image;
-              if(image !== undefined  && image.length > 0)
-                  {
-                    postImage = image[0];
-                  }
-              else {
-                    postImage = '';
-                  }
-                  var createdPost = content.created;
-                  var month = createdPost.substr(5, 2);
-                  var year = createdPost.substr(0,4);
-                  var date = createdPost.substr(8,2);
-                  var mnth;
-                    switch(month) {
-                      case "01":
-                         mnth =  "January"
-                          break;
-                      case "02":
-                         mnth =  "February"
-                          break;
-                      case "03":
-                         mnth =  "March"
-                          break;
-                      case "04":
-                         mnth =  "April"
-                          break;
-                      case "05":
-                         mnth =  "May"
-                          break;
-                      case "06":
-                         mnth =  "June"
-                          break;
-                      case "07":
-                         mnth =  "July"
-                          break;
-                      case "08":
-                         mnth =  "August"
-                          break;
-                      case "09":
-                         mnth =  "September"
-                          break;
-                      case "10":
-                         mnth =  "October"
-                          break;
-                      case "11":
-                         mnth =  "November"
-                          break;
-                      case "12":
-                         mnth =  "December"
-                          break;
-                     }
-                  var dString = mnth +"-"+date+"-"+year;
-                  var d1 = new Date( (new Date(createdPost))*1 - 1000*3600*5 );   //for new server
+               }
 
-                  //var d1 = new Date(createdPost);      // working fine with all other servers
-                  var d2 = new Date();
-                  var timeDate;
-                  if(DateDiff.inDays(d1, d2) <= 30){
-                    var diff = DateDiff.inDays(d1, d2);
-                    if(diff != 0){
-                    timeDate = diff+ " "+"days"
-                    }
-                    else{
-                      var minDiff = DateDiff.inMinutes(d1, d2);
-                      if(minDiff <= 59){
-                        timeDate = minDiff + " "+"minutes"
+
+                   db.contentReportDetails.find({
+                      status : 'Accepted'
+                    }, function(err1, valueInfo1) {
+                      if (err1) {
+                        console.log(err);
                       }
                       else{
-                        timeDate = DateDiff.inHour(d1, d2) + " "+"hours"
+                        if(valueInfo1.length > 0){
+                          for (var j=0; j< valueInfo1.length; j++){
+                            pan = pan +1;
+                            arr.push(valueInfo1[j].contentDetail);
+                            }
+                        }
+                        else{
+                          pan == valueInfo1.length;
+                        }
+
+                        if(pan == valueInfo1.length){
+                          steem.api.getState(path, function(err, results) {
+                            if(err){
+                              console.log("ERROR", err);
+                              callback(err,null)
+                            }
+                            else{
+                              if (typeof results !== 'undefined'){
+                                var obj = results.content;
+                                length = (Object.keys(obj).length)-1;
+                                if(sub > 0){
+                                  if(endLimit > length){
+                                      endLimit = length;
+                                  }
+                                  for (var i = startLimit ; i <= endLimit ; i++){
+                                    var content = obj[Object.keys(obj)[i]];
+                                    var result;
+                                    if(content.json_metadata !== ''){
+                                        result = JSON.parse(content.json_metadata);
+                                        }
+                                    else{
+                                        result = {tag:content.catagory};
+                                        }
+                                        var report = arr.find(a => a.toLowerCase() == content.permlink);
+                                        if(result.app == filterText && report == undefined){
+                                          if(content.permlink !== permlink){
+                                          var image =[];
+                                          var postImage='';
+                                          image = result.image;
+                                          if(image !== undefined  && image.length > 0)
+                                              {
+                                                postImage = image[0];
+                                              }
+                                          else {
+                                                postImage = '';
+                                              }
+                                              var createdPost = content.created;
+                                              var month = createdPost.substr(5, 2);
+                                              var year = createdPost.substr(0,4);
+                                              var date = createdPost.substr(8,2);
+                                              var mnth;
+                                                switch(month) {
+                                                  case "01":
+                                                     mnth =  "January"
+                                                      break;
+                                                  case "02":
+                                                     mnth =  "February"
+                                                      break;
+                                                  case "03":
+                                                     mnth =  "March"
+                                                      break;
+                                                  case "04":
+                                                     mnth =  "April"
+                                                      break;
+                                                  case "05":
+                                                     mnth =  "May"
+                                                      break;
+                                                  case "06":
+                                                     mnth =  "June"
+                                                      break;
+                                                  case "07":
+                                                     mnth =  "July"
+                                                      break;
+                                                  case "08":
+                                                     mnth =  "August"
+                                                      break;
+                                                  case "09":
+                                                     mnth =  "September"
+                                                      break;
+                                                  case "10":
+                                                     mnth =  "October"
+                                                      break;
+                                                  case "11":
+                                                     mnth =  "November"
+                                                      break;
+                                                  case "12":
+                                                     mnth =  "December"
+                                                      break;
+                                                 }
+                                              var dString = mnth +"-"+date+"-"+year;
+                                              var d1 = new Date( (new Date(createdPost))*1 - 1000*3600*5 );   //for new server
+
+                                              //var d1 = new Date(createdPost);      // working fine with all other servers
+                                              var d2 = new Date();
+                                              var timeDate;
+                                              if(DateDiff.inDays(d1, d2) <= 30){
+                                                var diff = DateDiff.inDays(d1, d2);
+                                                if(diff != 0){
+                                                timeDate = diff+ " "+"days"
+                                                }
+                                                else{
+                                                  var minDiff = DateDiff.inMinutes(d1, d2);
+                                                  if(minDiff <= 59){
+                                                    timeDate = minDiff + " "+"minutes"
+                                                  }
+                                                  else{
+                                                    timeDate = DateDiff.inHour(d1, d2) + " "+"hours"
+                                                  }
+                                                }
+                                              }
+                                              else if(DateDiff.inMonths(d1, d2) <= 12 && DateDiff.inDays(d1, d2) >= 31){
+                                                timeDate =DateDiff.inMonths(d1, d2) +  " "+"months";
+                                              }
+                                              else if(DateDiff.inMonths(d1, d2) > 12 && DateDiff.inDays(d1, d2) >= 31){
+                                                timeDate =DateDiff.inYears(d1, d2) +  " "+"years";
+                                              }
+                                              var upvotes= content.pending_payout_value.replace(/SBD/g, "");
+                                              upvotes = Math.round(upvotes * 100) / 100
+                                              var commentPost = {
+                                              profile_image : "https://worldarts2015.s3-us-west-2.amazonaws.com/images/default-profile-picture.jpg?cache=1473463677",
+                                              author : content.author,
+                                              permlink : content.permlink,
+                                              parent_author : content.parent_author,
+                                              parent_permlink : content.parent_permlink,
+                                              created : content.created,
+                                              body   : content.body,
+                                              upvote :  upvotes,
+                                              vote : content.net_votes,
+                                              comments : content.children,
+                                              tags : content.category,
+                                              url : content.url,
+                                              id : content.id,
+                                              image : postImage,
+                                              active_votes: content.active_votes,
+                                              replies : content.replies,
+                                              post_time:timeDate
+                                            };
+                                            comments.push(commentPost);
+                                          }
+                                        }
+
+                                    }
+                                    comments_on_post.comments = comments;
+                                    callback(null,comments_on_post);
+                                }
+                                else{
+                                  console.log("TEST MSG");
+                                }
+                              }
+                              else{
+                              var  commentPost = {};
+                                  comments.push(commentPost);
+                                  comments_on_post.comments = comments;
+                                  callback(null,comments_on_post);
+                              }
+                            }
+                          })
+                        }
                       }
-                    }
-                  }
-                  else if(DateDiff.inMonths(d1, d2) <= 12 && DateDiff.inDays(d1, d2) >= 31){
-                    timeDate =DateDiff.inMonths(d1, d2) +  " "+"months";
-                  }
-                  else if(DateDiff.inMonths(d1, d2) > 12 && DateDiff.inDays(d1, d2) >= 31){
-                    timeDate =DateDiff.inYears(d1, d2) +  " "+"years";
-                  }
-                  var upvotes= content.pending_payout_value.replace(/SBD/g, "");
-                  upvotes = Math.round(upvotes * 100) / 100
-                  var commentPost = {
-                  profile_image : "https://worldarts2015.s3-us-west-2.amazonaws.com/images/default-profile-picture.jpg?cache=1473463677",
-                  author : content.author,
-                  permlink : content.permlink,
-                  parent_author : content.parent_author,
-                  parent_permlink : content.parent_permlink,
-                  created : content.created,
-                  body   : content.body,
-                  upvote :  upvotes,
-                  vote : content.net_votes,
-                  comments : content.children,
-                  tags : content.category,
-                  url : content.url,
-                  id : content.id,
-                  image : postImage,
-                  active_votes: content.active_votes,
-                  replies : content.replies,
-                  post_time:timeDate
-                };
-                comments.push(commentPost);
-              }
-              }
-              comments_on_post.comments = comments;
-              callback(null,comments_on_post);
-          }
-          else{
-            console.log("TEST MSG");
-          }
-        }
-        else{
-        var  commentPost = {};
-            comments.push(commentPost);
-            comments_on_post.comments = comments;
-            callback(null,comments_on_post);
-        }
-      }
-    })
+                    });
+             }
+           });
   };
+
+// exports.getUserCommentsOnPost_App = function(tag,username,permlink,startLimit,endLimit,callback){
+//     var comments_on_post={};
+//     var comments = [];
+//     var sub = endLimit-startLimit;
+//     var length;
+//     var path = "/"+tag+"/@"+username+"/"+permlink;
+//     steem.api.getState(path, function(err, results) {
+//       if(err){
+//         console.log("ERROR", err);
+//         callback(err,null)
+//       }
+//       else{
+//         if (typeof results !== 'undefined'){
+//           var obj = results.content;
+//           length = (Object.keys(obj).length)-1;
+//           if(sub > 0){
+//             if(endLimit > length){
+//                 endLimit = length;
+//             }
+//             for (var i = startLimit ; i <= endLimit ; i++){
+//               var content = obj[Object.keys(obj)[i]];
+//               var result;
+//               if(content.permlink !== permlink){
+//               if(content.json_metadata !== ''){
+//                   result = JSON.parse(content.json_metadata);
+//                   }
+//               else{
+//                   result = {tag:content.catagory};
+//                   }
+//               var image =[];
+//               var postImage='';
+//               image = result.image;
+//               if(image !== undefined  && image.length > 0)
+//                   {
+//                     postImage = image[0];
+//                   }
+//               else {
+//                     postImage = '';
+//                   }
+//                   var createdPost = content.created;
+//                   var month = createdPost.substr(5, 2);
+//                   var year = createdPost.substr(0,4);
+//                   var date = createdPost.substr(8,2);
+//                   var mnth;
+//                     switch(month) {
+//                       case "01":
+//                          mnth =  "January"
+//                           break;
+//                       case "02":
+//                          mnth =  "February"
+//                           break;
+//                       case "03":
+//                          mnth =  "March"
+//                           break;
+//                       case "04":
+//                          mnth =  "April"
+//                           break;
+//                       case "05":
+//                          mnth =  "May"
+//                           break;
+//                       case "06":
+//                          mnth =  "June"
+//                           break;
+//                       case "07":
+//                          mnth =  "July"
+//                           break;
+//                       case "08":
+//                          mnth =  "August"
+//                           break;
+//                       case "09":
+//                          mnth =  "September"
+//                           break;
+//                       case "10":
+//                          mnth =  "October"
+//                           break;
+//                       case "11":
+//                          mnth =  "November"
+//                           break;
+//                       case "12":
+//                          mnth =  "December"
+//                           break;
+//                      }
+//                   var dString = mnth +"-"+date+"-"+year;
+//                   var d1 = new Date( (new Date(createdPost))*1 - 1000*3600*5 );   //for new server
+//
+//                   //var d1 = new Date(createdPost);      // working fine with all other servers
+//                   var d2 = new Date();
+//                   var timeDate;
+//                   if(DateDiff.inDays(d1, d2) <= 30){
+//                     var diff = DateDiff.inDays(d1, d2);
+//                     if(diff != 0){
+//                     timeDate = diff+ " "+"days"
+//                     }
+//                     else{
+//                       var minDiff = DateDiff.inMinutes(d1, d2);
+//                       if(minDiff <= 59){
+//                         timeDate = minDiff + " "+"minutes"
+//                       }
+//                       else{
+//                         timeDate = DateDiff.inHour(d1, d2) + " "+"hours"
+//                       }
+//                     }
+//                   }
+//                   else if(DateDiff.inMonths(d1, d2) <= 12 && DateDiff.inDays(d1, d2) >= 31){
+//                     timeDate =DateDiff.inMonths(d1, d2) +  " "+"months";
+//                   }
+//                   else if(DateDiff.inMonths(d1, d2) > 12 && DateDiff.inDays(d1, d2) >= 31){
+//                     timeDate =DateDiff.inYears(d1, d2) +  " "+"years";
+//                   }
+//                   var upvotes= content.pending_payout_value.replace(/SBD/g, "");
+//                   upvotes = Math.round(upvotes * 100) / 100
+//                   var commentPost = {
+//                   profile_image : "https://worldarts2015.s3-us-west-2.amazonaws.com/images/default-profile-picture.jpg?cache=1473463677",
+//                   author : content.author,
+//                   permlink : content.permlink,
+//                   parent_author : content.parent_author,
+//                   parent_permlink : content.parent_permlink,
+//                   created : content.created,
+//                   body   : content.body,
+//                   upvote :  upvotes,
+//                   vote : content.net_votes,
+//                   comments : content.children,
+//                   tags : content.category,
+//                   url : content.url,
+//                   id : content.id,
+//                   image : postImage,
+//                   active_votes: content.active_votes,
+//                   replies : content.replies,
+//                   post_time:timeDate
+//                 };
+//                 comments.push(commentPost);
+//               }
+//               }
+//               comments_on_post.comments = comments;
+//               callback(null,comments_on_post);
+//           }
+//           else{
+//             console.log("TEST MSG");
+//           }
+//         }
+//         else{
+//         var  commentPost = {};
+//             comments.push(commentPost);
+//             comments_on_post.comments = comments;
+//             callback(null,comments_on_post);
+//         }
+//       }
+//     })
+//   };
 
 exports.getCommentList = function(mainObj,subObj, callback){
   var finalList = {};
@@ -1544,134 +1938,301 @@ exports.getCommentList = function(mainObj,subObj, callback){
   callback(null,finalArray);
 }
 
-exports.getTestUserCommentsOnPost = function(parent, parentPermlink,callback){
+exports.getTestUserCommentsOnPost = function(loginUser,parent, parentPermlink,callback){
     var comments_on_post={};
     var comments = [];
-    steem.api.getContentReplies(parent, parentPermlink, function(err, res){
-      var length = Object.keys(res).length;
-                for (i=0;i<length;i++){
-                  var content = res[Object.keys(res)[i]];
-                  var result;
-                  if(content.json_metadata !== ''){
-                      result = JSON.parse(content.json_metadata);
-                      }
-                  else{
-                      result = {tag:content.catagory};
-                      }
+    var pan = 0;
+    var arr = [];
+          db.contentReportDetails.find({
+             reportedBy : loginUser
+             }, function(err, valueInfo) {
+             if (err) {
+               console.log(err);
+             }
+             else{
+               if(valueInfo.length>0){
+               for (var j=0; j< valueInfo.length; j++){
+                   arr.push(valueInfo[j].contentDetail);
+                   }
+                 }
 
-                  if(result.app == filterText){
-                  var image =[];
-                  var postImage='';
-                  image = result.image;
-                  if(image !== undefined  && image.length > 0)
-                      {
-                        postImage = image[0];
+                   db.contentReportDetails.find({
+                      status : 'Accepted'
+                    }, function(err1, valueInfo1) {
+                      if (err1) {
+                        console.log(err);
                       }
-                  else {
-                        postImage = '';
-                      }
-
-                      var createdPost = content.created;
-                      var month = createdPost.substr(5, 2);
-                      var year = createdPost.substr(0,4);
-                      var date = createdPost.substr(8,2);
-                      var mnth;
-                        switch(month) {
-                          case "01":
-                             mnth =  "January"
-                              break;
-                          case "02":
-                             mnth =  "February"
-                              break;
-                          case "03":
-                             mnth =  "March"
-                              break;
-                          case "04":
-                             mnth =  "April"
-                              break;
-                          case "05":
-                             mnth =  "May"
-                              break;
-                          case "06":
-                             mnth =  "June"
-                              break;
-                          case "07":
-                             mnth =  "July"
-                              break;
-                          case "08":
-                             mnth =  "August"
-                              break;
-                          case "09":
-                             mnth =  "September"
-                              break;
-                          case "10":
-                             mnth =  "October"
-                              break;
-                          case "11":
-                             mnth =  "November"
-                              break;
-                          case "12":
-                             mnth =  "December"
-                              break;
-                         }
-
-                      var dString = mnth +"-"+date+"-"+year;
-                      var d1 = new Date( (new Date(createdPost))*1 - 1000*3600*5 );   //for new server
-                      //var d1 = new Date(createdPost);      // working fine with all other servers
-                      var d2 = new Date();
-                      var timeDate;
-                      if(DateDiff.inDays(d1, d2) <= 30){
-                        var diff = DateDiff.inDays(d1, d2);
-                        if(diff != 0){
-                        timeDate = diff+ " "+"days"
+                      else{
+                        if(valueInfo1.length > 0){
+                          for (var j=0; j< valueInfo1.length; j++){
+                            pan = pan +1;
+                            arr.push(valueInfo1[j].contentDetail);
+                            }
                         }
                         else{
-                          var minDiff = DateDiff.inMinutes(d1, d2);
-                          if(minDiff <= 59){
-                            timeDate = minDiff + " "+"minutes"
-                          }
+                          pan == valueInfo1.length;
+                        }
 
-                          else{
-                            timeDate = DateDiff.inHour(d1, d2) + " "+"hours"
-                          }
+                        if(pan == valueInfo1.length){
+                          steem.api.getContentReplies(parent, parentPermlink, function(err, res){
+                            var length = Object.keys(res).length;
+                                      for (i=0;i<length;i++){
+                                        var content = res[Object.keys(res)[i]];
+                                        var result;
+                                        if(content.json_metadata !== ''){
+                                            result = JSON.parse(content.json_metadata);
+                                            }
+                                        else{
+                                            result = {tag:content.catagory};
+                                            }
+                                       var report = arr.find(a => a.toLowerCase() == content.permlink);
+                                        if(result.app == filterText && report == undefined){
+                                        var image =[];
+                                        var postImage='';
+                                        image = result.image;
+                                        if(image !== undefined  && image.length > 0)
+                                            {
+                                              postImage = image[0];
+                                            }
+                                        else {
+                                              postImage = '';
+                                            }
+
+                                            var createdPost = content.created;
+                                            var month = createdPost.substr(5, 2);
+                                            var year = createdPost.substr(0,4);
+                                            var date = createdPost.substr(8,2);
+                                            var mnth;
+                                              switch(month) {
+                                                case "01":
+                                                   mnth =  "January"
+                                                    break;
+                                                case "02":
+                                                   mnth =  "February"
+                                                    break;
+                                                case "03":
+                                                   mnth =  "March"
+                                                    break;
+                                                case "04":
+                                                   mnth =  "April"
+                                                    break;
+                                                case "05":
+                                                   mnth =  "May"
+                                                    break;
+                                                case "06":
+                                                   mnth =  "June"
+                                                    break;
+                                                case "07":
+                                                   mnth =  "July"
+                                                    break;
+                                                case "08":
+                                                   mnth =  "August"
+                                                    break;
+                                                case "09":
+                                                   mnth =  "September"
+                                                    break;
+                                                case "10":
+                                                   mnth =  "October"
+                                                    break;
+                                                case "11":
+                                                   mnth =  "November"
+                                                    break;
+                                                case "12":
+                                                   mnth =  "December"
+                                                    break;
+                                               }
+
+                                            var dString = mnth +"-"+date+"-"+year;
+                                            var d1 = new Date( (new Date(createdPost))*1 - 1000*3600*5 );   //for new server
+                                            //var d1 = new Date(createdPost);      // working fine with all other servers
+                                            var d2 = new Date();
+                                            var timeDate;
+                                            if(DateDiff.inDays(d1, d2) <= 30){
+                                              var diff = DateDiff.inDays(d1, d2);
+                                              if(diff != 0){
+                                              timeDate = diff+ " "+"days"
+                                              }
+                                              else{
+                                                var minDiff = DateDiff.inMinutes(d1, d2);
+                                                if(minDiff <= 59){
+                                                  timeDate = minDiff + " "+"minutes"
+                                                }
+
+                                                else{
+                                                  timeDate = DateDiff.inHour(d1, d2) + " "+"hours"
+                                                }
+                                              }
+                                            }
+                                            else if(DateDiff.inMonths(d1, d2) <= 12 && DateDiff.inDays(d1, d2) >= 31){
+                                              timeDate =DateDiff.inMonths(d1, d2) +  " "+"months";
+                                            }
+                                            else if(DateDiff.inMonths(d1, d2) > 12 && DateDiff.inDays(d1, d2) >= 31){
+                                              timeDate =DateDiff.inYears(d1, d2) +  " "+"years";
+                                            }
+
+                                            var upvotes= content.pending_payout_value.replace(/SBD/g, "");
+                                            upvotes = Math.round(upvotes * 100) / 100
+
+                                        commentPost = {
+                                          profile_image : "https://worldarts2015.s3-us-west-2.amazonaws.com/images/default-profile-picture.jpg?cache=1473463677",
+                                          author : content.author,
+                                          permlink : content.permlink,
+                                          parent_author : content.parent_author,
+                                          parent_permlink : content.parent_permlink,
+                                          created : content.created,
+                                          body   : content.body,
+                                          upvote :  upvotes,
+                                          vote : content.net_votes,
+                                          comments : content.children,
+                                          tags : content.category,
+                                          url : content.url,
+                                          id : content.id,
+                                          image : postImage,
+                                          active_votes: content.active_votes,
+                                          replies : content.replies,
+                                          post_time:timeDate
+                                          }
+                                          comments.push(commentPost);
+                                        }
+                                        }
+                                  comments_on_post.comments = comments;
+                                  callback(null,comments_on_post);
+                                })
                         }
                       }
-                      else if(DateDiff.inMonths(d1, d2) <= 12 && DateDiff.inDays(d1, d2) >= 31){
-                        timeDate =DateDiff.inMonths(d1, d2) +  " "+"months";
-                      }
-                      else if(DateDiff.inMonths(d1, d2) > 12 && DateDiff.inDays(d1, d2) >= 31){
-                        timeDate =DateDiff.inYears(d1, d2) +  " "+"years";
-                      }
-
-                      var upvotes= content.pending_payout_value.replace(/SBD/g, "");
-                      upvotes = Math.round(upvotes * 100) / 100
-
-                  commentPost = {
-                    profile_image : "https://worldarts2015.s3-us-west-2.amazonaws.com/images/default-profile-picture.jpg?cache=1473463677",
-                    author : content.author,
-                    permlink : content.permlink,
-                    parent_author : content.parent_author,
-                    parent_permlink : content.parent_permlink,
-                    created : content.created,
-                    body   : content.body,
-                    upvote :  upvotes,
-                    vote : content.net_votes,
-                    comments : content.children,
-                    tags : content.category,
-                    url : content.url,
-                    id : content.id,
-                    image : postImage,
-                    active_votes: content.active_votes,
-                    replies : content.replies,
-                    post_time:timeDate
-                    }
-                    comments.push(commentPost);
-                  }
-                  }
-            comments_on_post.comments = comments;
-            callback(null,comments_on_post);
-          })
+                    })
+             }
+           })
           }
+
+// exports.getTestUserCommentsOnPost = function(parent, parentPermlink,callback){
+//     var comments_on_post={};
+//     var comments = [];
+//     steem.api.getContentReplies(parent, parentPermlink, function(err, res){
+//       var length = Object.keys(res).length;
+//                 for (i=0;i<length;i++){
+//                   var content = res[Object.keys(res)[i]];
+//                   var result;
+//                   if(content.json_metadata !== ''){
+//                       result = JSON.parse(content.json_metadata);
+//                       }
+//                   else{
+//                       result = {tag:content.catagory};
+//                       }
+//
+//                   if(result.app == filterText){
+//                   var image =[];
+//                   var postImage='';
+//                   image = result.image;
+//                   if(image !== undefined  && image.length > 0)
+//                       {
+//                         postImage = image[0];
+//                       }
+//                   else {
+//                         postImage = '';
+//                       }
+//
+//                       var createdPost = content.created;
+//                       var month = createdPost.substr(5, 2);
+//                       var year = createdPost.substr(0,4);
+//                       var date = createdPost.substr(8,2);
+//                       var mnth;
+//                         switch(month) {
+//                           case "01":
+//                              mnth =  "January"
+//                               break;
+//                           case "02":
+//                              mnth =  "February"
+//                               break;
+//                           case "03":
+//                              mnth =  "March"
+//                               break;
+//                           case "04":
+//                              mnth =  "April"
+//                               break;
+//                           case "05":
+//                              mnth =  "May"
+//                               break;
+//                           case "06":
+//                              mnth =  "June"
+//                               break;
+//                           case "07":
+//                              mnth =  "July"
+//                               break;
+//                           case "08":
+//                              mnth =  "August"
+//                               break;
+//                           case "09":
+//                              mnth =  "September"
+//                               break;
+//                           case "10":
+//                              mnth =  "October"
+//                               break;
+//                           case "11":
+//                              mnth =  "November"
+//                               break;
+//                           case "12":
+//                              mnth =  "December"
+//                               break;
+//                          }
+//
+//                       var dString = mnth +"-"+date+"-"+year;
+//                       var d1 = new Date( (new Date(createdPost))*1 - 1000*3600*5 );   //for new server
+//                       //var d1 = new Date(createdPost);      // working fine with all other servers
+//                       var d2 = new Date();
+//                       var timeDate;
+//                       if(DateDiff.inDays(d1, d2) <= 30){
+//                         var diff = DateDiff.inDays(d1, d2);
+//                         if(diff != 0){
+//                         timeDate = diff+ " "+"days"
+//                         }
+//                         else{
+//                           var minDiff = DateDiff.inMinutes(d1, d2);
+//                           if(minDiff <= 59){
+//                             timeDate = minDiff + " "+"minutes"
+//                           }
+//
+//                           else{
+//                             timeDate = DateDiff.inHour(d1, d2) + " "+"hours"
+//                           }
+//                         }
+//                       }
+//                       else if(DateDiff.inMonths(d1, d2) <= 12 && DateDiff.inDays(d1, d2) >= 31){
+//                         timeDate =DateDiff.inMonths(d1, d2) +  " "+"months";
+//                       }
+//                       else if(DateDiff.inMonths(d1, d2) > 12 && DateDiff.inDays(d1, d2) >= 31){
+//                         timeDate =DateDiff.inYears(d1, d2) +  " "+"years";
+//                       }
+//
+//                       var upvotes= content.pending_payout_value.replace(/SBD/g, "");
+//                       upvotes = Math.round(upvotes * 100) / 100
+//
+//                   commentPost = {
+//                     profile_image : "https://worldarts2015.s3-us-west-2.amazonaws.com/images/default-profile-picture.jpg?cache=1473463677",
+//                     author : content.author,
+//                     permlink : content.permlink,
+//                     parent_author : content.parent_author,
+//                     parent_permlink : content.parent_permlink,
+//                     created : content.created,
+//                     body   : content.body,
+//                     upvote :  upvotes,
+//                     vote : content.net_votes,
+//                     comments : content.children,
+//                     tags : content.category,
+//                     url : content.url,
+//                     id : content.id,
+//                     image : postImage,
+//                     active_votes: content.active_votes,
+//                     replies : content.replies,
+//                     post_time:timeDate
+//                     }
+//                     comments.push(commentPost);
+//                   }
+//                   }
+//             comments_on_post.comments = comments;
+//             callback(null,comments_on_post);
+//           })
+//           }
 
 exports.getUserPostContent = function(tag,username,permlink,callback){
     var comments_on_post={};
@@ -1818,7 +2379,7 @@ exports.getUserPostContent = function(tag,username,permlink,callback){
     });
 };
 
-exports.getUserComments = function(username,startLimit,endLimit,callback){
+exports.getUserComments = function(loginUser,username,startLimit,endLimit,callback){
     var el = 100;
     var query = {"start_author":username,"limit":"100"};
     steem.api.getDiscussionsByComments(query, function(err, result) {
@@ -1840,6 +2401,7 @@ exports.getUserComments = function(username,startLimit,endLimit,callback){
         obj.parsedBody = finalData;
         obj.startLimit = parseInt(startLimit);
         obj.endLimit = parseInt(endLimit);
+        obj.loginUser = loginUser;
         var userPostInfo =  getUserPostInfo_Feed(obj,function(err,userPostInfo){
           if(err){
                 console.log(err);
@@ -1895,7 +2457,7 @@ exports.getUserComments = function(username,startLimit,endLimit,callback){
     }
 }
 
-exports.getUserFeed = function(username,startLimit,endLimit,callback){
+exports.getUserFeed = function(loginUser,username,startLimit,endLimit,callback){
     var el = 100;
     var query = {"tag":username, "limit": "100"};
     steem.api.getDiscussionsByFeed(query, function(err, result) {
@@ -1917,6 +2479,7 @@ exports.getUserFeed = function(username,startLimit,endLimit,callback){
         obj.parsedBody = finalData;
         obj.startLimit = parseInt(startLimit);
         obj.endLimit   = parseInt(endLimit);
+        obj.loginUser = loginUser;
         var userPostInfo =  getUserPostInfo_Feed(obj,function(err,userPostInfo){
           if(err){
             console.log(err);
@@ -1928,9 +2491,33 @@ exports.getUserFeed = function(username,startLimit,endLimit,callback){
     });
   };
 
+// db.contentReportDetails.find({
+//       contentDetail : rep[i].permlink
+//       }, function(err, valueInfo) {
+//       if (err) {
+//         console.log(err);
+//       }
+//       else{
+//         if(valueInfo.length > 0){
+//           if(valueInfo[0].status == 'Pending' && valueInfo[0].reportedBy == rep[i].author){
+//             console.log("PANKHIL : ",valueInfo[0].reportedBy);
+//               }
+//           else if(valueInfo[0].status == 'Pending' && valueInfo[0].reportedBy != rep[i].author){
+//
+//           }
+//           else if(valueInfo[0].status != 'Pending'){
+//             console.log("PANKHIL : ",valueInfo[0].reportedBy);
+//           }
+//           }
+//           else{
+//
+//           }
+//       }
+//     });
 
 function getUserPostInfo_Feed(obj,callback){
   var rep= obj.parsedBody;
+  var loginUser = obj.loginUser;
   var startLimit= obj.startLimit;
   var endLimit = obj.endLimit;
   if(endLimit > rep.length){
@@ -1938,152 +2525,350 @@ function getUserPostInfo_Feed(obj,callback){
   }
     var objUserPostInfo = {};
     var userPostInfo = [];
-      try{
-        if(startLimit < endLimit){
-        for(var i = startLimit;i < endLimit;i++){
-          var image =[];
-          var postImage='';
-          var result ;
-          result = JSON.parse(rep[i].json_metadata);
-              if(result.app == filterText){
-                result = JSON.parse(rep[i].json_metadata);
-                image = result.image;
-                if(typeof result.tags == 'object'){
-                  allTags = result.tags;
-                }
-                else{
-                  allTags = result.tags.split(',');
-                }
-                var nsfw = allTags.find(a => a.toLowerCase() == "nsfw");
-                if(nsfw == undefined){
-                  nsfw = false;
-                }
-                else{
-                  nsfw = true;
-                }
-                if(image !== undefined  && image.length > 0)
-                {
-                   postImage = image[0];
-                }
-                else {
-                  postImage = '';
-                }
+    var arr = [];
+    var pan = 0;
+          db.contentReportDetails.find({
+             reportedBy : loginUser
+             }, function(err, valueInfo) {
+             if (err) {
+               console.log(err);
+             }
+             else{
+               if(valueInfo.length > 0){
+               for (var j=0; j< valueInfo.length; j++){
 
-                  var createdPost = rep[i].created;
-                  var month = createdPost.substr(5, 2);
-                  var year = createdPost.substr(0,4);
-                  var date = createdPost.substr(8,2);
-                  var mnth;
-                    switch(month) {
-                      case "01":
-                         mnth =  "January"
-                          break;
-                      case "02":
-                         mnth =  "February"
-                          break;
-                      case "03":
-                         mnth =  "March"
-                          break;
-                      case "04":
-                         mnth =  "April"
-                          break;
-                      case "05":
-                         mnth =  "May"
-                          break;
-                      case "06":
-                         mnth =  "June"
-                          break;
-                      case "07":
-                         mnth =  "July"
-                          break;
-                      case "08":
-                         mnth =  "August"
-                          break;
-                      case "09":
-                         mnth =  "September"
-                          break;
-                      case "10":
-                         mnth =  "October"
-                          break;
-                      case "11":
-                         mnth =  "November"
-                          break;
-                      case "12":
-                         mnth =  "December"
-                          break;
-                     }
-                  var dString = mnth +"-"+date+"-"+year;
-                  var d1 = new Date( (new Date(createdPost))*1 - 1000*3600*5 );   //for new server
-                  //var d1 = new Date(createdPost);      // working fine with all other servers
-                  var d2 = new Date();
+                 arr.push(valueInfo[j].contentDetail);
+                 }
+               }
 
-                  var timeDate;
-                  if(DateDiff.inDays(d1, d2) <= 30){
-                    var diff = DateDiff.inDays(d1, d2);
-                    if(diff != 0){
-                    timeDate = diff+ " "+"days";
+                 db.contentReportDetails.find({
+                    status : 'Accepted'
+                  }, function(err1, valueInfo1) {
+                    if (err1) {
+                      console.log(err);
                     }
                     else{
-                      var minDiff = DateDiff.inMinutes(d1, d2);
-                      if(minDiff <= 59){
-                        timeDate = minDiff + " "+"minutes";
+                      if(valueInfo1.length > 0){
+                        for (var j=0; j< valueInfo1.length; j++){
+                          pan = pan +1;
+                          arr.push(valueInfo1[j].contentDetail);
+                          }
                       }
                       else{
-                        timeDate = DateDiff.inHour(d1, d2) + " "+"hours";
+                        pan == valueInfo1.length;
+                      }
+                      if(pan == valueInfo1.length){
+                        try{
+                        if(startLimit < endLimit){
+                                  for(var i = startLimit;i < endLimit;i++){
+                                  var image =[];
+                                  var postImage='';
+                                  var result ;
+                                  result = JSON.parse(rep[i].json_metadata);
+                                  var report = arr.find(a => a.toLowerCase() == rep[i].permlink);
+                                     if(result.app == filterText && report == undefined){
+                                        result = JSON.parse(rep[i].json_metadata);
+                                        image = result.image;
+                                        if(typeof result.tags == 'object'){
+                                          allTags = result.tags;
+                                        }
+                                        else{
+                                          allTags = result.tags.split(',');
+                                        }
+                                        var nsfw = allTags.find(a => a.toLowerCase() == "nsfw");
+                                        if(nsfw == undefined){
+                                          nsfw = false;
+                                        }
+                                        else{
+                                          nsfw = true;
+                                        }
+                                        if(image !== undefined  && image.length > 0)
+                                        {
+                                           postImage = image[0];
+                                        }
+                                        else {
+                                          postImage = '';
+                                        }
+
+                                          var createdPost = rep[i].created;
+                                          var month = createdPost.substr(5, 2);
+                                          var year = createdPost.substr(0,4);
+                                          var date = createdPost.substr(8,2);
+                                          var mnth;
+                                            switch(month) {
+                                              case "01":
+                                                 mnth =  "January"
+                                                  break;
+                                              case "02":
+                                                 mnth =  "February"
+                                                  break;
+                                              case "03":
+                                                 mnth =  "March"
+                                                  break;
+                                              case "04":
+                                                 mnth =  "April"
+                                                  break;
+                                              case "05":
+                                                 mnth =  "May"
+                                                  break;
+                                              case "06":
+                                                 mnth =  "June"
+                                                  break;
+                                              case "07":
+                                                 mnth =  "July"
+                                                  break;
+                                              case "08":
+                                                 mnth =  "August"
+                                                  break;
+                                              case "09":
+                                                 mnth =  "September"
+                                                  break;
+                                              case "10":
+                                                 mnth =  "October"
+                                                  break;
+                                              case "11":
+                                                 mnth =  "November"
+                                                  break;
+                                              case "12":
+                                                 mnth =  "December"
+                                                  break;
+                                             }
+                                          var dString = mnth +"-"+date+"-"+year;
+                                          var d1 = new Date( (new Date(createdPost))*1 - 1000*3600*5 );   //for new server
+                                          //var d1 = new Date(createdPost);      // working fine with all other servers
+                                          var d2 = new Date();
+
+                                          var timeDate;
+                                          if(DateDiff.inDays(d1, d2) <= 30){
+                                            var diff = DateDiff.inDays(d1, d2);
+                                            if(diff != 0){
+                                            timeDate = diff+ " "+"days";
+                                            }
+                                            else{
+                                              var minDiff = DateDiff.inMinutes(d1, d2);
+                                              if(minDiff <= 59){
+                                                timeDate = minDiff + " "+"minutes";
+                                              }
+                                              else{
+                                                timeDate = DateDiff.inHour(d1, d2) + " "+"hours";
+                                              }
+                                            }
+                                          }
+                                          else if(DateDiff.inMonths(d1, d2) <= 12 && DateDiff.inDays(d1, d2) >= 31){
+                                            timeDate =DateDiff.inMonths(d1, d2) +  " "+"months";
+                                          }
+                                          else if(DateDiff.inMonths(d1, d2) > 12 && DateDiff.inDays(d1, d2) >= 31){
+                                            timeDate =DateDiff.inYears(d1, d2) +  " "+"years";
+                                          }
+                                            var t1 = md.render( rep[i].body);
+                                            var htmlBody = t1.replace(/\n/g, "<br />").replace(/&quot;/g,"'").replace(/&lt;/g,"<").replace(/&gt;/g,">").replace('<a href= \"(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png)\">(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png)</a>', '<img src = "(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png)" >');
+                                            htmlBody = (htmlBody.slice(3)).slice(0, -10);
+                                        var upvotes1= rep[i].total_payout_value.replace(/SBD/g, "");
+                                        var upvotes2= rep[i].curator_payout_value.replace(/SBD/g, "");
+                                        var upvotes3= rep[i].pending_payout_value.replace(/SBD/g, "");
+                                        var upvotes = (+(upvotes1)+(+(upvotes2))+(+(upvotes3)));
+                                        var vote = Math.round(upvotes * 100) / 100;
+                                        vote = vote.toFixed(2);
+                                        if(vote == 0){
+                                          vote = "0.00";
+                                        }
+                                        var text = htmlBody;
+                                        text = text.replace(/<[^>]*>/g, '');
+                                        text = text.toString().substr(0,300);
+                                        text = text.replace(/<a[^>]*>([^<]+)<\/a>/g," ").replace(/[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/g," ").replace(/^<br>|<br>$/g," ").replace(/<img[\s]+[^>]*?((alt*?[\s]?=[\s\"\']+(.*?)[\"\']+.*?)|(src*?[\s]?=[\s\"\']+(.*?)[\"\']+.*?))((src*?[\s]?=[\s\"\']+(.*?)[\"\']+.*?>)|(alt*?[\s]?=[\s\"\']+(.*?)[\"\']+.*?>)|>)/g," ");
+                                      userPost = {
+                                        author : rep[i].author,
+                                        profile_image : 'https://worldarts2015.s3-us-west-2.amazonaws.com/images/default-profile-picture.jpg?cache=1473463677',
+                                        title : rep[i].root_title,
+                                        image : postImage,
+                                        allTags : allTags,
+                                         nsfw    : nsfw,
+                                        titleZappl : text,
+                                        body : htmlBody,
+                                        net_votes : rep[i].net_votes,
+                                        upvote:vote,
+                                        permlink:rep[i].permlink,
+                                        comments:rep[i].children,
+                                        tags:rep[i].category,
+                                        post_time:timeDate
+                                      };
+                                  userPostInfo.push(userPost);
+                                }
+                            }
+                            }
+                                objUserPostInfo.userPostInfo = userPostInfo;
+                                callback(null,objUserPostInfo);
+                              }
+                              catch(e){
+                                console.log(e.message);
+                                callback(e.message,null);
+                                }
                       }
                     }
-                  }
-                  else if(DateDiff.inMonths(d1, d2) <= 12 && DateDiff.inDays(d1, d2) >= 31){
-                    timeDate =DateDiff.inMonths(d1, d2) +  " "+"months";
-                  }
-                  else if(DateDiff.inMonths(d1, d2) > 12 && DateDiff.inDays(d1, d2) >= 31){
-                    timeDate =DateDiff.inYears(d1, d2) +  " "+"years";
-                  }
-                    var t1 = md.render( rep[i].body);
-                    var htmlBody = t1.replace(/\n/g, "<br />").replace(/&quot;/g,"'").replace(/&lt;/g,"<").replace(/&gt;/g,">").replace('<a href= \"(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png)\">(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png)</a>', '<img src = "(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png)" >');
-                    htmlBody = (htmlBody.slice(3)).slice(0, -10);
-                var upvotes1= rep[i].total_payout_value.replace(/SBD/g, "");
-                var upvotes2= rep[i].curator_payout_value.replace(/SBD/g, "");
-                var upvotes3= rep[i].pending_payout_value.replace(/SBD/g, "");
-                var upvotes = (+(upvotes1)+(+(upvotes2))+(+(upvotes3)));
-                var vote = Math.round(upvotes * 100) / 100;
-                vote = vote.toFixed(2);
-                if(vote == 0){
-                  vote = "0.00";
-                }
-                var text = htmlBody;
-                text = text.replace(/<[^>]*>/g, '');
-                text = text.toString().substr(0,300);
-                text = text.replace(/<a[^>]*>([^<]+)<\/a>/g," ").replace(/[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/g," ").replace(/^<br>|<br>$/g," ").replace(/<img[\s]+[^>]*?((alt*?[\s]?=[\s\"\']+(.*?)[\"\']+.*?)|(src*?[\s]?=[\s\"\']+(.*?)[\"\']+.*?))((src*?[\s]?=[\s\"\']+(.*?)[\"\']+.*?>)|(alt*?[\s]?=[\s\"\']+(.*?)[\"\']+.*?>)|>)/g," ");
-              userPost = {
-                author : rep[i].author,
-                profile_image : 'https://worldarts2015.s3-us-west-2.amazonaws.com/images/default-profile-picture.jpg?cache=1473463677',
-                title : rep[i].root_title,
-                image : postImage,
-                allTags : allTags,
-                 nsfw    : nsfw,
-                titleZappl : text,
-                body : htmlBody,
-                net_votes : rep[i].net_votes,
-                upvote:vote,
-                permlink:rep[i].permlink,
-                comments:rep[i].children,
-                tags:rep[i].category,
-                post_time:timeDate
-              };
-          userPostInfo.push(userPost);
-        }
-    }
-    }
-        objUserPostInfo.userPostInfo = userPostInfo;
-        callback(null,objUserPostInfo);
-      }
-      catch(e){
-        console.log(e.message);
-        callback(e.message,null);
-        }
+                  })
+
+
+
+               }
+             });
       }
 
+
+
+      // function getUserPostInfo_Feed(obj,callback){
+      //   var rep= obj.parsedBody;
+      //   var startLimit= obj.startLimit;
+      //   var endLimit = obj.endLimit;
+      //   if(endLimit > rep.length){
+      //     endLimit = parseInt(rep.length);
+      //   }
+      //     var objUserPostInfo = {};
+      //     var userPostInfo = [];
+      //       try{
+      //         if(startLimit < endLimit){
+      //         for(var i = startLimit;i < endLimit;i++){
+      //           var image =[];
+      //           var postImage='';
+      //           var result ;
+      //           result = JSON.parse(rep[i].json_metadata);
+      //            if(result.app == filterText){
+      //                 result = JSON.parse(rep[i].json_metadata);
+      //                 image = result.image;
+      //                 if(typeof result.tags == 'object'){
+      //                   allTags = result.tags;
+      //                 }
+      //                 else{
+      //                   allTags = result.tags.split(',');
+      //                 }
+      //                 var nsfw = allTags.find(a => a.toLowerCase() == "nsfw");
+      //                 if(nsfw == undefined){
+      //                   nsfw = false;
+      //                 }
+      //                 else{
+      //                   nsfw = true;
+      //                 }
+      //                 if(image !== undefined  && image.length > 0)
+      //                 {
+      //                    postImage = image[0];
+      //                 }
+      //                 else {
+      //                   postImage = '';
+      //                 }
+      //
+      //                   var createdPost = rep[i].created;
+      //                   var month = createdPost.substr(5, 2);
+      //                   var year = createdPost.substr(0,4);
+      //                   var date = createdPost.substr(8,2);
+      //                   var mnth;
+      //                     switch(month) {
+      //                       case "01":
+      //                          mnth =  "January"
+      //                           break;
+      //                       case "02":
+      //                          mnth =  "February"
+      //                           break;
+      //                       case "03":
+      //                          mnth =  "March"
+      //                           break;
+      //                       case "04":
+      //                          mnth =  "April"
+      //                           break;
+      //                       case "05":
+      //                          mnth =  "May"
+      //                           break;
+      //                       case "06":
+      //                          mnth =  "June"
+      //                           break;
+      //                       case "07":
+      //                          mnth =  "July"
+      //                           break;
+      //                       case "08":
+      //                          mnth =  "August"
+      //                           break;
+      //                       case "09":
+      //                          mnth =  "September"
+      //                           break;
+      //                       case "10":
+      //                          mnth =  "October"
+      //                           break;
+      //                       case "11":
+      //                          mnth =  "November"
+      //                           break;
+      //                       case "12":
+      //                          mnth =  "December"
+      //                           break;
+      //                      }
+      //                   var dString = mnth +"-"+date+"-"+year;
+      //                   var d1 = new Date( (new Date(createdPost))*1 - 1000*3600*5 );   //for new server
+      //                   //var d1 = new Date(createdPost);      // working fine with all other servers
+      //                   var d2 = new Date();
+      //
+      //                   var timeDate;
+      //                   if(DateDiff.inDays(d1, d2) <= 30){
+      //                     var diff = DateDiff.inDays(d1, d2);
+      //                     if(diff != 0){
+      //                     timeDate = diff+ " "+"days";
+      //                     }
+      //                     else{
+      //                       var minDiff = DateDiff.inMinutes(d1, d2);
+      //                       if(minDiff <= 59){
+      //                         timeDate = minDiff + " "+"minutes";
+      //                       }
+      //                       else{
+      //                         timeDate = DateDiff.inHour(d1, d2) + " "+"hours";
+      //                       }
+      //                     }
+      //                   }
+      //                   else if(DateDiff.inMonths(d1, d2) <= 12 && DateDiff.inDays(d1, d2) >= 31){
+      //                     timeDate =DateDiff.inMonths(d1, d2) +  " "+"months";
+      //                   }
+      //                   else if(DateDiff.inMonths(d1, d2) > 12 && DateDiff.inDays(d1, d2) >= 31){
+      //                     timeDate =DateDiff.inYears(d1, d2) +  " "+"years";
+      //                   }
+      //                     var t1 = md.render( rep[i].body);
+      //                     var htmlBody = t1.replace(/\n/g, "<br />").replace(/&quot;/g,"'").replace(/&lt;/g,"<").replace(/&gt;/g,">").replace('<a href= \"(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png)\">(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png)</a>', '<img src = "(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png)" >');
+      //                     htmlBody = (htmlBody.slice(3)).slice(0, -10);
+      //                 var upvotes1= rep[i].total_payout_value.replace(/SBD/g, "");
+      //                 var upvotes2= rep[i].curator_payout_value.replace(/SBD/g, "");
+      //                 var upvotes3= rep[i].pending_payout_value.replace(/SBD/g, "");
+      //                 var upvotes = (+(upvotes1)+(+(upvotes2))+(+(upvotes3)));
+      //                 var vote = Math.round(upvotes * 100) / 100;
+      //                 vote = vote.toFixed(2);
+      //                 if(vote == 0){
+      //                   vote = "0.00";
+      //                 }
+      //                 var text = htmlBody;
+      //                 text = text.replace(/<[^>]*>/g, '');
+      //                 text = text.toString().substr(0,300);
+      //                 text = text.replace(/<a[^>]*>([^<]+)<\/a>/g," ").replace(/[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/g," ").replace(/^<br>|<br>$/g," ").replace(/<img[\s]+[^>]*?((alt*?[\s]?=[\s\"\']+(.*?)[\"\']+.*?)|(src*?[\s]?=[\s\"\']+(.*?)[\"\']+.*?))((src*?[\s]?=[\s\"\']+(.*?)[\"\']+.*?>)|(alt*?[\s]?=[\s\"\']+(.*?)[\"\']+.*?>)|>)/g," ");
+      //               userPost = {
+      //                 author : rep[i].author,
+      //                 profile_image : 'https://worldarts2015.s3-us-west-2.amazonaws.com/images/default-profile-picture.jpg?cache=1473463677',
+      //                 title : rep[i].root_title,
+      //                 image : postImage,
+      //                 allTags : allTags,
+      //                  nsfw    : nsfw,
+      //                 titleZappl : text,
+      //                 body : htmlBody,
+      //                 net_votes : rep[i].net_votes,
+      //                 upvote:vote,
+      //                 permlink:rep[i].permlink,
+      //                 comments:rep[i].children,
+      //                 tags:rep[i].category,
+      //                 post_time:timeDate
+      //               };
+      //           userPostInfo.push(userPost);
+      //         }
+      //     }
+      //     }
+      //         objUserPostInfo.userPostInfo = userPostInfo;
+      //         callback(null,objUserPostInfo);
+      //       }
+      //       catch(e){
+      //         console.log(e.message);
+      //         callback(e.message,null);
+      //         }
+      //       }
 
 
 function getUserPostInfo(obj,callback){
@@ -3127,3 +3912,24 @@ exports.getPublicKeys = function(userName,callback){
       }
     });
   };
+
+  exports.reqReportAbuse = function(contentData,callback){
+        if(contentData !==undefined && contentData !==null)
+        {
+            db.contentReportDetails.save({
+              reportedBy : contentData.reportedBy,
+              reportedOn : contentData.reportedOn,
+              contentAuthor:contentData.contentAuthor,
+              contentDetail : contentData.contentDetail,
+              abuseReason : contentData.abuseReason,
+              status : contentData.status,
+              reportedOn : moment(contentData.reportedOn).format("MM/DD/YYYY hh:mm")
+            }, function(err) {
+              if (err) {
+                logger.info('post API - reqReportAbuse, ','reqReportAbuse :- ',contentData,', ERROR :- ',err.Message);
+                callback(err,null);
+              }
+            callback(null,true);
+          });
+        }
+      }
