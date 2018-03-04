@@ -1,6 +1,6 @@
 # Zappl Is OpenSource Under Mit License
 
-The main zappl software will be made opensource.
+The main zappl software Is now opensource and fully readable.
 
 Zappls admin panel, ad system, back end register system plus addons will not be opensource for competative edge.
 
