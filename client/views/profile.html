@@ -143,7 +143,9 @@
                  <span style="color:#717f88">.</span>&nbsp;
                  <a ui-sref="UserPost({tag : n.tags,username: n.author, permlink: n.permlink})"><span style="color:#717f88;font-size:13px">Comment({{n.comments}})</span></a>&nbsp;
                  <span ng-if="hc.userInfo.userInfo.name != hc.username"><span style="color:#717f88">.</span>&nbsp;
-                 <a ng-click="fi.getRezapList(n.author,n.permlink)"><span style="color:#717f88;font-size:13px;cursor:pointer">Rezap</span></a>&nbsp;</span>
+                 <a ng-click="fi.getRezapList(n.author,n.permlink)"><span style="color:#717f88;font-size:13px;cursor:pointer">Rezap</span></a>&nbsp;
+                 <span style="color:#717f88">.</span>&nbsp;
+                 <a ng-click="fi.reportAbuse(n.author,n.permlink)"><i class="far fa-flag fa-xs" style="cursor:pointer;color:#92a1ad;"></i></a>
                  </div>
              <hr>
          </div>
@@ -175,7 +177,9 @@
                  <span style="color:#717f88">.</span>&nbsp;
                  <a ui-sref="UserPost({tag : n.tags,username: n.author, permlink: n.permlink})"><span style="color:#717f88;font-size:13px">Comment({{n.comments}})</span></a>&nbsp;
                  <span ng-if="hc.userInfo.userInfo.name != hc.username"><span style="color:#717f88">.</span>&nbsp;
-                 <a ng-click="fi.getRezapList(n.author,n.permlink)"><span style="color:#717f88;font-size:13px;cursor:pointer">Rezap</span></a>&nbsp;</span>
+                 <a ng-click="fi.getRezapList(n.author,n.permlink)"><span style="color:#717f88;font-size:13px;cursor:pointer">Rezap</span></a>&nbsp;
+                 <span style="color:#717f88">.</span>&nbsp;
+                 <a ng-click="fi.reportAbuse(n.author,n.permlink)"><i class="far fa-flag fa-xs" style="cursor:pointer;color:#92a1ad;"></i></a>
                </div>
              <hr>
          </div>
@@ -212,7 +216,9 @@
                  <span style="color:#717f88">.</span>&nbsp;
                  <a ui-sref="UserPost({tag : n.tags,username: n.author, permlink: n.permlink})"><span style="color:#717f88;font-size:13px">Comment({{n.comments}})</span></a>&nbsp;
                  <span ng-if="hc.userInfo.userInfo.name != hc.username"><span style="color:#717f88">.</span>&nbsp;
-                 <a ng-click="fi.getRezapList(n.author,n.permlink)"><span style="color:#717f88;font-size:13px;cursor:pointer">Rezap</span></a>&nbsp;</span>
+                 <a ng-click="fi.getRezapList(n.author,n.permlink)"><span style="color:#717f88;font-size:13px;cursor:pointer">Rezap</span></a>&nbsp;
+                 <span style="color:#717f88">.</span>&nbsp;
+                 <a ng-click="fi.reportAbuse(n.author,n.permlink)"><i class="far fa-flag fa-xs" style="cursor:pointer;color:#92a1ad;"></i></a>
                  </div>
              <hr>
          </div>
@@ -459,8 +465,7 @@
         </li>
         <li>
           <div class="col-md-12 text-left first_sec" style="padding:10px 10px 10px 20px;background-color:#fff;list-style-type:none !important;border-radius:5px 5px 5px 5px;border:2px solid #e1e8ed;margin-top:20px">
-             <p style="color:#8899a6;font-size:12px">@ 2017 zappl About Help Center <a ui-sref="TOS">Terms<br/>
-             Privacy Policy</a> Cookies Ads Info Brand <br />
+             <p style="color:#8899a6;font-size:12px">@ 2017 zappl About Help Center <a ui-sref="TOS">Terms</a> Cookies Ads Info Brand <br />
              Blog Status AppsJobs Business Developers</p>
           </div>
       </li>

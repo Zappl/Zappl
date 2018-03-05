@@ -627,7 +627,7 @@ exports.getVotingWeight = function(userName,callback){
 
     exports.getTagTopicLists = function(callback){
       var afterTag = 'zappl';
-      var limit = 30;
+      var limit = 10;
       var tagTopicList = [];
       steem.api.getTrendingTags(afterTag, limit, function(err, result) {
         if(err){
@@ -635,7 +635,7 @@ exports.getVotingWeight = function(userName,callback){
             callback(err,null);
           }
           else{
-            for (var i=0; i<= 29 ; i++){
+            for (var i=0; i<= 9 ; i++){
               tagTopicList.push(result[i].name)
             }
             callback(null,tagTopicList);
@@ -1955,7 +1955,6 @@ exports.getTestUserCommentsOnPost = function(loginUser,parent, parentPermlink,ca
                    arr.push(valueInfo[j].contentDetail);
                    }
                  }
-
                    db.contentReportDetails.find({
                       status : 'Accepted'
                     }, function(err1, valueInfo1) {

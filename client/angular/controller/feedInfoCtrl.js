@@ -1,7 +1,12 @@
 ZapplApp.controller("feedInfoCtrl",function($scope,$rootScope,$stateParams,$state,$sce,$window,LoginService){var fi=this;fi.feedType=$stateParams.child;fi.tag=$stateParams.tagChild;fi.loginToken=localStorage.getItem("loginToken");fi.username=localStorage.getItem("username");$rootScope.tagValue=$stateParams.tagChild;$rootScope.feedValue=$stateParams.child;$rootScope.tokenValue=localStorage.getItem("loginToken");fi.nsfw=localStorage.getItem("nsfw");fi.getselectFeed=function(feed){if(feed==undefined||feed==''){$scope.selectFeed='Feed';}
 else{$scope.selectFeed=feed;}
 return $scope.selectFeed;}
-fi.username=localStorage.getItem("username");fi.postingWif=localStorage.getItem("postingWif");fi.getUserFeed=function(startLimit,endLimit){var rep=LoginService.getUserFeed(fi.username,fi.username,startLimit,endLimit);rep.then(function(data){var newObj=data.data.data.userFeed.userPostInfo;newObj.forEach(function(obj){var displayPost=obj.image;if(displayPost==null){displayPost="";}
+fi.username=localStorage.getItem("username");fi.postingWif=localStorage.getItem("postingWif");
+fi.reportAbuse = function(contentAuthor,permlink){if(fi.loginToken != undefined){var data = {reportedBy:fi.username,contentAuthor:contentAuthor,contentDetail:permlink,abuseReason:'Report Abuse'}
+if (confirm("Are you sure you want to Block this post?") == true){var rep = LoginService.reportAbuse(data);rep.then(function(data){if(data.data.error == 1){alert(data.data.Message);}
+else{alert(contentAuthor.toUpperCase() +" POST BLOCKED WITH POSTNAME : "+ permlink.toUpperCase());$window.location.reload();return rep;}},function(err){console.log("err",err);alert('Error during processing, please try later');})}}
+else{$('#myModal31').modal('show');}}
+fi.getUserFeed=function(startLimit,endLimit){var rep=LoginService.getUserFeed(fi.username,fi.username,startLimit,endLimit);rep.then(function(data){var newObj=data.data.data.userFeed.userPostInfo;newObj.forEach(function(obj){var displayPost=obj.image;if(displayPost==null){displayPost="";}
 if(displayPost.match(/\.(JPEG|jpeg|JPG|jpg|GIF|gif|PNG|png|ICO|ico)$/)!=null){obj.i=true;obj.v=false;obj.y=false;obj.image1=displayPost;}
 else if(displayPost.match(/^.*\.(avi|AVI|wmv|WMV|flv|FLV|mpg|MPG|mp4|MP4)$/)!=null){obj.v=true;obj.y=false;obj.i=false;obj.image1=displayPost;}
 else if(displayPost.match(/^((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube\.com|youtu.be))(\/(?:[\w\-]+\?v=|embed\/|v\/)?)([\w\-]+)(\S+)?$/)!=null){obj.y=true;obj.v=false;obj.i=false;obj.image1=$sce.trustAsResourceUrl(displayPost);}

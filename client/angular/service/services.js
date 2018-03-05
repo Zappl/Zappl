@@ -98,4 +98,5 @@ this.postTransferToSaving=function(data){var response=$http.post("/api/postTrans
 this.postPowerUp=function(data){var response=$http.post("/api/postPowerUp",data);return response;}
 this.postPowerDown=function(data){var response=$http.post("/api/postPowerDown",data);return response;}
 this.postWithdrawSteem=function(data){var response=$http.post("/api/postWithdrawSteem",data);return response;}
+this.reportAbuse = function(data){var response = $http.post("/api/reportAbuse",data);return response;}
 this.postCancelTransferFromSavings=function(data){var response=$http.post("/api/postCancelTransferFromSavings",data);return response;}});

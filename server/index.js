@@ -4054,7 +4054,6 @@ router.post('/api/reportAbuse',function(req,res){
   var errorText='';
   var data = {
     reportedBy : req.body.reportedBy,
-    reportedOn : req.body.reportedOn,
     contentAuthor : req.body.contentAuthor,
     contentDetail : req.body.contentDetail,
     abuseReason : req.body.abuseReason,

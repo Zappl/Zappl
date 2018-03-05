@@ -57,7 +57,11 @@
                  <span style="color:#717f88">.</span>&nbsp;
                  <a style="color:#717f88;font-size:13px;cursor:pointer" ng-click="hc.postDeleteComment_withC(c.permlink)">Delete</a>
                </span>
-                <div ng-show="btn12" class="form-group" style="margin-top:5px">
+               <span ng-if=" c.author != hc.username">
+               <span style="color:#717f88">.</span>&nbsp;
+               <a ng-click="hc.reportAbuse(n.author,n.permlink)"><img style="cursor:pointer" src="images/blocksign.png" /></a>&nbsp;
+              </span>
+            <div ng-show="btn12" class="form-group" style="margin-top:5px">
             <textarea class="form-control" rows="3" id="{{c.permlink}}" placeholder="Reply" ng-model="commentOn" style="resize:none;border-radius:3px 3px 0px 0px" >
             </textarea>
             <button type="button" ng-disabled="!commentOn.length" class="btn button_layout" ng-click="hc.postCommentOnComment(c.author,c.tags,c.permlink)"   style="color:3292f33;font-weight:600;margin-top:4px">Post</button>
@@ -86,6 +90,10 @@
             <span style="color:#717f88">.</span>&nbsp;
             <a style="color:#717f88;font-size:13px;cursor:pointer" ng-click="hc.postDeleteComment_withoutC(c1.permlink)">Delete</a>
             </span>
+            <span ng-if="hc.username != c1.author">
+            <span style="color:#717f88">.</span>&nbsp;
+            <a ng-click="hc.reportAbuse(c1.author,c1.permlink)"><img style="cursor:pointer" src="images/blocksign.png" /></a>&nbsp;
+           </span>
             <div ng-show="btn12" class="form-group" style="margin-top:5px">
             <textarea class="form-control" rows="3" id="{{c1.permlink}}" placeholder="Reply" ng-model="commentOn" style="resize:none;border-radius:3px 3px 0px 0px" >
             </textarea>

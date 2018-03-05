@@ -42,6 +42,36 @@ ZapplApp.controller("homeCtrl", function ($http, $scope, $rootScope, $stateParam
             window.location.reload();
         }, 600);
     }
+    hc.reportAbuse = function(contentAuthor,permlink){
+      if(hc.loginToken != undefined){
+        var data = {
+          reportedBy : hc.username,
+          contentAuthor : contentAuthor,
+          contentDetail : permlink,
+          abuseReason : 'Report Abuse'
+        }
+
+        if (confirm("Are you sure you want to Block this post?") == true) {
+          var rep = LoginService.reportAbuse(data);
+          rep.then(function(data){
+            if(data.data.error == 1){
+              alert(data.data.Message);
+            }
+            else{
+              alert(contentAuthor.toUpperCase() +" POST BLOCKED WITH POSTNAME : "+ permlink.toUpperCase());
+              $window.location.reload();
+                return rep;
+            }
+          },function(err){
+              console.log("err",err);
+              alert('Error during processing, please try later');
+          })
+            }
+      }
+      else{
+            $('#myModal31').modal('show');
+        }
+    }
     hc.postActive = function () {
         setTimeout(function () {
             if ($window.location.pathname == '/@' + hc.testCurrentUser) {
