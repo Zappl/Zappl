@@ -19,6 +19,11 @@ ZapplApp.config(function ($stateProvider, $urlRouterProvider, $urlMatcherFactory
        templateUrl: './views/tos.html',
        controller: 'homeCtrl as hc',
        authenticate: false
+    }).state('INVEST', {
+        url: '/invest',
+        templateUrl: './views/invest.html',
+        controller: 'homeCtrl as hc',
+        authenticate: false
      }).state('Message', {
         url: '/Message/{user}',
         templateUrl: "./views/message.html",

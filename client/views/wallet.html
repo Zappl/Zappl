@@ -3,7 +3,7 @@
 
 <!------------------------------------------------------------one column------------------------------------------------------------------------------>
 <aside class="one_column" >
-            <div class="col-md-12 div_sec">
+            <div class="col-md-12 div_sec blue-gradient">
                 <h4 class="text_com">Wallet</h4>
             </div>
             <div class="col-md-12 div_sec1" style="padding:10px">
@@ -119,10 +119,17 @@
            </div>
            <div class="col-md-12 col-sm-12 col-xs-12 div_sec1" style="padding:20px 15px;overflow:hidden;word-break:break-all;white-space:normal;" ng-repeat="n in wc.userWalletHistory | orderBy:'-'">
               <div class="col-md-10 col-sm-10 col-xs-12 pad_zero">
-                 <h4 style="display:inline;text-transform:capitalize">{{wc.userWalletInfo.userName}}</h4> <span style="color:#92a1ad">@{{wc.userWalletInfo.userName}}</span>
-                 <p style="color:#66757f;margin: 0 0 0px;line-height:19px;margin-top:6px;text-align:justify">Action : {{n.action}}</p>
-                 <p style="color:#66757f;margin: 0 0 0px;line-height:19px;margin-top:6px;text-align:justify">Time : {{n.time}}</p>
-                 <p style="color:#66757f;margin: 0 0 0px;line-height:19px;margin-top:6px;text-align:justify">Information:{{n.data}}</p>
+                  <div class="table-responsive">
+                      <table class="table" style="margin-bottom: 0 !important;">
+                          <tbody>
+                          <tr>
+                              <td style="float:left;border: 0;">{{n.time}}</td>
+                              <td style="float:left;width: 43rem;border: 0;">{{n.data}}</td>
+                              <td style="float:left;border: 0;">Coming soon!</td>
+                          </tr>
+                          </tbody>
+                      </table>
+                  </div>
               </div>
            </div>
             <!--- Transaction History----->

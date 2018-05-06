@@ -37,6 +37,7 @@
     "remarkable": "^1.7.1",
     "socket.io": "^2.0.3",
     "steem": "^0.6.7",
+    "steemjs-lib": "^0.3.7",
     "steem-rpc": "^0.6.6",
     "ui-router": "^1.0.0-alpha.3",
     "winston": "^2.3.1",

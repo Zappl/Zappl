@@ -120,8 +120,7 @@ body.article-editor h1, h2{color:black;padding-top:10px;}
 </form>
 </div>
 <div class="collapse navbar-collapse" id=myNavbar ng-init="hc.getImageForNavBar()" style="margin-top: 4px;">
-<ul class="nav navbar-nav navbar-right col-md-7 col-sm-7 col-xs-6 text-center pad_right set_nav">
-<li class="set_nav1 set_nav2"><img src="images/1.png"/><a ui-sref=Home style="color:#fff;">Home</a></li>
+<ul class="nav navbar-nav navbar-right col-md-6 col-sm-6 col-xs-6 text-center pad_right set_nav">
 <li class="set_nav1 set_nav3"><img src="images/2.png"/><a ui-sref=Comments style="color:#fff;">Comments</a></li>
 <li class=set_nav1><img src="images/3.png"/><a ui-sref=Wallet style="color:#fff;">Wallet</a></li>
 <li class=set_nav1><img src="images/4.png"/><a ui-sref="Message({user : hc.username})" style="color:#fff;">Messages</a></li>
@@ -156,7 +155,7 @@ body.article-editor h1, h2{color:black;padding-top:10px;}
 <span class=icon-bar style="background-color:#fff"></span>
 <span class=icon-bar style="background-color:#fff"></span>
 </button>
-<a class="navbar-brand " href="#"><img src="images/8.png" class="pull-left img_mar"/></a>
+<a class="navbar-brand" href="/"><img src="images/8.png" class="pull-left img_mar"/></a>
 <form class="navbar-form navbar-left navbrand" style=margin-top:10px>
 <div class=input-group>
 <input id=txtSearch class="form-control input" placeholder=Search... ng-model=search style="-webkit-box-shadow:none !important; padding-left: 6px;">
@@ -189,7 +188,7 @@ body.article-editor h1, h2{color:black;padding-top:10px;}
 </div>
 </span>
 </span>
-<div id=body class=width ng-if="$root.url !== '/' && $root.url !== '/Wallet' && $root.url !== '/:tag/:username/:permlink'  && $root.url !== '/Settings' && $root.url !== '/@{user}' && $root.url !== '/Blog' && $root.url !== '/Reply' && $root.url !== '/Message/{user}' && $root.url !== '/tos'  && $root.url !== '/{user2}' && $root.url !== '/group/{groupname}' && $root.url !== '/creategroup' && $root.url !== '/Follower' && $root.url !== '/Following'">
+<div id=body class=width ng-if="$root.url !== '/' && $root.url !== '/Wallet' && $root.url !== '/:tag/:username/:permlink'  && $root.url !== '/Settings' && $root.url !== '/@{user}' && $root.url !== '/Blog' && $root.url !== '/Reply' && $root.url !== '/Message/{user}' && $root.url !== '/tos'  && $root.url !== '/invest'  && $root.url !== '/{user2}' && $root.url !== '/group/{groupname}' && $root.url !== '/creategroup' && $root.url !== '/Follower' && $root.url !== '/Following'">
 <aside class="sidebar small-sidebar left-sidebar" style=margin-top:95px>
 <div>
 <ul>
@@ -197,9 +196,9 @@ body.article-editor h1, h2{color:black;padding-top:10px;}
 <ul>
 <span ng-if="hc.loginToken != undefined">
 <div class="col-md-12 four_sec " style=padding:0px ng-init="hc.getUserInfo()">
-<li style="border-radius:5px 5px 0px 0px;width:100%;height:120px;list-style-type:none !important;background-image:url(1/images/gr_1.png);background-repeat:no-repeat;background-size:cover;margin-left:-2px"></li>
+<li class="blue-gradient" style="border-radius:5px 5px 0px 0px;width:100%;height:120px;list-style-type:none !important;"></li>
 <li class=text-center style="background-color:#fff;border-bottom:1px solid #e5ebef;text-align:-webkit-center;text-align:-moz-center;list-style-type:none !important;border-left:2px solid #e1e8ed;border-right:2px solid #e1e8ed;margin-top:-10px;">
-<img ng-src={{hc.userInfo.userInfo.profile_image}} height=113 width=115 class="img-responsive img-rounded" style="z-index:1;margin-top:-80px;"/>
+    <a ui-sref="Profile({user : hc.username})"><img ng-src={{hc.userInfo.userInfo.profile_image}} height=113 width=115 class="img-responsive img-rounded" style="z-index:1;margin-top:-80px;"/></a>
 <h3 style="color:#292f33;margin-bottom:0px;font-weight:bold">{{hc.userInfo.userInfo.name}}</h3>
 <span style="color:#8899a6">@{{hc.userInfo.userInfo.userName}}</span>
 </li>
@@ -365,9 +364,9 @@ Blog Status AppsJobs Business Developers</p>
 <button type=button class=close data-dismiss=modal style="color:#000 !important;outline:0px">&times;</button>
 </div>
 <div class=modal-body style="padding:0px 25px">
-<div class=form-group>
+<!-- <div class=form-group>
 <input id=titles class="form-control input" ng-model=title placeholder=Title>
-</div>
+</div> -->
 <div class=col-md-12 style=padding:0px>
 <textarea id=txtModal12 rows=4 ng-model=text maxlength=240 style="width:100%;resize:vertical;border:1px solid #ccc"></textarea>
 </div>
@@ -431,7 +430,8 @@ Blog Status AppsJobs Business Developers</p>
 </div>
 <div class="modal-footer text-center" style="border-top:0px;text-align:center !important">
 <div class=col-md-12>
-<button type=button class="btn button_layout" data-dismiss=modal ng-disabled="!title.length || !text.length" ng-click="hc.postWhatsHappening()"><span style="color:3292f33;font-weight:600">Post</span></button>
+<!-- <button type=button class="btn button_layout" data-dismiss=modal ng-disabled="!title.length || !text.length" ng-click="hc.postWhatsHappening()"><span style="color:3292f33;font-weight:600">Post</span></button> -->
+<button type=button class="btn button_layout" data-dismiss=modal ng-disabled="!text.length" ng-click="hc.postWhatsHappening()"><span style="color:3292f33;font-weight:600">Post</span></button>
 </div>
 <input id=idField class=input style="visibility: hidden;">
 </div>
@@ -559,6 +559,11 @@ Blog Status AppsJobs Business Developers</p>
 </div>
 <div ng-init="layout.checkToken() != false">
 <div ng-if="$root.url == '/tos'">
+<div ui-view></div>
+</div>
+</div>
+<div ng-init="layout.checkToken() != false">
+<div ng-if="$root.url == '/invest'">
 <div ui-view></div>
 </div>
 </div>

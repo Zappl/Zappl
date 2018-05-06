@@ -2568,12 +2568,18 @@ function getUserPostInfo_Feed(obj,callback){
                                      if(result.app == filterText && report == undefined){
                                         result = JSON.parse(rep[i].json_metadata);
                                         image = result.image;
-                                        if(typeof result.tags == 'object'){
-                                          allTags = result.tags;
+                                        if(result.tags != undefined){
+                                          if(typeof result.tags == 'object'){
+                                            allTags = result.tags;
+                                          }
+                                          else{
+                                            allTags = result.tags.split(',');
+                                          }
                                         }
                                         else{
-                                          allTags = result.tags.split(',');
+                                          allTags = ["zappl"];
                                         }
+
                                         var nsfw = allTags.find(a => a.toLowerCase() == "nsfw");
                                         if(nsfw == undefined){
                                           nsfw = false;
@@ -3601,13 +3607,13 @@ exports.postCommentBlog = function(data,callback){
    var decode = jwt.verify(token, secretKey);
    steem.broadcast.comment(decode.password, data.parentAuthor, data.parentPermlink, decode.userName, data.permlink, data.title, data.body, data.jsonMetadata,function(err, result) {
     if(err){
-      //console.log("ERROR1 : ", err);
-      if(err.payload.error.data.message == 'Assert Exception'){
-          err.payload.error.data.message = 'You may only post once every 5 minutes.';
+      //console.log("ERROR1 : ", err.data.message);
+      if(err.data.message == 'Assert Exception'){
+          err.data.message = 'You may only post once every 5 minutes.';
           callback('You may only post once every 5 minutes.',null);
-          logger.info('post API - steem.broadcast.comment, ','Data :- ',data,', ERROR :- ',err.payload.error.data.message);
+          logger.info('post API - steem.broadcast.comment, ','Data :- ',data,', ERROR :- ',err.data.message);
         }
-        else if(err.payload.error.data.message == 'plugin exception'){
+        else if(err.data.message == 'plugin exception'){
           var char = 'a';
           var mask = '';
           if (char.indexOf('a') > -1) mask += 'abcdefghijklmnopqrstuvwxyz';
@@ -3617,23 +3623,23 @@ exports.postCommentBlog = function(data,callback){
           steem.broadcast.comment(decode.password, data.parentAuthor, data.parentPermlink, decode.userName, permlink, data.title, data.body, data.jsonMetadata,function(err3, result3) {
             if(err3){
               //console.log("ERROR2 : ", err3);
-              if(err3.payload.error.data.message == 'Assert Exception'){
-                err3.payload.error.data.message = 'You may only post once every 5 minutes.';
+              if(err3.data.message == 'Assert Exception'){
+                err3.data.message = 'You may only post once every 5 minutes.';
                 callback('You may only post once every 5 minutes.',null);
-                logger.info('post API - steem.broadcast.comment, ','Data :- ',data,', ERROR :- ',err3.payload.error.data.message);
+                logger.info('post API - steem.broadcast.comment, ','Data :- ',data,', ERROR :- ',err3.data.message);
               }
               else{
-                err3.payload.error.data.message = "Something went wrong!! Please try after some time.."
-                logger.info('post API - steem.broadcast.comment, ','Data :- ',data,', ERROR :- ',err3.payload.error.data.message);
-                callback(err3.payload.error.data.message,null);
+                err3.data.message = "Something went wrong!! Please try after some time.."
+                logger.info('post API - steem.broadcast.comment, ','Data :- ',data,', ERROR :- ',err3.data.message);
+                callback(err3.data.message,null);
               }
             }
             else{
               op.push(result3);
               steem.broadcast.commentOptions(decode.password, decode.userName, permlink, "1000000.000 SBD", 10000, true, true, [[0, { 'beneficiaries': [{ 'account':'zappl', 'weight':1500 }] }]], function(err4, result4) {
               if(err4){
-                    logger.info('post API - steem.broadcast.comment, ','Data :- ',data,', ERROR2 :- ',err4.payload.error.data.message);
-                    callback(err4.payload.error.data.message,null);
+                    logger.info('post API - steem.broadcast.comment, ','Data :- ',data,', ERROR2 :- ',err4.data.message);
+                    callback(err4.data.message,null);
               }
               else{
                 op.push(result4);
@@ -3644,17 +3650,17 @@ exports.postCommentBlog = function(data,callback){
           })
         }
         else{
-          callback(err.payload.error.data.message,null);
-          err.payload.error.data.message = "Something went wrong!! Please try after some time.."
-          logger.info('post API - steem.broadcast.comment, ','Data :- ',data,', ERROR :- ',err.payload.error.data.message);
+          callback(err.data.message,null);
+          err.data.message = "Something went wrong!! Please try after some time.."
+          logger.info('post API - steem.broadcast.comment, ','Data :- ',data,', ERROR :- ',err.data.message);
         }
       }
       else{
         op.push(result);
         steem.broadcast.commentOptions(decode.password, decode.userName, data.permlink, "1000000.000 SBD", 10000, true, true, [[0, { 'beneficiaries': [{ 'account':'zappl', 'weight':1500 }] }]], function(err1, result1) {
         if(err1){
-          logger.info('post API - steem.broadcast.comment, ','Data :- ',data,', ERROR2 :- ',err1.payload.error.data.message);
-          callback(err1.payload.error.data.message,null);
+          logger.info('post API - steem.broadcast.comment, ','Data :- ',data,', ERROR2 :- ',err1.data.message);
+          callback(err1.data.message,null);
         }
         else{
           op.push(result1);

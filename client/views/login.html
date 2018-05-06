@@ -1,5 +1,5 @@
 <script language=javascript type="text/javascript">window.history.forward();</script>
-<div id=container>
+<div id=container style="background-color: #fff">
 <nav class="navbar " style="border-radius:0px;overflow-y:hidden;box-shadow:none;">
 <div class=container>
 <div class="navbar-header pad_left">
@@ -15,9 +15,45 @@
 </div>
 </form>
 </div>
+
+</ul>
+    <div class="collapse navbar-collapse" id=myNavbar>
+        <ul class="nav navbar-nav navbar-right col-md-3 col-sm-2 col-xs-2 text-center pad_right set_nav" style=padding-top:10px>
+            <li style="padding:0px 0px !important;"><a href="https://discord.gg/PNwrUSp"><i class="fab fa-discord" style="color: #fff;font-size:32px;"></i></a></li>
+            <li style="padding:0px 0px !important;"><a href="https://www.facebook.com/ZapplInc/"><i class="fab fa-facebook-square" style="color: #fff;font-size:32px;"></i></a></li>
+            <li style="padding:0px 0px !important;"><a href="https://twitter.com/Zappl_Com"><i class="fab fa-twitter-square" style="color: #fff;font-size:32px;"></i></a></li>
+            <button type=button class="btn btn-link btn-round" style="color:#FFFFFF;font-size:14px;border:1px solid #fff;border-radius: 32px;" data-toggle=modal data-target="#myModal31"> Log in </button>
+        </ul>
+    </div>
 </div>
 </nav>
-<div id=body style="background-image:url(./1/images/login_background.png);margin-top:-29px;background-size:cover;height:840px">
+    <div class="modal fade" id=myModal31 role=dialog data-ng-controller=loginCtrl>
+        <div class=modal-dialog>
+            <div class=modal-content>
+                <div class=modal-header style=border-bottom:0px>
+                    <button type=button class=close data-dismiss=modal>&times;</button>
+                </div>
+                <div class="modal-body text-center" style="padding:10px 40px">
+                    <img src="1/images/blue_logo.png">
+                    <h2 style=font-weight:bold>Log in to your account</h2>
+                    <p style="color:#66757f">Login with Steem post key.</p>
+                    <div class=form-group>
+                        <input id=test placeholder="User name" ng-model=name class=input style="padding:20px;width:100%" required />
+                    </div>
+                    <div class=form-group>
+                        <input type=password ng-model=password class=input placeholder=Password style="padding:20px;width:100%" required />
+                        <div style=color:red>{{errorMessage}}</div>
+                    </div>
+                </div>
+                <div class="modal-footer text-center" style="border-top:0px;text-align:center !important">
+                    <a style="color:#292f33">
+                        <input type=submit id=btnSubmit value=login data-dismiss=modal class="btn button_layout" ng-click="verifyUser()">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+<div id=body style="margin-top:-29px;position: relative;background-image: linear-gradient(#21a3f2, #7b8dff);border-bottom-left-radius: 50% 20%;border-bottom-right-radius: 50% 20%;height:840px">
 <div class=container>
 <div class=col-md-3></div>
 <form class=form ng-controller=loginCtrl>
@@ -145,7 +181,7 @@
         </div>
     </section>
 
-    <section id="app-video" style="background-image:url(./1/images/login_background.png);">
+    <section id="app-video" style="background-image: linear-gradient(#21a3f2, #7b8dff);">
         <div class="app-video-overlay">
             <div class="container">
                 <div class="row">

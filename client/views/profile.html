@@ -124,12 +124,18 @@
             <img ng-src="{{n.profileImage}}" class="img-responsive img-rounded hei_view" style="width:45px;height:45px;cursor:pointer;"/>
          </div>
              <div data-ng-controller="feedInfoCtrl as fi" class="col-md-11 col-sm-11 col-xs-11" style="padding:10px 12px 3px 10px;overflow:hidden;word-break:break-all;white-space:normal;">
+                 <div class="row">
+                 <div class="col-md-11 col-sm-11 col-xs-11">
                  <h4 style="display:inline;text-transform:capitalize;cursor:pointer"  ui-sref="Profile({user : n.author})">{{n.author}}</h4> <span style="color:#92a1ad">@{{n.author}}</span>
-                  <br />
                  <img src="images/circle.png" width="5" height="5"/>
                  <span style="color:#92a1ad" ng-if="n.post_time != '1 minutes'">{{n.post_time}} ago</span>
                  <span style="color:#92a1ad" ng-if="n.post_time == '1 minutes'">Just now</span>
-                 <a ui-sref="UserPost({tag : n.tags,username: n.author, permlink: n.permlink})"><p style="font-size:100%;color:#292f33;margin: 0 0 0px;line-height:19px"><b>{{n.bodyTitle}}</b></p></a>
+                 </div>
+                 <div class="col-md-1 col-sm-1 col-xs-1">
+                 <a ng-click="fi.reportAbuse(n.author,n.permlink)"><i class="far fa-flag fa-xs" style="cursor:pointer;color:#92a1ad;"></i></a>
+                 </div>
+                 </div>
+                 <a ui-sref="UserPost({tag : n.tags,username: n.author, permlink: n.permlink})"><p style="font-size:100%;color:#292f33;margin: 0 0 0px;line-height:19px">{{n.bodyTitle}}</p></a>
                  <a ui-sref="UserPost({tag : n.tags,username: n.author, permlink: n.permlink})">
                    <span ng-show="n.y === true && n.i === false && n.v === false">
                      <iframe  width="420" height="345" ng-src="{{n.image1}}" frameborder="0" allowfullscreen></iframe>
@@ -139,13 +145,11 @@
                </a> <br />
                  <a ng-click="hc.postVote_Profile(n.author,n.permlink,$index)"><img ng-if="n.isVote == false" style="cursor:pointer" src="images/z12.png" /><img ng-if="n.isVote == true" style="cursor:pointer" src="images/z143.png" /></a><span style="color:#717f88;font-size:13px">${{n.upvote}}</span> &nbsp;
                  <span style="color:#717f88">.</span>&nbsp;
-                 <i class="fas fa-chevron-up"></i> <span style="color:#717f88;font-size:13px">{{n.net_votes}}</span>&nbsp;
+                 <i class="fas fa-chevron-up" style="color:#717f88;font-size:13px"></i> <span style="color:#717f88;font-size:13px">{{n.net_votes}}</span>&nbsp;
                  <span style="color:#717f88">.</span>&nbsp;
-                 <a ui-sref="UserPost({tag : n.tags,username: n.author, permlink: n.permlink})"><span style="color:#717f88;font-size:13px">Comment({{n.comments}})</span></a>&nbsp;
+                 <a ui-sref="UserPost({tag : n.tags,username: n.author, permlink: n.permlink})"><i class="far fa-comments" style="color:#717f88;font-size:0.90em"></i><span style="color:#717f88;font-size:13px"> ({{n.comments}})</span></a>&nbsp;
                  <span ng-if="hc.userInfo.userInfo.name != hc.username"><span style="color:#717f88">.</span>&nbsp;
-                 <a ng-click="fi.getRezapList(n.author,n.permlink)"><span style="color:#717f88;font-size:13px;cursor:pointer">Rezap</span></a>&nbsp;
-                 <span style="color:#717f88">.</span>&nbsp;
-                 <a ng-click="fi.reportAbuse(n.author,n.permlink)"><i class="far fa-flag fa-xs" style="cursor:pointer;color:#92a1ad;"></i></a>
+                 <a ng-click="fi.getRezapList(n.author,n.permlink)"><span style="color:#717f88;font-size:13px;cursor:pointer">Rezap</span></a>
                  </div>
              <hr>
          </div>
@@ -158,12 +162,18 @@
             <img ng-src="{{n.profileImage}}" class="img-responsive img-rounded hei_view" style="width:45px;height:45px;cursor:pointer;"/>
          </div>
              <div data-ng-controller="feedInfoCtrl as fi" class="col-md-11 col-sm-11 col-xs-11" style="padding:10px 12px 3px 10px;overflow:hidden;word-break:break-all;white-space:normal;">
+                 <div class="row">
+                 <div class="col-md-11 col-sm-11 col-xs-11">
                  <h4 style="display:inline;text-transform:capitalize;cursor:pointer"  ui-sref="Profile({user : n.author})">{{n.author}}</h4> <span style="color:#92a1ad">@{{n.author}}</span>
-                  <br />
                  <img src="images/circle.png" width="5" height="5"/>
                  <span style="color:#92a1ad" ng-if="n.post_time != '1 minutes'">{{n.post_time}} ago</span>
                  <span style="color:#92a1ad" ng-if="n.post_time == '1 minutes'">Just now</span>
-                 <a ui-sref="UserPost({tag : n.tags,username: n.author, permlink: n.permlink})"><p style="font-size:100%;color:#292f33;margin: 0 0 0px;line-height:19px"><b>{{n.bodyTitle}}</b></p></a>
+                 </div>
+                 <div class="col-md-1 col-sm-1 col-xs-1">
+                 <a ng-click="fi.reportAbuse(n.author,n.permlink)"><i class="far fa-flag fa-xs" style="cursor:pointer;color:#92a1ad;"></i></a>
+                 </div>
+                 </div>
+                 <a ui-sref="UserPost({tag : n.tags,username: n.author, permlink: n.permlink})"><p style="font-size:100%;color:#292f33;margin: 0 0 0px;line-height:19px">{{n.bodyTitle}}</p></a>
                  <a ui-sref="UserPost({tag : n.tags,username: n.author, permlink: n.permlink})">
                    <span ng-show="n.y === true && n.i === false && n.v === false">
                      <iframe  width="420" height="345" ng-src="{{n.image1}}" frameborder="0" allowfullscreen></iframe>
@@ -173,13 +183,11 @@
                </a> <br />
                  <a ng-click="hc.postVote_Profile(n.author,n.permlink,$index)"><img ng-if="n.isVote == false" style="cursor:pointer" src="images/z12.png" /><img ng-if="n.isVote == true" style="cursor:pointer" src="images/z143.png" /></a><span style="color:#717f88;font-size:13px">${{n.upvote}}</span> &nbsp;
                  <span style="color:#717f88">.</span>&nbsp;
-                 <i class="fas fa-chevron-up"></i> <span style="color:#717f88;font-size:13px">{{n.net_votes}}</span>&nbsp;
+                 <i class="fas fa-chevron-up" style="color:#717f88;font-size:13px"></i> <span style="color:#717f88;font-size:13px">{{n.net_votes}}</span>&nbsp;
                  <span style="color:#717f88">.</span>&nbsp;
-                 <a ui-sref="UserPost({tag : n.tags,username: n.author, permlink: n.permlink})"><span style="color:#717f88;font-size:13px">Comment({{n.comments}})</span></a>&nbsp;
+                 <a ui-sref="UserPost({tag : n.tags,username: n.author, permlink: n.permlink})"><i class="far fa-comments" style="color:#717f88;font-size:0.90em"></i><span style="color:#717f88;font-size:13px"> ({{n.comments}})</span></a>&nbsp;
                  <span ng-if="hc.userInfo.userInfo.name != hc.username"><span style="color:#717f88">.</span>&nbsp;
-                 <a ng-click="fi.getRezapList(n.author,n.permlink)"><span style="color:#717f88;font-size:13px;cursor:pointer">Rezap</span></a>&nbsp;
-                 <span style="color:#717f88">.</span>&nbsp;
-                 <a ng-click="fi.reportAbuse(n.author,n.permlink)"><i class="far fa-flag fa-xs" style="cursor:pointer;color:#92a1ad;"></i></a>
+                 <a ng-click="fi.getRezapList(n.author,n.permlink)"><span style="color:#717f88;font-size:13px;cursor:pointer">Rezap</span></a>
                </div>
              <hr>
          </div>
@@ -193,12 +201,18 @@
          </div>
              <div data-ng-controller="feedInfoCtrl as fi" class="col-md-11 col-sm-11 col-xs-11" style="padding:10px 12px 3px 10px;overflow:hidden;word-break:break-all;white-space:normal;">
               <span ng-if="n.nsfw === false">
+                 <div class="row">
+                 <div class="col-md-11 col-sm-11 col-xs-11">
                  <h4 style="display:inline;text-transform:capitalize;cursor:pointer"  ui-sref="Profile({user : n.author})">{{n.author}}</h4> <span style="color:#92a1ad">@{{n.author}}</span>
-                  <br />
                  <img src="images/circle.png" width="5" height="5"/>
                  <span style="color:#92a1ad" ng-if="n.post_time != '1 minutes'">{{n.post_time}} ago</span>
                  <span style="color:#92a1ad" ng-if="n.post_time == '1 minutes'">Just now</span>
-                 <a ui-sref="UserPost({tag : n.tags,username: n.author, permlink: n.permlink})"><p style="font-size:100%;color:#292f33;margin: 0 0 0px;line-height:19px"><b>{{n.bodyTitle}}</b></p></a>
+                 </div>
+                 <div class="col-md-1 col-sm-1 col-xs-1">
+                 <a ng-click="fi.reportAbuse(n.author,n.permlink)"><i class="far fa-flag fa-xs" style="cursor:pointer;color:#92a1ad;"></i></a>
+                 </div>
+                 </div>
+                 <a ui-sref="UserPost({tag : n.tags,username: n.author, permlink: n.permlink})"><p style="font-size:100%;color:#292f33;margin: 0 0 0px;line-height:19px">{{n.bodyTitle}}</p></a>
                  <a ui-sref="UserPost({tag : n.tags,username: n.author, permlink: n.permlink})">
                    <span ng-show="n.y === true && n.i === false && n.v === false">
                      <iframe  width="420" height="345" ng-src="{{n.image1}}" frameborder="0" allowfullscreen></iframe>
@@ -212,13 +226,11 @@
                </span>
                  <a ng-click="hc.postVote_Profile(n.author,n.permlink,$index)"><img ng-if="n.isVote == false" style="cursor:pointer" src="images/z12.png" /><img ng-if="n.isVote == true" style="cursor:pointer" src="images/z143.png" /></a><span style="color:#717f88;font-size:13px">${{n.upvote}}</span> &nbsp;
                  <span style="color:#717f88">.</span>&nbsp;
-                 <i class="fas fa-chevron-up"></i> <span style="color:#717f88;font-size:13px">{{n.net_votes}}</span>&nbsp;
+                 <i class="fas fa-chevron-up" style="color:#717f88;font-size:13px"></i> <span style="color:#717f88;font-size:13px">{{n.net_votes}}</span>&nbsp;
                  <span style="color:#717f88">.</span>&nbsp;
-                 <a ui-sref="UserPost({tag : n.tags,username: n.author, permlink: n.permlink})"><span style="color:#717f88;font-size:13px">Comment({{n.comments}})</span></a>&nbsp;
+                 <a ui-sref="UserPost({tag : n.tags,username: n.author, permlink: n.permlink})"><i class="far fa-comments" style="color:#717f88;font-size:0.90em"></i><span style="color:#717f88;font-size:13px"> ({{n.comments}})</span></a>
                  <span ng-if="hc.userInfo.userInfo.name != hc.username"><span style="color:#717f88">.</span>&nbsp;
-                 <a ng-click="fi.getRezapList(n.author,n.permlink)"><span style="color:#717f88;font-size:13px;cursor:pointer">Rezap</span></a>&nbsp;
-                 <span style="color:#717f88">.</span>&nbsp;
-                 <a ng-click="fi.reportAbuse(n.author,n.permlink)"><i class="far fa-flag fa-xs" style="cursor:pointer;color:#92a1ad;"></i></a>
+                 <a ng-click="fi.getRezapList(n.author,n.permlink)"><span style="color:#717f88;font-size:13px;cursor:pointer">Rezap</span></a>
                  </div>
              <hr>
          </div>
@@ -235,12 +247,18 @@
         </div>
             <div  class="col-md-11 col-sm-11 col-xs-11" style="padding:10px 12px 3px 10px;overflow:hidden;word-break:break-all;white-space:normal;" >
               <span ng-if="n.nsfw === false">
-                <h4 style="display:inline;text-transform:capitalize;cursor:pointer"  ui-sref="Profile({user : n.author})">{{n.author}}</h4> <span style="color:#92a1ad">@{{n.author}}</span>
-                 <br />
-                <img src="images/circle.png" width="5" height="5"/>
-                <span style="color:#92a1ad" ng-if="n.post_time != '1 minutes'">{{n.post_time}} ago</span>
-                <span style="color:#92a1ad" ng-if="n.post_time == '1 minutes'">Just now</span>
-                <a ui-sref="UserPost({tag : n.tags,username: n.author, permlink: n.permlink})"><p style="font-size:100%;color:#292f33;margin: 0 0 0px;line-height:19px"><b>{{n.bodyTitle}}</b></p></a>
+                <div class="row">
+                 <div class="col-md-11 col-sm-11 col-xs-11">
+                 <h4 style="display:inline;text-transform:capitalize;cursor:pointer"  ui-sref="Profile({user : n.author})">{{n.author}}</h4> <span style="color:#92a1ad">@{{n.author}}</span>
+                 <img src="images/circle.png" width="5" height="5"/>
+                 <span style="color:#92a1ad" ng-if="n.post_time != '1 minutes'">{{n.post_time}} ago</span>
+                 <span style="color:#92a1ad" ng-if="n.post_time == '1 minutes'">Just now</span>
+                 </div>
+                 <div class="col-md-1 col-sm-1 col-xs-1">
+                 <a ng-click="fi.reportAbuse(n.author,n.permlink)"><i class="far fa-flag fa-xs" style="cursor:pointer;color:#92a1ad;"></i></a>
+                 </div>
+                 </div>
+                <a ui-sref="UserPost({tag : n.tags,username: n.author, permlink: n.permlink})"><p style="font-size:100%;color:#292f33;margin: 0 0 0px;line-height:19px">{{n.bodyTitle}}</p></a>
                 <br />
                 <a ui-sref="UserPost({tag : n.tags,username: n.author, permlink: n.permlink})">
 
@@ -269,12 +287,9 @@
                   <img ng-if="n.isVote == true" style="cursor:pointer" src="images/z143.png" />
                 </a><span style="color:#717f88;font-size:13px">${{n.upvote}}</span> &nbsp;
                 <span style="color:#717f88">.</span>&nbsp;
-                <i class="fas fa-chevron-up"></i> <span style="color:#717f88;font-size:13px">{{n.net_votes}}</span>&nbsp;
+                <i class="fas fa-chevron-up" style="color:#717f88;font-size:13px"></i> <span style="color:#717f88;font-size:13px">{{n.net_votes}}</span>&nbsp;
                 <span style="color:#717f88">.</span>&nbsp;
-                <a ui-sref="UserPost({tag : n.tags,username: n.author, permlink: n.permlink})"><span style="color:#717f88;font-size:13px">Comment({{n.comments}})</span></a>&nbsp;
-                <!-- <span style="color:#717f88">.</span>&nbsp;
-                <span style="color:#717f88;font-size:13px" ng-if="n.post_time != '1 minutes'">{{n.post_time}} ago</span>
-                <span style="color:#717f88;font-size:13px" ng-if="n.post_time == '1 minutes'">Just now</span> -->
+                <a ui-sref="UserPost({tag : n.tags,username: n.author, permlink: n.permlink})"><i class="far fa-comments" style="color:#717f88;font-size:0.90em"></i><span style="color:#717f88;font-size:13px"> ({{n.comments}})</span></a>&nbsp;
                 <span ng-show="n.net_votes == 0 && n.author == hc.username && n.comments == 0 && n.postTime == true">
                 <span style="color:#717f88">.</span>&nbsp;
                 <a style="color:#717f88;font-size:13px;cursor:pointer" ng-click="hc.postDeleteComment(n.permlink)">Delete</a>
@@ -292,12 +307,18 @@
              <img ng-src="{{n.profileImage}}" class="img-responsive img-rounded hei_view" style="width:45px;height:45px"/>
           </div>
               <div class="col-md-11 col-sm-11 col-xs-11" style="padding:10px 12px 3px 10px;overflow:hidden;word-break:break-all;white-space:normal;" >
-                  <h4 style="display:inline;text-transform:capitalize;cursor:pointer"  ui-sref="Profile({user : n.author})">{{n.author}}</h4> <span style="color:#92a1ad">@{{n.author}}</span>
-                   <br />
-                  <img src="images/circle.png" width="5" height="5"/>
-                  <span style="color:#92a1ad" ng-if="n.post_time != '1 minutes'">{{n.post_time}} ago</span>
-                  <span style="color:#92a1ad" ng-if="n.post_time == '1 minutes'">Just now</span>
-                  <a ui-sref="UserPost({tag : n.tags,username: n.author, permlink: n.permlink})"><p style="font-size:100%;color:#292f33;margin: 0 0 0px;line-height:19px"><b>{{n.bodyTitle}}</b></p></a>
+                  <div class="row">
+                 <div class="col-md-11 col-sm-11 col-xs-11">
+                 <h4 style="display:inline;text-transform:capitalize;cursor:pointer"  ui-sref="Profile({user : n.author})">{{n.author}}</h4> <span style="color:#92a1ad">@{{n.author}}</span>
+                 <img src="images/circle.png" width="5" height="5"/>
+                 <span style="color:#92a1ad" ng-if="n.post_time != '1 minutes'">{{n.post_time}} ago</span>
+                 <span style="color:#92a1ad" ng-if="n.post_time == '1 minutes'">Just now</span>
+                 </div>
+                 <div class="col-md-1 col-sm-1 col-xs-1">
+                 <a ng-click="fi.reportAbuse(n.author,n.permlink)"><i class="far fa-flag fa-xs" style="cursor:pointer;color:#92a1ad;"></i></a>
+                 </div>
+                 </div>
+                  <a ui-sref="UserPost({tag : n.tags,username: n.author, permlink: n.permlink})"><p style="font-size:100%;color:#292f33;margin: 0 0 0px;line-height:19px">{{n.bodyTitle}}</p></a>
                   <br />
                   <a ui-sref="UserPost({tag : n.tags,username: n.author, permlink: n.permlink})">
 
@@ -323,9 +344,9 @@
                   </a>
                   <span style="color:#717f88;font-size:13px">${{n.upvote}}</span> &nbsp;
                   <span style="color:#717f88">.</span>&nbsp;
-                  <i class="fas fa-chevron-up"></i> <span style="color:#717f88;font-size:13px">{{n.net_votes}}</span>&nbsp;
+                  <i class="fas fa-chevron-up" style="color:#717f88;font-size:13px"></i> <span style="color:#717f88;font-size:13px">{{n.net_votes}}</span>&nbsp;
                   <span style="color:#717f88">.</span>&nbsp;
-                  <a ui-sref="UserPost({tag : n.tags,username: n.author, permlink: n.permlink})"><span style="color:#717f88;font-size:13px">Comment({{n.comments}})</span></a>&nbsp;
+                  <a ui-sref="UserPost({tag : n.tags,username: n.author, permlink: n.permlink})"><i class="far fa-comments" style="color:#717f88;font-size:0.90em"></i><span style="color:#717f88;font-size:13px"> ({{n.comments}})</span></a>&nbsp;
                   <span ng-show="n.net_votes == 0 && n.author == hc.username && n.comments == 0 && n.postTime == true">
                   <span style="color:#717f88">.</span>&nbsp;
                   <a style="color:#717f88;font-size:13px;cursor:pointer" ng-click="hc.postDeleteComment(n.permlink)">Delete</a>
@@ -343,12 +364,18 @@
                <img ng-src="{{n.profileImage}}" class="img-responsive img-rounded hei_view" style="width:45px;height:45px"/>
             </div>
                 <div class="col-md-11 col-sm-11 col-xs-11" style="padding:10px 12px 3px 10px;overflow:hidden;word-break:break-all;white-space:normal;" >
+                    <div class="row">
+                    <div class="col-md-11 col-sm-11 col-xs-11">
                     <h4 style="display:inline;text-transform:capitalize;cursor:pointer"  ui-sref="Profile({user : n.author})">{{n.author}}</h4> <span style="color:#92a1ad">@{{n.author}}</span>
-                     <br />
                     <img src="images/circle.png" width="5" height="5"/>
                     <span style="color:#92a1ad" ng-if="n.post_time != '1 minutes'">{{n.post_time}} ago</span>
                     <span style="color:#92a1ad" ng-if="n.post_time == '1 minutes'">Just now</span>
-                    <a ui-sref="UserPost({tag : n.tags,username: n.author, permlink: n.permlink})"><p style="font-size:100%;color:#292f33;margin: 0 0 0px;line-height:19px"><b>{{n.bodyTitle}}</b></p></a>
+                    </div>
+                    <div class="col-md-1 col-sm-1 col-xs-1">
+                    <a ng-click="fi.reportAbuse(n.author,n.permlink)"><i class="far fa-flag fa-xs" style="cursor:pointer;color:#92a1ad;"></i></a>
+                    </div>
+                    </div>
+                    <a ui-sref="UserPost({tag : n.tags,username: n.author, permlink: n.permlink})"><p style="font-size:100%;color:#292f33;margin: 0 0 0px;line-height:19px">{{n.bodyTitle}}</p></a>
                     <br />
                     <a ui-sref="UserPost({tag : n.tags,username: n.author, permlink: n.permlink})">
 
@@ -367,9 +394,9 @@
                     </a> <br />
                     <a ng-click="hc.postVote_Home(n.author,n.permlink,$index)"><img ng-if="n.isVote == false" style="cursor:pointer" src="images/z12.png" /><img ng-if="n.isVote == true" style="cursor:pointer" src="images/z143.png" /></a><span style="color:#717f88;font-size:13px">${{n.upvote}}</span> &nbsp;
                     <span style="color:#717f88">.</span>&nbsp;
-                    <i class="fas fa-chevron-up"></i> <span style="color:#717f88;font-size:13px">{{n.net_votes}}</span>&nbsp;
+                    <i class="fas fa-chevron-up" style="color:#717f88;font-size:13px"></i> <span style="color:#717f88;font-size:13px">{{n.net_votes}}</span>&nbsp;
                     <span style="color:#717f88">.</span>&nbsp;
-                    <a ui-sref="UserPost({tag : n.tags,username: n.author, permlink: n.permlink})"><span style="color:#717f88;font-size:13px">Comment({{n.comments}})</span></a>&nbsp;
+                    <a ui-sref="UserPost({tag : n.tags,username: n.author, permlink: n.permlink})"><i class="far fa-comments" style="color:#717f88;font-size:0.90em"></i><span style="color:#717f88;font-size:13px"> ({{n.comments}})</span></a>&nbsp;
                     <span ng-show="n.net_votes == 0 && n.author == hc.username && n.comments == 0 && n.postTime == true">
                     <span style="color:#717f88">.</span>&nbsp;
                     <a style="color:#717f88;font-size:13px;cursor:pointer" ng-click="hc.postDeleteComment(n.permlink)">Delete</a>
@@ -389,13 +416,18 @@
          </div>
              <div data-ng-controller="feedInfoCtrl as fi" class="col-md-11 col-sm-11 col-xs-11" style="padding:10px 12px 3px 10px;overflow:hidden;word-break:break-all;white-space:normal;">
               <span ng-if="n.nsfw === false">
+                 <div class="row">
+                 <div class="col-md-11 col-sm-11 col-xs-11">
                  <h4 style="display:inline;text-transform:capitalize;cursor:pointer"  ui-sref="Profile({user : n.author})">{{n.author}}</h4> <span style="color:#92a1ad">@{{n.author}}</span>
-                  <br />
                  <img src="images/circle.png" width="5" height="5"/>
-                 <!-- <span style="color:#92a1ad">{{n.post_time}} ago</span> -->
                  <span style="color:#92a1ad" ng-if="n.post_time != '1 minutes'">{{n.post_time}} ago</span>
                  <span style="color:#92a1ad" ng-if="n.post_time == '1 minutes'">Just now</span>
-                 <a ui-sref="UserPost({tag : n.tags,username: n.author, permlink: n.permlink})"><p style="font-size:100%;color:#292f33;margin: 0 0 0px;line-height:19px"><b>{{n.bodyTitle}}</b></p></a>
+                 </div>
+                 <div class="col-md-1 col-sm-1 col-xs-1">
+                 <a ng-click="fi.reportAbuse(n.author,n.permlink)"><i class="far fa-flag fa-xs" style="cursor:pointer;color:#92a1ad;"></i></a>
+                 </div>
+                 </div>
+                 <a ui-sref="UserPost({tag : n.tags,username: n.author, permlink: n.permlink})"><p style="font-size:100%;color:#292f33;margin: 0 0 0px;line-height:19px">{{n.bodyTitle}}</p></a>
                  <a ui-sref="UserPost({tag : n.tags,username: n.author, permlink: n.permlink})">
                    <span ng-show="n.y === true && n.i === false && n.v === false">
                      <iframe  width="420" height="345" ng-src="{{n.image1}}" frameborder="0" allowfullscreen></iframe>
@@ -408,10 +440,10 @@
                        <p style="font-size: inherit;">This post is <span style="color: red;border: 1px solid red;border-radius: 3px;padding: 1px;">nsfw</span>.<a style="cursor:pointer" data-toggle="modal" data-target="#myModal31">Login </a> to reveal it.</p>
                </span>
                  <a id='img' ng-click="hc.postVote_Profile(n.author,n.permlink,$index)"><img  style="cursor:pointer" src="images/z12.png" /></a><span style="color:#717f88;font-size:13px">${{n.upvote}}</span> &nbsp;
+                 <span style="color:#717f88">.</span>
+                 <i class="fas fa-chevron-up" style="color:#717f88;font-size:13px"></i> <span style="color:#717f88;font-size:13px">{{n.net_votes}}</span>&nbsp;
                  <span style="color:#717f88">.</span>&nbsp;
-                 <i class="fas fa-chevron-up"></i> <span style="color:#717f88;font-size:13px">{{n.net_votes}}</span>&nbsp;
-                 <span style="color:#717f88">.</span>&nbsp;
-                 <a ui-sref="UserPost({tag : n.tags,username: n.author, permlink: n.permlink})"><span style="color:#717f88;font-size:13px">Comment({{n.comments}})</span></a>&nbsp;
+                 <a ui-sref="UserPost({tag : n.tags,username: n.author, permlink: n.permlink})"><i class="far fa-comments" style="color:#717f88;font-size:0.90em"></i><span style="color:#717f88;font-size:13px"> ({{n.comments}})</span></a>
                  <span ng-if="hc.userInfo.userInfo.name != hc.username"><span style="color:#717f88">.</span>&nbsp;
                  <a ng-click="fi.getRezapList(n.author,n.permlink)"><span style="color:#717f88;font-size:13px;cursor:pointer">Rezap</span></a>&nbsp;</span>
                  <!-- <span style="color:#717f88">.</span>&nbsp;

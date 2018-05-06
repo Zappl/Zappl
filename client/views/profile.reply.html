@@ -6,7 +6,6 @@
     </div>
       <div class="col-md-11 col-sm-11 col-xs-11" style="padding:10px 12px 3px 10px;overflow:hidden;word-break:break-all;white-space:normal;" >
           <h4 style="display:inline;text-transform:capitalize;cursor:pointer" ui-sref="Profile({user : n.author})">{{n.author}}</h4> <span style="color:#92a1ad">@{{n.author}}</span>
-           <br />
           <img src="images/circle.png" width="5" height="5"/>
           <!-- <span style="color:#92a1ad">{{n.post_time}} ago</span> -->
           <span style="color:#92a1ad" ng-if="n.post_time != '1 minutes'">{{n.post_time}} ago</span>
@@ -24,7 +23,7 @@
           <span style="color:#717f88">.</span>&nbsp;&nbsp;
           <img src="images/z12.png" /> <span style="color:#717f88;font-size:13px">{{n.net_votes}}</span>&nbsp;&nbsp;
           <span style="color:#717f88">.</span>&nbsp;&nbsp;
-          <span style="color:#717f88;font-size:13px">Comment({{n.comments}})</span>&nbsp;&nbsp;
+          <i class="far fa-comments" style="color:#717f88;font-size:0.90em"></i><span style="color:#717f88;font-size:13px"> ({{n.comments}})</span>&nbsp;&nbsp;
           <!-- <span style="color:#717f88">.</span>&nbsp;&nbsp;
           <span style="color:#717f88;font-size:13px">{{n.post_time}} ago</span> -->
       </div>

@@ -324,7 +324,6 @@ ZapplApp.controller("homeCtrl", function ($http, $scope, $rootScope, $stateParam
     hc.routeToDraft = function () {
         var path = $window.location.origin;
         window.location = path + "/Drafts";
-        $window.location.reload();
     }
     //for initial tag topic list
     hc.getTagTopicList = function () {
@@ -1466,14 +1465,16 @@ ZapplApp.controller("homeCtrl", function ($http, $scope, $rootScope, $stateParam
         $scope.videoUrlSources = '';
     }
     hc.postWhatsHappening = function () {
-        hc.deleteDraft();
+        //hc.deleteDraft();
         var videoYT = localStorage.getItem("videoYT");
         var listYT = localStorage.getItem("listYT");
         hc.happeningBody = videoYT;
         finalImageList.push(listYT);
         var tagsList = [];
         var token = hc.loginToken;
-        hc.title = $scope.title || document.getElementById("titles").value;
+        var titlz = new Date().toISOString().replace(/[^a-zA-Z0-9]+/g, '').toLowerCase();
+        //hc.title = $scope.title || document.getElementById("titles").value;
+        hc.title = "Zappl Post "+ titlz;
         var permlink = hc.title.toLowerCase().replace(/ |[-!$%•√π¶∆°=©®™✓^@#&¢÷×€£¥₹*()_+|~=`{}\[\]:";'<>?,.\/]/g, "-").replace(/[\s-]+/g, "-");
         var test = document.getElementById("txtModal12").value;
         hc.body = test;
@@ -1497,8 +1498,8 @@ ZapplApp.controller("homeCtrl", function ($http, $scope, $rootScope, $stateParam
         else if (test.match(/(<iframe.+?<\/iframe>)/g)) {
             alert('Invalid iframe URL: Please remove the following HTML elements from your post');
         }
-        else if (test == '' || hc.title == '') {
-            alert('Please enter text in Title and Body both');
+        else if (test == '') {
+            alert('Please enter text in Text area');
         }
         else {
             if (hc.happeningBody != undefined) {
@@ -1516,9 +1517,11 @@ ZapplApp.controller("homeCtrl", function ($http, $scope, $rootScope, $stateParam
                 image: finalImageList,
                 permlink: permlink
             };
+
             var rep = LoginService.postBlog(data)
             rep.then(function (data) {
                 if (data.data.Message == "Successful") {
+                    hc.deleteDraft();
                     finalPostKV = [];
                     finalImageList = [];
                     localStorage.setItem("videoYT", '');
@@ -1527,7 +1530,7 @@ ZapplApp.controller("homeCtrl", function ($http, $scope, $rootScope, $stateParam
                     $scope.videoUrlSources = '';
                     document.getElementById("idField").value = '';
                     document.getElementById("chkPassport").checked = false;
-                    document.getElementById("titles").value = '';
+                    // document.getElementById("titles").value = '';
                     document.getElementById("txtModal12").value = '';
                     document.getElementById("sel2").value = "Default (50% / 50%)";
                     document.getElementById("appearImage").style.display = "none";
@@ -1559,7 +1562,9 @@ ZapplApp.controller("homeCtrl", function ($http, $scope, $rootScope, $stateParam
                             var vote = LoginService.postVote(data);
                             vote.then(function (data) {
                                 console.log("Error vote", data);
-                                hc.getUserInfoHome();
+                                var path = $window.location.origin;
+                                window.location = path + "/@"+hc.username;
+                                //hc.getUserInfoHome();
                             });
                         }
                         else {
@@ -1567,7 +1572,9 @@ ZapplApp.controller("homeCtrl", function ($http, $scope, $rootScope, $stateParam
                         }
                     }
                     else {
-                        hc.getUserInfoHome();
+                      var path = $window.location.origin;
+                      window.location = path + "/@"+hc.username;
+                        //hc.getUserInfoHome();
                     }
                 }
                 else if (data.data.error == 1) {
@@ -1592,7 +1599,9 @@ ZapplApp.controller("homeCtrl", function ($http, $scope, $rootScope, $stateParam
     hc.postBlog = function () {
         var tagsList = [];
         var token = hc.loginToken;
-        hc.title = $scope.title || document.getElementById("titles").value;
+        var titlz = new Date().toISOString().replace(/[^a-zA-Z0-9]+/g, '').toLowerCase();
+        //hc.title = $scope.title || document.getElementById("titles").value;
+        hc.title = "Zappl Post "+ titlz;
         var permlink = hc.title.toLowerCase().replace(/ |[-!$%^@•√π¶∆°=©®™✓#&€÷×¢£¥₹*()_+|~=`{}\[\]:";'<>?,.\/]/g, "-").replace(/[\s-]+/g, "-");
         var name1 = LoginService.getRezapList(hc.username);
         name1.then(function (data) {
@@ -1705,7 +1714,9 @@ ZapplApp.controller("homeCtrl", function ($http, $scope, $rootScope, $stateParam
         else {
             var draftId = '';
         }
-        var title = document.getElementById("titles").value || '(no title)';
+        //var title = document.getElementById("titles").value || '(no title)';
+        var titlz = new Date().toISOString().replace(/[^a-zA-Z0-9]+/g, '').toLowerCase();
+        var title = "Zappl Post "+ titlz;
         var bodyString = document.getElementById("txtModal12").value || '';
         var fileType = file;
         var url = listYT;
@@ -1767,7 +1778,7 @@ ZapplApp.controller("homeCtrl", function ($http, $scope, $rootScope, $stateParam
             document.getElementById("chkPassport").checked = false;
         }
         hc.hasPost = document.getElementById("chkPassport").checked;
-        document.getElementById("titles").value = hc.data.title;
+        //document.getElementById("titles").value = hc.data.title;
         document.getElementById("txtModal12").innerHTML = hc.data.bodyString;
         switch (hc.data.rewards) {
             case 100:
@@ -1837,7 +1848,7 @@ ZapplApp.controller("homeCtrl", function ($http, $scope, $rootScope, $stateParam
         $scope.videoUrlSources = '';
         document.getElementById("idField").value = '';
         document.getElementById("chkPassport").checked = false;
-        document.getElementById("titles").value = '';
+        //document.getElementById("titles").value = '';
         document.getElementById("txtModal12").value = '';
         document.getElementById("sel2").value = "Default (50% / 50%)";
         document.getElementById("appearImage").style.display = "none";

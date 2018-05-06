@@ -6,7 +6,7 @@
         <li style="margin-bottom:0px">
           <ul>
             <div class="col-md-12 " style="padding:0px">
-              <li style="border-radius:5px 5px 0px 0px;width:100%;height:120px;list-style-type:none !important;background-image:url(1/images/gr_1.png);background-repeat:no-repeat;background-size:cover;margin-left:-2px">
+              <li class="blue-gradient" style="border-radius:5px 5px 0px 0px;width:100%;height:120px;list-style-type:none !important;"">
               </li>
 
               <li class="text-center" style="background-color:#fff;border-bottom:1px solid #e5ebef;text-align:-webkit-center;text-align:-moz-center;list-style-type:none !important;border-left:2px solid #e1e8ed;border-right:2px solid #e1e8ed;margin-top:-10px;">
@@ -52,7 +52,7 @@
 <!--------------------------------------------------------------------------------------second section------------------------------------------>
 <section id="content" class="Two_column first_show" ng-controller="setting_public_profileCtrl as sc" ng-if="!showme && !showme2"  >
   <article>
-     <div class="col-md-12 col-sm-12 col-xs-12" style="background-color:#fff;border:1px solid #e1e8ed;border-radius:5px 5px 0px 0px">
+     <div class="col-md-12 col-sm-12 col-xs-12" style="background-color:#21a3f2;border:1px solid #e1e8ed;border-radius:5px 5px 0px 0px">
         <h4 class="text_com">Settings</h4>
      </div>
 
@@ -89,7 +89,7 @@
                    <select class="form-control" id="sel2" style="color:black;margin-bottom: 15px;" ng-model="sc.popUpListSelect" >
                      <option id="nsfwList" style="color:#8899a6;" ng-repeat="x in sc.popUpList" value="{{x}}">{{x}}</option>
                    </select>
-                   <button type="button" class="btn button_layout" ng-click="sc.setNsfwSettings()"><span style="color:3292f33;font-weight:600">Update</span></button>
+                   <button type="button" class="btn button_layout btn-sm" ng-click="sc.setNsfwSettings()"><span style="color:3292f33;font-weight:600">Update</span></button>
                  </div>
          </div>
   </div>
@@ -113,7 +113,7 @@
                     </div>
                     <div class="modal-footer text-center" style="border-top:0px;text-align:center !important">
                     <div class="col-md-12" style="margin-top:20px">
-                      <button type="button" class="btn button_layout" data-dismiss="modal" style="color:#333333;font-weight:600;" ng-click="sc.postPublicProfile(profile_image,name,about,location,website,activeWif)">Submit</button>
+                      <button type="button" class="btn button_layout btn-sm" data-dismiss="modal" style="color:#333333;font-weight:600;" ng-click="sc.postPublicProfile(profile_image,name,about,location,website,activeWif)">Submit</button>
                    </div>
                 </div>
 
@@ -126,7 +126,7 @@
 
 <section id="content" class="Two_column second_show" ng-controller="setting_public_profileCtrl" ng-if="!showme && showme2" >
    <article>
-      <div class="col-md-12 col-sm-12 col-xs-12" style="background-color:#fff;border:1px solid #e1e8ed;border-radius:5px 5px 0px 0px">
+      <div class="col-md-12 col-sm-12 col-xs-12" style="background-color:#21a3f2;border:1px solid #e1e8ed;border-radius:5px 5px 0px 0px">
          <h4 class="text_com">Settings</h4>
       </div>
       <div class="col-md-12 col-sm-12 col-xs-12 division_col2" style="border-radius:0px 0px 5px 5px;padding-bottom:30px">
@@ -149,7 +149,7 @@
                        <input id="test" class="input" type="text" ng-model="newPassword" placeholder="New Password" style="padding:16px;width:100%;border-radius:5px;">
                        <p style="margin-left:5px;font-family: monospace;color: gray;font-weight: 600;text-align: -webkit-center;">BACK IT UP BY STORING IN YOUR PASSWORD MANAGER OR A TEXT FILE.</p>
                     </div>
-                    <button type="button" class="btn button_layout" style="padding:7px 25px !important" ng-hide="myvalue" ng-click="sc.getNewPassword();myvalue=true"><span style="color:3292f33;font-weight:600">Generate password</span></button> <br>
+                    <button type="button" class="btn button_layout btn-sm" style="padding:7px 25px !important" ng-hide="myvalue" ng-click="sc.getNewPassword();myvalue=true"><span style="color:3292f33;font-weight:600">Generate password</span></button> <br>
                     <div class="form-group" style="margin-top:10px">
                        <input id="test"  class="input" type="password"  ng-model="rePassword" placeholder="Re-Enter Generated password" style="padding:16px;width:100%;border-radius:5px;">
                     </div>
@@ -159,7 +159,7 @@
                      <div class="form-group">
                         <input type="checkbox" ng-model="checked1" style="height: 10px;width: 10px;padding: 4px;margin-right: 10px;border: 1px solid #2ea8f3 !important;border-radius: 3px;"> <span style="color:#66757f">I have securely saved my generated password.</span> <br>
                      </div>
-                     <button type="button" class="btn button_layout" style="padding:7px 28px !important" ng-disabled="!checked || !checked1" ng-click="sc.getUserInfo();sc.postUpdatePassword(ownerKey,rePassword);"><span style="color:3292f33;font-weight:600">Update password</span></button> <br>
+                     <button type="button" class="btn button_layout btn-sm" style="padding:7px 28px !important" ng-disabled="!checked || !checked1" ng-click="sc.getUserInfo();sc.postUpdatePassword(ownerKey,rePassword);"><span style="color:3292f33;font-weight:600">Update password</span></button> <br>
                      <div><p style="color:red">{{errorMessage}}</p></div>
               </div>
             </div>
@@ -169,7 +169,7 @@
 
 <section id="content" class="Two_column third_show" ng-if="showme && !showme2" ng-init="sc.getVotingWeight()">
    <article>
-      <div class="col-md-12 col-sm-12 col-xs-12" style="background-color:#fff;border:1px solid #e1e8ed;border-radius:5px 5px 0px 0px">
+      <div class="col-md-12 col-sm-12 col-xs-12" style="background-color:#21a3f2;border:1px solid #e1e8ed;border-radius:5px 5px 0px 0px">
          <h4 class="text_com">Settings</h4>
       </div>
       <div class="col-md-12 col-sm-12 col-xs-12 division_col2" style="border-radius:0px 0px 5px 5px;padding-bottom:238px">
@@ -196,7 +196,7 @@
 
 <section id="content" class="Two_column fourth_show" ng-if="showme && showme2">
    <article>
-      <div class="col-md-12 col-sm-12 col-xs-12" style="background-color:#fff;border:1px solid #e1e8ed;border-radius:5px 5px 0px 0px">
+      <div class="col-md-12 col-sm-12 col-xs-12" style="background-color:#21a3f2;border:1px solid #e1e8ed;border-radius:5px 5px 0px 0px">
          <h4 class="text_com">Settings</h4>
 
       </div>
@@ -210,7 +210,7 @@
            <span style="color:#66757f">The Posting key is used for posting & voting.It should be different from the active and owner keys. </span>
         </div>
         <div class="col-md-3 col-xs-12 pad_top25 pad_zero text-right" >
-           <button type="button" class="btn button_layout" style="padding:7px 22px !important;color:3292f33;font-weight:600;margin-top:30px" ng-click="toggle = !toggle;sc.toggleButton()">{{toggleText}}</button>
+           <button type="button" class="btn button_layout btn-sm" style="padding:7px 22px !important;color:3292f33;font-weight:600;margin-top:30px" ng-click="toggle = !toggle;sc.toggleButton()">{{toggleText}}</button>
         </div>
         <div class="col-md-9 pad_zero " >
           <h5 style="color:#3e4549;font-weight:600;margin-bottom:0px">ACTIVE</h5>
